@@ -15,28 +15,32 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '4.240.102.85',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
+        protocol: 'https',
+        hostname: 'api.aibackend.cloud', // Your new subdomain
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'softlearn.vercel.app',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'fonts.gstatic.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
         port: '',
         pathname: '/**',
       },
     ],
   },
   reactStrictMode: false,
-  // Remove output: 'standalone' for Vercel deployment
-  // output: 'standalone',
 }
 
 module.exports = nextConfig
