@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { removeCourse, startCourse } from '@services/courses/activity'
 import { revalidateTags } from '@services/utils/ts/requests'
 import { useRouter } from 'next/navigation'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { getUriWithOrg, getUriWithoutOrg } from '@services/config/config'
-import { getProductsByCourse } from '@services/payments/products'
-import { LogIn, LogOut, ShoppingCart, AlertCircle, UserPen, ClockIcon, ArrowRight, Sparkles, BookOpen } from 'lucide-react'
-import Modal from '@components/Objects/StyledElements/Modal/Modal'
-import CoursePaidOptions from './CoursePaidOptions'
-import { checkPaidAccess } from '@services/payments/payments'
+import { LogIn, UserPen, ClockIcon, ArrowRight, Sparkles } from 'lucide-react'
 import { applyForContributor } from '@services/courses/courses'
 import toast from 'react-hot-toast'
 import { useContributorStatus } from '../../../../hooks/useContributorStatus'
 import CourseProgress from '../CourseProgress/CourseProgress'
-import UserAvatar from '@components/Objects/UserAvatar'
 
 interface CourseRun {
   status: string
@@ -51,429 +46,202 @@ interface CourseActionsProps {
 function CoursesActions({ courseuuid, orgslug, course }: CourseActionsProps) {
   const router = useRouter()
   const session = useLHSession() as any
-  const [linkedProducts, setLinkedProducts] = useState<any[]>([])
-  const [isLoading, setIsLoading] = useState(true)
   const [isActionLoading, setIsActionLoading] = useState(false)
   const [isContributeLoading, setIsContributeLoading] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [hasAccess, setHasAccess] = useState<boolean | null>(null)
-  const { contributorStatus, refetch } = useContributorStatus(courseuuid)
   const [isProgressOpen, setIsProgressOpen] = useState(false)
+  const { contributorStatus, refetch } = useContributorStatus(courseuuid)
 
   const isStarted = course.trail?.runs?.some(
     (run) => run.status === 'STATUS_IN_PROGRESS' && run.course_id === course.id
   ) ?? false
 
-  useEffect(() => {
-    const fetchLinkedProducts = async () => {
-      try {
-        const response = await getProductsByCourse(
-          course.org_id,
-          course.id,
-          session.data?.tokens?.access_token
+  const handleLogin = () => {
+    router.push(
+      getUriWithoutOrg(`/login?orgslug=${orgslug}&redirect_uri=${orgslug}/course/${courseuuid}`)
+    )
+  }
+
+  const handleStart = async () => {
+    setIsActionLoading(true)
+    try {
+      await startCourse('course_' + courseuuid, orgslug, session.data?.tokens?.access_token)
+      revalidateTags([`/orgs/${orgslug}/course/${courseuuid}`], orgslug)
+      setIsActionLoading(false)
+      router.push(
+        getUriWithOrg(
+          orgslug,
+          `/course/${courseuuid}/activity/${course.chapters![0].activities[0].activity_uuid}`
         )
-        setLinkedProducts(response.data || [])
-      } catch (error) {
-        console.error('Failed to fetch linked products')
-      } finally {
-        setIsLoading(false)
-      }
+      )
+    } catch (error: any) {
+      setIsActionLoading(false)
+      toast.error(error.message || 'Failed to start course')
     }
+  }
 
-    fetchLinkedProducts()
-  }, [course.id, course.org_id, session.data?.tokens?.access_token])
+  const handleResume = () => {
+    const latestRun = course.trail?.runs.find(
+      (run) => run.status === 'STATUS_IN_PROGRESS' && run.course_id === course.id
+    )
 
-  useEffect(() => {
-    const checkAccess = async () => {
-      if (!session.data?.user) return
-      try {
-        const response = await checkPaidAccess(
-          parseInt(course.id),
-          course.org_id,
-          session.data?.tokens?.access_token
-        )
-        setHasAccess(response.has_access)
-        
-      } catch (error) {
-        console.error('Failed to check course access')
-        toast.error('Failed to check course access. Please try again later.')
-        setHasAccess(false)
-      }
-    }
-
-    if (linkedProducts.length > 0) {
-      checkAccess()
-    }
-  }, [course.id, course.org_id, session.data?.tokens?.access_token, linkedProducts])
-
-  const handleCourseAction = async () => {
-    if (!session.data?.user) {
-      router.push(getUriWithoutOrg(`/signup?orgslug=${orgslug}`))
+    if (!latestRun) {
+      toast.error('No active course run found')
       return
     }
 
-    setIsActionLoading(true)
-    const loadingToast = toast.loading(
-      isStarted ? 'Leaving course...' : 'Starting course...'
-    )
-    
-    try {
-      if (isStarted) {
-        await removeCourse('course_' + courseuuid, orgslug, session.data?.tokens?.access_token)
-        await revalidateTags(['courses'], orgslug)
-        toast.success('Successfully left the course', { id: loadingToast })
-        router.refresh()
-      } else {
-        await startCourse('course_' + courseuuid, orgslug, session.data?.tokens?.access_token)
-        await revalidateTags(['courses'], orgslug)
-        toast.success('Successfully started the course', { id: loadingToast })
-        
-        // Get the first activity from the first chapter
-        const firstChapter = course.chapters?.[0]
-        const firstActivity = firstChapter?.activities?.[0]
-        
-        if (firstActivity) {
-          // Redirect to the first activity
-          router.push(
-            getUriWithOrg(orgslug, '') +
-            `/course/${courseuuid}/activity/${firstActivity.activity_uuid.replace('activity_', '')}`
-          )
-        } else {
-          router.refresh()
+    let nextIncompleteActivity: string | undefined
+
+    for (const chapter of course.chapters || []) {
+      for (const activity of chapter.activities) {
+        const step = latestRun.steps.find(
+          (s) => s.activity_id === activity.activity_uuid
+        )
+        if (!step?.complete) {
+          nextIncompleteActivity = activity.activity_uuid
+          break
         }
       }
-    } catch (error) {
-      console.error('Failed to perform course action:', error)
-      toast.error(
-        isStarted
-          ? 'Failed to leave the course. Please try again later.'
-          : 'Failed to start the course. Please try again later.',
-        { id: loadingToast }
+      if (nextIncompleteActivity) break
+    }
+
+    if (!nextIncompleteActivity && course.chapters?.[0]?.activities[0]) {
+      nextIncompleteActivity = course.chapters[0].activities[0].activity_uuid
+    }
+
+    if (nextIncompleteActivity) {
+      router.push(
+        getUriWithOrg(orgslug, `/course/${courseuuid}/activity/${nextIncompleteActivity}`)
       )
-    } finally {
-      setIsActionLoading(false)
+    } else {
+      toast.error('No activities found in this course')
     }
   }
 
-  const handleApplyToContribute = async () => {
-    if (!session.data?.user) {
-      router.push(getUriWithoutOrg(`/signup?orgslug=${orgslug}`))
-      return
-    }
-
+  const handleContribute = async () => {
     setIsContributeLoading(true)
-    const loadingToast = toast.loading('Submitting contributor application...')
-    
     try {
-      const data = {
-        message: "I would like to contribute to this course."
-      }
-      
-      await applyForContributor('course_' + courseuuid, data, session.data?.tokens?.access_token)
-      await revalidateTags(['courses'], orgslug)
-      await refetch()
-      toast.success('Your application to contribute has been submitted successfully', { id: loadingToast })
+      await applyForContributor(courseuuid, {}, session.data?.tokens?.access_token)
+      toast.success('Successfully applied to be a contributor')
+      refetch()
     } catch (error) {
-      console.error('Failed to apply as contributor:', error)
-      toast.error('Failed to submit your application. Please try again later.', { id: loadingToast })
-    } finally {
-      setIsContributeLoading(false)
+      toast.error('Failed to apply as contributor')
+    }
+    setIsContributeLoading(false)
+  }
+
+  const handleRemove = async () => {
+    setIsActionLoading(true)
+    try {
+      await removeCourse('course_' + courseuuid, orgslug, session.data?.tokens?.access_token)
+      revalidateTags([`/orgs/${orgslug}/course/${courseuuid}`], orgslug)
+      setIsActionLoading(false)
+      router.push(getUriWithOrg(orgslug, '/'))
+    } catch (error: any) {
+      setIsActionLoading(false)
+      toast.error(error.message || 'Failed to remove course')
     }
   }
 
-  const renderActionButton = (action: 'start' | 'leave') => {
+  const renderActionButtons = () => {
     if (!session.data?.user) {
       return (
-        <>
-          <UserAvatar width={24} predefined_avatar="empty" rounded="rounded-full" border="border-2" borderColor="border-white" />
-          <span>{action === 'start' ? 'Start Course' : 'Leave Course'}</span>
-          <ArrowRight className="w-5 h-5" />
-        </>
-      );
-    }
-
-    return (
-      <>
-        <UserAvatar 
-          width={24} 
-          use_with_session={true} 
-          rounded="rounded-full" 
-          border="border-2" 
-          borderColor="border-white"
-        />
-        <span>{action === 'start' ? 'Start Course' : 'Leave Course'}</span>
-        <ArrowRight className="w-5 h-5" />
-      </>
-    );
-  };
-
-  const renderContributorButton = () => {
-    if (contributorStatus === 'INACTIVE' || course.open_to_contributors !== true) {
-      return null;
-    }
-    
-    if (!session.data?.user) {
-      return (
-        <button
-          onClick={() => router.push(getUriWithoutOrg(`/signup?orgslug=${orgslug}`))}
-          className="w-full bg-white text-neutral-700 border border-neutral-200 py-3 rounded-lg nice-shadow font-semibold hover:bg-neutral-50 transition-colors flex items-center justify-center gap-2 mt-3 cursor-pointer"
+        <div
+          onClick={handleLogin}
+          className="hover:cursor-pointer transition-all ease-linear px-4 py-1.5 bg-gray-100 text-gray-800 hover:bg-black hover:text-white rounded-lg font-medium text-sm flex items-center gap-2"
         >
-          <UserPen className="w-5 h-5" />
-          Authenticate to contribute
-        </button>
-      );
+          <LogIn size={16} />
+          Login to Start
+        </div>
+      )
     }
 
-    if (contributorStatus === 'ACTIVE') {
-      return (
-        <div className="w-full bg-green-50 text-green-700 border border-green-200 py-3 rounded-lg nice-shadow font-semibold flex items-center justify-center gap-2 mt-3">
-          <UserPen className="w-5 h-5" />
-          You are a contributor
+    const actionButtons = []
+
+    if (contributorStatus === 'CONTRIBUTOR' as typeof contributorStatus) {
+      actionButtons.push(
+        <div
+          key="edit"
+          onClick={() =>
+            router.push(getUriWithOrg(orgslug, `/dash/courses/course/${courseuuid}/general`))
+          }
+          className="hover:cursor-pointer transition-all ease-linear px-4 py-1.5 bg-gray-100 text-gray-800 hover:bg-black hover:text-white rounded-lg font-medium text-sm flex items-center gap-2"
+        >
+          <UserPen size={16} />
+          Edit course
         </div>
-      );
+      )
     }
 
-    if (contributorStatus === 'PENDING') {
-      return (
-        <div className="w-full bg-amber-50 text-amber-700 border border-amber-200 py-3 rounded-lg nice-shadow font-semibold flex items-center justify-center gap-2 mt-3">
-          <ClockIcon className="w-5 h-5" />
-          Contributor application pending
+    if (isStarted) {
+      actionButtons.push(
+        <div
+          key="resume"
+          onClick={handleResume}
+          className="hover:cursor-pointer transition-all ease-linear px-4 py-1.5 bg-gray-100 text-gray-800 hover:bg-black hover:text-white rounded-lg font-medium text-sm flex items-center gap-2"
+        >
+          <ArrowRight size={16} />
+          Resume
         </div>
-      );
+      )
+    } else {
+      actionButtons.push(
+        <div
+          key="start"
+          onClick={handleStart}
+          className="hover:cursor-pointer transition-all ease-linear px-4 py-1.5 bg-gray-100 text-gray-800 hover:bg-black hover:text-white rounded-lg font-medium text-sm flex items-center gap-2"
+        >
+          <ArrowRight size={16} />
+          Start
+        </div>
+      )
     }
 
-    return (
-      <button
-        onClick={handleApplyToContribute}
-        disabled={isContributeLoading}
-        className="w-full bg-white text-neutral-700 py-3 rounded-lg nice-shadow font-semibold hover:bg-neutral-50 transition-colors flex items-center justify-center gap-2 mt-3 cursor-pointer disabled:cursor-not-allowed"
-      >
-        {isContributeLoading ? (
-          <div className="w-5 h-5 border-2 border-neutral-700 border-t-transparent rounded-full animate-spin" />
-        ) : (
-          <>
-            <UserPen className="w-5 h-5" />
-            Apply to contribute
-          </>
-        )}
-      </button>
-    );
-  };
-
-  const renderProgressSection = () => {
-    const totalActivities = course.chapters?.reduce((acc: number, chapter: any) => acc + chapter.activities.length, 0) || 0;
-    const completedActivities = course.trail?.runs?.find(
-      (run: CourseRun) => run.course_id === course.id
-    )?.steps?.filter((step) => step.complete)?.length || 0;
-    
-    const progressPercentage = Math.round((completedActivities / totalActivities) * 100);
-
-    if (!isStarted) {
-      return (
-        <div className="relative bg-white nice-shadow rounded-lg overflow-hidden">
-          <div 
-            className="absolute inset-0 opacity-[0.05]" 
-            style={{
-              backgroundImage: 'radial-gradient(circle at center, #101010 1px, transparent 1px)',
-              backgroundSize: '12px 12px'
-            }}
-          />
-          <div className="relative p-4">
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-4">
-                  <div className="relative w-16 h-16">
-                    <svg className="w-full h-full transform -rotate-90">
-                      <circle
-                        cx="32"
-                        cy="32"
-                        r="28"
-                        stroke="#e5e7eb"
-                        strokeWidth="6"
-                        fill="none"
-                      />
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <BookOpen className="w-6 h-6 text-neutral-400" />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-medium text-gray-900">Ready to Begin?</div>
-                    <div className="text-sm text-gray-500">
-                      Start your learning journey with {totalActivities} exciting {totalActivities === 1 ? 'activity' : 'activities'}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    if (course.open_to_contributors && contributorStatus === null) {
+      actionButtons.push(
+        <div
+          key="contribute"
+          onClick={handleContribute}
+          className="hover:cursor-pointer transition-all ease-linear px-4 py-1.5 bg-gray-100 text-gray-800 hover:bg-black hover:text-white rounded-lg font-medium text-sm flex items-center gap-2"
+        >
+          <Sparkles size={16} />
+          {isContributeLoading ? 'Applying...' : 'Contribute'}
         </div>
-      );
+      )
     }
 
-    return (
-        <div className="relative bg-white nice-shadow rounded-lg overflow-hidden">
-          <div 
-          className="absolute inset-0 opacity-[0.05]" 
-          style={{
-            backgroundImage: 'radial-gradient(circle at center, #000 1px, transparent 1px)',
-            backgroundSize: '24px 24px'
-          }}
-        />
-        <div className="relative p-4">
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
-              <div className="flex items-center gap-4">
-                <div className="relative w-16 h-16">
-                  <svg className="w-full h-full transform -rotate-90">
-                    <circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      stroke="#e5e7eb"
-                      strokeWidth="6"
-                      fill="none"
-                    />
-                    <circle
-                      cx="32"
-                      cy="32"
-                      r="28"
-                      stroke="#10b981"
-                      strokeWidth="6"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeDasharray={2 * Math.PI * 28}
-                      strokeDashoffset={2 * Math.PI * 28 * (1 - completedActivities / totalActivities)}
-                      className="transition-all duration-500 ease-out"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-lg font-bold text-gray-800">
-                      {progressPercentage}%
-                    </span>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setIsProgressOpen(true)}
-                  className="flex-1 text-left hover:bg-neutral-50/50 p-2 rounded-lg transition-colors"
-                >
-                  <div className="text-sm font-medium text-gray-900">Course Progress</div>
-                  <div className="text-sm text-gray-500">
-                    {completedActivities} of {totalActivities} completed
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  if (isLoading) {
-    return <div className="animate-pulse h-20 bg-gray-100 rounded-lg nice-shadow" />
+    return actionButtons
   }
 
-  if (linkedProducts.length > 0) {
+  if (isActionLoading) {
     return (
-      <div className="bg-white shadow-md shadow-gray-300/25 outline outline-1 outline-neutral-200/40 rounded-lg overflow-hidden p-4">
-        <div className="space-y-4">
-          {hasAccess ? (
-            <>
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg nice-shadow">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <h3 className="text-green-800 font-semibold">You Own This Course</h3>
-                </div>
-                <p className="text-green-700 text-sm mt-1">
-                  You have purchased this course and have full access to all content.
-                </p>
-              </div>
-              <button
-                onClick={handleCourseAction}
-                disabled={isActionLoading}
-                className={`w-full py-3 rounded-lg nice-shadow font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer ${
-                  isStarted
-                    ? 'bg-red-500 text-white hover:bg-red-600 disabled:bg-red-400'
-                    : 'bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-700'
-                }`}
-              >
-                {isActionLoading ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  renderActionButton(isStarted ? 'leave' : 'start')
-                )}
-              </button>
-              {renderContributorButton()}
-            </>
-          ) : (
-            <>
-              <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg nice-shadow">
-                <div className="flex items-center gap-3">
-                  <AlertCircle className="w-5 h-5 text-amber-800" />
-                  <h3 className="text-amber-800 font-semibold">Paid Course</h3>
-                </div>
-                <p className="text-amber-700 text-sm mt-1">
-                  This course requires purchase to access its content.
-                </p>
-              </div>
-              <Modal
-                isDialogOpen={isModalOpen}
-                onOpenChange={setIsModalOpen}
-                dialogContent={<CoursePaidOptions course={course} />}
-                dialogTitle="Purchase Course"
-                dialogDescription="Select a payment option to access this course"
-                minWidth="sm"
-              />
-              <button
-                className="w-full bg-neutral-900 text-white py-3 rounded-lg nice-shadow font-semibold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
-                onClick={() => setIsModalOpen(true)}
-              >
-                <ShoppingCart className="w-5 h-5" />
-                Purchase Course
-              </button>
-              {renderContributorButton()}
-            </>
-          )}
+      <div className="flex gap-2 mr-2">
+        <div className="px-4 py-1.5 bg-gray-100 text-gray-800 rounded-lg font-medium text-sm">
+          Loading...
         </div>
       </div>
     )
   }
 
   return (
-    <div className="bg-white shadow-md shadow-gray-300/25 outline outline-1 outline-neutral-200/40 rounded-lg overflow-hidden p-4">
-      <div className="space-y-4">
-        {/* Progress Section */}
-        {renderProgressSection()}
-
-        {/* Start/Leave Course Button */}
-        <button
-          onClick={handleCourseAction}
-          disabled={isActionLoading}
-          className={`w-full py-3 rounded-lg nice-shadow font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer ${
-            isStarted
-              ? 'bg-red-500 text-white hover:bg-red-600 disabled:bg-red-400'
-              : 'bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-700'
-          }`}
+    <div className="flex gap-2 mr-2">
+      {renderActionButtons()}
+      {isStarted && (
+        <div
+          onClick={() => setIsProgressOpen(true)}
+          className="hover:cursor-pointer transition-all ease-linear px-4 py-1.5 bg-gray-100 text-gray-800 hover:bg-black hover:text-white rounded-lg font-medium text-sm flex items-center gap-2"
         >
-          {isActionLoading ? (
-            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-          ) : (
-            renderActionButton(isStarted ? 'leave' : 'start')
-          )}
-        </button>
-
-        {/* Contributor Button */}
-        {renderContributorButton()}
-
-        {/* Course Progress Modal */}
-        <CourseProgress
-          course={course}
-          orgslug={orgslug}
+          <ClockIcon size={16} />
+          Progress
+        </div>
+      )}
+      {isProgressOpen && (
+        <CourseProgress 
           isOpen={isProgressOpen}
           onClose={() => setIsProgressOpen(false)}
+          course={course}
+          orgslug={''}
         />
-      </div>
+      )}
     </div>
   )
 }

@@ -129,12 +129,12 @@ function ActivityElement(props: ActivitiyElementProps) {
     >
       {(provided, snapshot) => (
         <div
-          className={`grid grid-cols-[auto_1fr_auto] gap-2 py-2 px-3 my-2 w-full rounded-md text-gray-500 
+          className={`grid grid-cols-[auto_1fr_auto] gap-2 py-2 px-3 my-2 w-full rounded-md text-blue-200 
             ${snapshot.isDragging 
-              ? 'nice-shadow bg-white ring-2 ring-blue-500/20 z-50 rotate-1 scale-[1.04]' 
-              : 'nice-shadow bg-gray-50 hover:bg-gray-100 '
+              ? 'nice-shadow bg-slate-800/80 backdrop-blur-sm ring-2 ring-blue-500/20 z-50 rotate-1 scale-[1.04] border border-white/20' 
+              : 'nice-shadow bg-slate-800/60 hover:bg-slate-700/60 border border-white/10'
             }
-            items-center border-1 border-gray-200`}
+            items-center`}
           key={props.activity.id}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -192,18 +192,17 @@ function ActivityElement(props: ActivitiyElementProps) {
           <div className="flex items-center gap-2 justify-end">
             <ActivityElementOptions activity={props.activity} isMobile={isMobile} />
             {/*   Publishing  */}
-            <button
-              className={`p-1 px-2 sm:px-3 border shadow-md rounded-md font-bold text-xs flex items-center space-x-1 transition-colors duration-200 ${
+            <button                className={`p-1 px-2 sm:px-3 border shadow-md rounded-md font-bold text-xs flex items-center space-x-1 transition-colors duration-200 ${
                 !props.activity.published
                   ? 'bg-linear-to-bl text-green-800 from-green-400/50 to-lime-200/80 border-green-600/10 hover:from-green-500/50 hover:to-lime-300/80'
-                  : 'bg-linear-to-bl text-gray-800 from-gray-400/50 to-gray-200/80 border-gray-600/10 hover:from-gray-500/50 hover:to-gray-300/80'
+                  : 'bg-linear-to-bl text-slate-200 from-slate-600/50 to-slate-400/80 border-slate-600/10 hover:from-slate-500/50 hover:to-slate-300/80'
               }`}
               onClick={() => changePublicStatus()}
             >
               {!props.activity.published ? (
                 <Globe strokeWidth={2} size={12} className="text-green-600" />
               ) : (
-                <Lock strokeWidth={2} size={12} className="text-gray-600" />
+                <Lock strokeWidth={2} size={12} className="text-slate-400" />
               )}
               <span>{!props.activity.published ? 'Publish' : 'Unpublish'}</span>
             </button>

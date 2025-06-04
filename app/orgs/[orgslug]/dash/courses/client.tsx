@@ -28,11 +28,11 @@ function CoursesHome(params: CourseProps) {
   }
 
   return (
-    <div className="h-full w-full bg-[#f8f8f8] pl-10 pr-10">
+    <div className="h-full w-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 pl-10 pr-10">
       <div className="mb-6">
         <BreadCrumbs type="courses" />
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4">
-          <h1 className="text-3xl font-bold mb-4 sm:mb-0">Courses</h1>
+          <h1 className="text-3xl font-bold text-white mb-4 sm:mb-0">Courses</h1>
           <AuthenticatedClientElement
             checkMethod="roles"
             action="create"

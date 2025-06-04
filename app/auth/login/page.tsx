@@ -10,30 +10,58 @@ type MetadataProps = {
 export async function generateMetadata(params: MetadataProps): Promise<Metadata> {
   const orgslug = (await params.searchParams).orgslug
   
-  //const orgslug = params.orgslug
-  // Get Org context information
-  const org = await getOrganizationContextInfo(orgslug, {
-    revalidate: 0,
-    tags: ['organizations'],
-  })
+  try {
+    // Get Org context information
+    const org = await getOrganizationContextInfo(orgslug, {
+      revalidate: 0,
+      tags: ['organizations'],
+    })
 
-  return {
-    title: 'Login' + ` — ${org.name}`,
+    return {
+      title: 'Login' + ` — ${org.name}`,
+    }
+  } catch (error) {
+    console.warn('Failed to fetch organization info for metadata:', error)
+    return {
+      title: 'Login — SoftLearn',
+    }
   }
 }
 
 const Login = async (params: MetadataProps) => {
   const orgslug = (await params.searchParams).orgslug
-  const org = await getOrganizationContextInfo(orgslug, {
-    revalidate: 0,
-    tags: ['organizations'],
-  })
+  
+  try {
+    const org = await getOrganizationContextInfo(orgslug, {
+      revalidate: 0,
+      tags: ['organizations'],
+    })
 
-  return (
-    <div>
-      <LoginClient org={org}></LoginClient>
-    </div>
-  )
+    return (
+      <div>
+        <LoginClient org={org}></LoginClient>
+      </div>
+    )
+  } catch (error) {
+    console.warn('Failed to fetch organization info:', error)
+    
+    // Provide a fallback organization object
+    const fallbackOrg = {
+      name: 'SoftLearn',
+      description: 'Learning Management System',
+      orgslug: orgslug || 'default',
+      id: 'default',
+      org_uuid: 'default',
+      thumbnail_image: null,
+      config: null
+    }
+    
+    return (
+      <div>
+        <LoginClient org={fallbackOrg}></LoginClient>
+      </div>
+    )
+  }
 }
 
 export default Login

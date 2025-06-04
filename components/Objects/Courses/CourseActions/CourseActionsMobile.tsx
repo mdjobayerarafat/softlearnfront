@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { getUriWithoutOrg, getUriWithOrg } from '@services/config/config'
-import { getProductsByCourse } from '@services/payments/products'
-import { LogIn, LogOut, ShoppingCart, AlertCircle } from 'lucide-react'
-import Modal from '@components/Objects/StyledElements/Modal/Modal'
-import CoursePaidOptions from './CoursePaidOptions'
-import { checkPaidAccess } from '@services/payments/payments'
+import { LogIn, LogOut } from 'lucide-react'
 import { removeCourse, startCourse } from '@services/courses/activity'
 import { revalidateTags } from '@services/utils/ts/requests'
 import UserAvatar from '../../UserAvatar'
@@ -125,55 +121,11 @@ const MultipleAuthors = ({ authors }: { authors: Author[] }) => {
 const CourseActionsMobile = ({ courseuuid, orgslug, course }: CourseActionsMobileProps) => {
   const router = useRouter()
   const session = useLHSession() as any
-  const [linkedProducts, setLinkedProducts] = useState<any[]>([])
-  const [isLoading, setIsLoading] = useState(true)
   const [isActionLoading, setIsActionLoading] = useState(false)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [hasAccess, setHasAccess] = useState<boolean | null>(null)
 
   const isStarted = course.trail?.runs?.some(
     (run) => run.status === 'STATUS_IN_PROGRESS' && run.course_id === course.id
   ) ?? false
-
-  useEffect(() => {
-    const fetchLinkedProducts = async () => {
-      try {
-        const response = await getProductsByCourse(
-          course.org_id,
-          course.id,
-          session.data?.tokens?.access_token
-        )
-        setLinkedProducts(response.data || [])
-      } catch (error) {
-        console.error('Failed to fetch linked products')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchLinkedProducts()
-  }, [course.id, course.org_id, session.data?.tokens?.access_token])
-
-  useEffect(() => {
-    const checkAccess = async () => {
-      if (!session.data?.user) return
-      try {
-        const response = await checkPaidAccess(
-          parseInt(course.id),
-          course.org_id,
-          session.data?.tokens?.access_token
-        )
-        setHasAccess(response.has_access)
-      } catch (error) {
-        console.error('Failed to check course access')
-        setHasAccess(false)
-      }
-    }
-
-    if (linkedProducts.length > 0) {
-      checkAccess()
-    }
-  }, [course.id, course.org_id, session.data?.tokens?.access_token, linkedProducts])
 
   const handleCourseAction = async () => {
     if (!session.data?.user) {
@@ -212,10 +164,6 @@ const CourseActionsMobile = ({ courseuuid, orgslug, course }: CourseActionsMobil
     }
   }
 
-  if (isLoading) {
-    return <div className="animate-pulse h-16 bg-gray-100 rounded-lg mt-4 mb-8" />
-  }
-
   // Filter active authors and sort by role priority
   const sortedAuthors = [...course.authors]
     .filter(author => author.authorship_status === 'ACTIVE')
@@ -230,112 +178,41 @@ const CourseActionsMobile = ({ courseuuid, orgslug, course }: CourseActionsMobil
     });
 
   return (
-    <div className="bg-white/90 backdrop-blur-sm shadow-md shadow-gray-300/25 outline outline-1 outline-neutral-200/40 rounded-lg overflow-hidden p-4 my-6 mx-2">
+    <div className="bg-slate-900/70 backdrop-blur-sm shadow-md shadow-black/25 outline outline-1 outline-white/20 rounded-lg overflow-hidden p-4 my-6 mx-2">
       <div className="flex flex-col space-y-4">
         <MultipleAuthors authors={sortedAuthors} />
         
-        {linkedProducts.length > 0 ? (
-          <div className="space-y-3">
-            {hasAccess ? (
-              <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-green-800 text-sm font-semibold">You Own This Course</span>
-                </div>
-              </div>
-            ) : (
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                <div className="flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-amber-800" />
-                  <span className="text-amber-800 text-sm font-semibold">Paid Course</span>
-                </div>
-              </div>
-            )}
-            
-            {hasAccess ? (
-              <button
-                onClick={handleCourseAction}
-                disabled={isActionLoading}
-                className={`w-full py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-2 ${
-                  isStarted
-                    ? 'bg-red-500 text-white hover:bg-red-600 disabled:bg-red-400'
-                    : 'bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-700'
-                }`}
-              >
-                {isActionLoading ? (
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                ) : isStarted ? (
-                  <>
-                    <LogOut className="w-4 h-4" />
-                    Leave Course
-                  </>
-                ) : (
-                  <>
-                    <LogIn className="w-4 h-4" />
-                    Start Course
-                  </>
-                )}
-              </button>
-            ) : (
-              <>
-                <Modal
-                  isDialogOpen={isModalOpen}
-                  onOpenChange={setIsModalOpen}
-                  dialogContent={<CoursePaidOptions course={course} />}
-                  dialogTitle="Purchase Course"
-                  dialogDescription="Select a payment option to access this course"
-                  minWidth="sm"
-                />
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  disabled={isActionLoading}
-                  className="w-full py-2 px-4 rounded-lg bg-neutral-900 text-white font-semibold text-sm hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 disabled:bg-neutral-700"
-                >
-                  {isActionLoading ? (
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      <ShoppingCart className="w-4 h-4" />
-                      Purchase Course
-                    </>
-                  )}
-                </button>
-              </>
-            )}
-          </div>
-        ) : (
-          <button
-            onClick={handleCourseAction}
-            disabled={isActionLoading}
-            className={`w-full py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-2 ${
-              isStarted
-                ? 'bg-red-500 text-white hover:bg-red-600 disabled:bg-red-400'
-                : 'bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-700'
-            }`}
-          >
-            {isActionLoading ? (
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-            ) : !session.data?.user ? (
-              <>
-                <LogIn className="w-4 h-4" />
-                Sign In
-              </>
-            ) : isStarted ? (
-              <>
-                <LogOut className="w-4 h-4" />
-                Leave Course
-              </>
-            ) : (
-              <>
-                <LogIn className="w-4 h-4" />
-                Start Course
-              </>
-            )}
-          </button>
-        )}
+        <button
+          onClick={handleCourseAction}
+          disabled={isActionLoading}
+          className={`w-full py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-2 ${
+            isStarted
+              ? 'bg-red-500 text-white hover:bg-red-600 disabled:bg-red-400'
+              : 'bg-neutral-900 text-white hover:bg-neutral-800 disabled:bg-neutral-700'
+          }`}
+        >
+          {isActionLoading ? (
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          ) : !session.data?.user ? (
+            <>
+              <LogIn className="w-4 h-4" />
+              Sign In
+            </>
+          ) : isStarted ? (
+            <>
+              <LogOut className="w-4 h-4" />
+              Leave Course
+            </>
+          ) : (
+            <>
+              <LogIn className="w-4 h-4" />
+              Start Course
+            </>
+          )}
+        </button>
       </div>
     </div>
   )
 }
 
-export default CourseActionsMobile 
+export default CourseActionsMobile

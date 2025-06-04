@@ -354,34 +354,34 @@ export default function OrgEditImages() {
   }
 
   return (
-    <div className="sm:mx-10 mx-0 bg-white rounded-xl nice-shadow px-3 py-3 sm:mb-0 mb-16">
-      <div className="flex flex-col bg-gray-50 -space-y-1 px-5 py-3 mb-2 rounded-md">
-        <h1 className="font-bold text-xl text-gray-800">
+    <div className="sm:mx-10 mx-0 bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow px-3 py-3 sm:mb-0 mb-16 border border-white/10">
+      <div className="flex flex-col bg-slate-800/60 -space-y-1 px-5 py-3 mb-2 rounded-md">
+        <h1 className="font-bold text-xl text-white">
           Images & Previews
         </h1>
-        <h2 className="text-gray-500 text-md">
+        <h2 className="text-blue-200 text-md">
           Manage your organization's logo, thumbnail, and preview images
         </h2>
       </div>
       <Tabs defaultValue="logo" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 p-1 bg-gray-100 rounded-lg">
+        <TabsList className="grid w-full grid-cols-3 p-1 bg-slate-700/60 rounded-lg">
           <TabsTrigger 
             value="logo" 
-            className="data-[state=active]:bg-white data-[state=active]:shadow-xs transition-all flex items-center space-x-2"
+            className="data-[state=active]:bg-slate-600/80 data-[state=active]:shadow-xs transition-all flex items-center space-x-2 text-blue-200 data-[state=active]:text-white"
           >
             <StarIcon size={16} />
             <span>Logo</span>
           </TabsTrigger>
           <TabsTrigger 
             value="thumbnail"
-            className="data-[state=active]:bg-white data-[state=active]:shadow-xs transition-all flex items-center space-x-2"
+            className="data-[state=active]:bg-slate-600/80 data-[state=active]:shadow-xs transition-all flex items-center space-x-2 text-blue-200 data-[state=active]:text-white"
           >
             <ImageIcon size={16} />
             <span>Thumbnail</span>
           </TabsTrigger>
           <TabsTrigger 
             value="previews"
-            className="data-[state=active]:bg-white data-[state=active]:shadow-xs transition-all flex items-center space-x-2"
+            className="data-[state=active]:bg-slate-600/80 data-[state=active]:shadow-xs transition-all flex items-center space-x-2 text-blue-200 data-[state=active]:text-white"
           >
             <Images size={16} />
             <span>Previews</span>
@@ -395,8 +395,8 @@ export default function OrgEditImages() {
                 <div className="relative group">
                   <div
                     className={cn(
-                      "w-[200px] sm:w-[250px] h-[100px] sm:h-[125px] bg-contain bg-no-repeat bg-center rounded-lg shadow-md bg-white",
-                      "border-2 border-gray-100 hover:border-blue-200 transition-all duration-300",
+                      "w-[200px] sm:w-[250px] h-[100px] sm:h-[125px] bg-contain bg-no-repeat bg-center rounded-lg shadow-md bg-slate-800/60",
+                      "border-2 border-white/20 hover:border-blue-400 transition-all duration-300",
                       isLogoUploading && "opacity-50"
                     )}
                     style={{ backgroundImage: `url(${localLogo || getOrgLogoMediaDirectory(org?.org_uuid, org?.logo_image)})` }}
@@ -448,8 +448,8 @@ export default function OrgEditImages() {
                 <div className="relative group">
                   <div
                     className={cn(
-                      "w-[200px] sm:w-[250px] h-[100px] sm:h-[125px] bg-contain bg-no-repeat bg-center rounded-lg shadow-md bg-white",
-                      "border-2 border-gray-100 hover:border-purple-200 transition-all duration-300",
+                      "w-[200px] sm:w-[250px] h-[100px] sm:h-[125px] bg-contain bg-no-repeat bg-center rounded-lg shadow-md bg-slate-800/60",
+                      "border-2 border-white/20 hover:border-purple-400 transition-all duration-300",
                       isThumbnailUploading && "opacity-50"
                     )}
                     style={{ backgroundImage: `url(${localThumbnail || getOrgThumbnailMediaDirectory(org?.org_uuid, org?.thumbnail_image)})` }}
@@ -548,8 +548,8 @@ export default function OrgEditImages() {
                                 {preview.type === 'image' ? (
                                   <div
                                     className={cn(
-                                      `w-full ${PREVIEW_HEIGHT} bg-contain bg-no-repeat bg-center rounded-xl bg-white`,
-                                      "border border-gray-200 hover:border-gray-300",
+                                      `w-full ${PREVIEW_HEIGHT} bg-contain bg-no-repeat bg-center rounded-xl bg-slate-800/60`,
+                                      "border border-white/20 hover:border-white/30",
                                       "transition-colors duration-200",
                                       snapshot.isDragging ? "shadow-lg" : "shadow-xs hover:shadow-md"
                                     )}
@@ -560,7 +560,7 @@ export default function OrgEditImages() {
                                 ) : (
                                   <div className={cn(
                                     `w-full ${PREVIEW_HEIGHT} relative rounded-xl overflow-hidden`,
-                                    "border border-gray-200 hover:border-gray-300 transition-colors duration-200",
+                                    "border border-white/10 hover:border-white/20 transition-colors duration-200",
                                     snapshot.isDragging ? "shadow-lg" : "shadow-xs hover:shadow-md"
                                   )}>
                                     <div
@@ -594,8 +594,8 @@ export default function OrgEditImages() {
                                 <button
                                   className={cn(
                                     `w-full ${PREVIEW_HEIGHT}`,
-                                    "border-2 border-dashed border-gray-200 rounded-xl",
-                                    "hover:border-blue-300 hover:bg-blue-50/50 transition-all duration-200",
+                                    "border-2 border-dashed border-white/10 rounded-xl",
+                                    "hover:border-blue-400 hover:bg-blue-900/30 transition-all duration-200",
                                     "flex flex-col items-center justify-center space-y-2 group"
                                   )}
                                 >

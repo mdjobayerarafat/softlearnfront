@@ -3,7 +3,7 @@ import { useOrg } from '@components/Contexts/OrgContext'
 import { signOut } from 'next-auth/react'
 import ToolTip from '@components/Objects/StyledElements/Tooltip/Tooltip'
 import LearnHouseDashboardLogo from '@public/dashLogo.png'
-import { Backpack, BadgeDollarSign, BookCopy, Home, LogOut, Package2, School, Settings, Users, Vault } from 'lucide-react'
+import { Backpack, BookCopy, Home, LogOut, Package2, School, Settings, Users } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -11,13 +11,11 @@ import UserAvatar from '../../Objects/UserAvatar'
 import AdminAuthorization from '@components/Security/AdminAuthorization'
 import { useLHSession } from '@components/Contexts/LHSessionContext'
 import { getUriWithOrg, getUriWithoutOrg } from '@services/config/config'
-import useFeatureFlag from '@components/Hooks/useFeatureFlag'
 
 function DashLeftMenu() {
   const org = useOrg() as any
   const session = useLHSession() as any
   const [loading, setLoading] = React.useState(true)
-  const isPaymentsEnabled = useFeatureFlag({ path: ['features', 'payments', 'enabled'], defaultValue: false })
 
   function waitForEverythingToLoad() {
     if (org && session) {
@@ -27,7 +25,7 @@ function DashLeftMenu() {
   }
 
   async function logOutUI() {
-    const res = await signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/login?orgslug=' + org.slug) })
+    const res = await signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/home') })
     if (res) {
       getUriWithOrg(org.slug, '/')
     }
@@ -78,9 +76,6 @@ function DashLeftMenu() {
           </Link>
         </div>
         <div className="flex grow flex-col justify-center space-y-5 items-center mx-auto">
-          {/* <ToolTip content={"Back to " + org?.name + "'s Home"} slateBlack sideOffset={8} side='right'  >
-                        <Link className='bg-white text-black hover:text-white rounded-lg p-2 hover:bg-white/10 transition-all ease-linear' href={`/`} ><ArrowLeft className='hover:text-white' size={18} /></Link>
-                    </ToolTip> */}
           <AdminAuthorization authorizationMode="component">
             <ToolTip content={'Home'} slateBlack sideOffset={8} side="right">
               <Link
@@ -103,7 +98,7 @@ function DashLeftMenu() {
                 className="bg-white/5 rounded-lg p-2 hover:bg-white/10 transition-all ease-linear"
                 href={`/dash/assignments`}
               >
-                <Backpack size={18} />
+                <Package2 size={18} />
               </Link>
             </ToolTip>
             <ToolTip content={'Users'} slateBlack sideOffset={8} side="right">
@@ -114,92 +109,36 @@ function DashLeftMenu() {
                 <Users size={18} />
               </Link>
             </ToolTip>
-            {isPaymentsEnabled && (
-              <ToolTip content={'Payments'} slateBlack sideOffset={8} side="right">
-                <Link
-                  className="bg-white/5 rounded-lg p-2 hover:bg-white/10 transition-all ease-linear"
-                  href={`/dash/payments/customers`}
-                >
-                  <BadgeDollarSign size={18} />
-                </Link>
-              </ToolTip>
-            )}
-            <ToolTip
-              content={'Organization'}
-              slateBlack
-              sideOffset={8}
-              side="right"
-            >
+            <ToolTip content={'Settings'} slateBlack sideOffset={8} side="right">
               <Link
                 className="bg-white/5 rounded-lg p-2 hover:bg-white/10 transition-all ease-linear"
-                href={`/dash/org/settings/general`}
+                href={`/dash/user-account/settings/general`}
               >
-                <School size={18} />
+                <Settings size={18} />
               </Link>
             </ToolTip>
           </AdminAuthorization>
-        </div>
-        <div className="flex flex-col mx-auto pb-7 space-y-2">
-          <div className="flex items-center flex-col space-y-2">
-            <ToolTip
-              content={'@' + session.data.user.username}
-              slateBlack
-              sideOffset={8}
-              side="right"
+          <ToolTip
+            content={'User Account'}
+            slateBlack
+            sideOffset={8}
+            side="right"
+          >
+            <Link
+              className="bg-white/5 rounded-lg p-2 hover:bg-white/10 transition-all ease-linear"
+              href={`/dash/user-account/settings/general`}
             >
-              <div className="mx-auto">
-                <UserAvatar border="border-4" width={35} />
-              </div>
-            </ToolTip>
-            <div className="flex items-center flex-col space-y-3">
-              <div className="flex flex-col space-y-1 py-1">
-                <ToolTip
-                  content={session.data.user.username + "'s Owned Courses"}
-                slateBlack
-                sideOffset={8}
-                side="right"
-              >
-                <Link
-                    href={'/dash/user-account/owned'}
-                    className="py-1"
-                >
-                  <Package2
-                    className="mx-auto text-neutral-400 cursor-pointer"
-                    size={18}
-                  />
-                </Link>
-              </ToolTip>
-                <ToolTip
-                  content={session.data.user.username + "'s Settings"}
-                slateBlack
-                sideOffset={8}
-                side="right"
-              >
-                <Link
-                  href={'/dash/user-account/settings/general'}
-                  className="py-1"
-                >
-                  <Settings
-                    className="mx-auto text-neutral-400 cursor-pointer"
-                    size={18}
-                  />
-                  </Link>
-                </ToolTip>
-              </div>
-              <ToolTip
-                content={'Logout'}
-                slateBlack
-                sideOffset={8}
-                side="right"
-              >
-                <LogOut
-                  onClick={() => logOutUI()}
-                  className="mx-auto text-neutral-400 cursor-pointer"
-                  size={14}
-                />
-              </ToolTip>
+              <UserAvatar username={session?.data?.user?.username} width={18} />
+            </Link>
+          </ToolTip>
+          <ToolTip content={'Logout'} slateBlack sideOffset={8} side="right">
+            <div
+              onClick={logOutUI}
+              className="bg-white/5 rounded-lg p-2 hover:bg-white/10 transition-all ease-linear hover:cursor-pointer"
+            >
+              <LogOut size={18} />
             </div>
-          </div>
+          </ToolTip>
         </div>
       </div>
     </div>

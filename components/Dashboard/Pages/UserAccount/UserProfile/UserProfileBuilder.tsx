@@ -337,28 +337,28 @@ const UserProfileBuilder = () => {
 
   if (isLoading) {
     return (
-      <div className="sm:mx-10 mx-0 bg-white rounded-xl nice-shadow p-6">
+      <div className="sm:mx-10 mx-0 bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow border border-white/10 p-6">
         <div className="flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400"></div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="sm:mx-10 mx-0 bg-white rounded-xl nice-shadow">
+    <div className="sm:mx-10 mx-0 bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow border border-white/10">
       <div className="p-6 space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between border-b pb-4">
+        <div className="flex items-center justify-between border-b border-slate-700/50 pb-4">
           <div>
-            <h2 className="text-xl font-semibold flex items-center">Profile Builder <div className="text-xs ml-2 bg-gray-200 text-gray-700 px-2 py-1 rounded-full">BETA</div></h2>
-            <p className="text-gray-600">Customize your professional profile</p>
+            <h2 className="text-xl font-semibold flex items-center text-white">Profile Builder <div className="text-xs ml-2 bg-slate-800 text-blue-200 px-2 py-1 rounded-full">BETA</div></h2>
+            <p className="text-blue-200/80">Customize your professional profile</p>
           </div>
           <Button 
             variant="default" 
             onClick={handleSave}
             disabled={isSaving}
-            className="bg-black hover:bg-black/90"
+            className="bg-blue-600 hover:bg-blue-700"
           >
             {isSaving ? 'Saving...' : 'Save Changes'}
           </Button>
@@ -367,8 +367,8 @@ const UserProfileBuilder = () => {
         {/* Main Content */}
         <div className="grid grid-cols-4 gap-6">
           {/* Sections Panel */}
-          <div className="col-span-1 border-r pr-4">
-            <h3 className="font-medium mb-4">Sections</h3>
+          <div className="col-span-1 border-r border-slate-700/30 pr-4">
+            <h3 className="font-medium mb-4 text-blue-200">Sections</h3>
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="sections">
                 {(provided) => (
@@ -388,10 +388,10 @@ const UserProfileBuilder = () => {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             onClick={() => setSelectedSection(index)}
-                            className={`p-4 bg-white/80 backdrop-blur-xs rounded-lg cursor-pointer border ${
+                            className={`p-4 bg-slate-800/80 backdrop-blur-xs rounded-lg cursor-pointer border ${
                               selectedSection === index 
-                                ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-500/20 shadow-xs' 
-                                : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 hover:shadow-xs'
+                                ? 'border-blue-500 bg-blue-900/30 ring-2 ring-blue-500/20 shadow-xs' 
+                                : 'border-slate-700 hover:border-slate-600 hover:bg-slate-700/50 hover:shadow-xs'
                             } ${snapshot.isDragging ? 'shadow-lg ring-2 ring-blue-500/20 rotate-2' : ''}`}
                           >
                             <div className="flex items-center justify-between group">
@@ -399,15 +399,15 @@ const UserProfileBuilder = () => {
                                 <div {...provided.dragHandleProps} 
                                   className={`p-1.5 rounded-md transition-colors duration-200 ${
                                     selectedSection === index 
-                                      ? 'text-blue-500 bg-blue-100/50' 
-                                      : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                                      ? 'text-blue-300 bg-blue-900/50' 
+                                      : 'text-slate-400 hover:text-slate-300 hover:bg-slate-700'
                                   }`}>
                                   <GripVertical size={16} />
                                 </div>
                                 <div className={`p-1.5 rounded-md ${
                                   selectedSection === index 
-                                    ? 'text-blue-600 bg-blue-100/50' 
-                                    : 'text-gray-600 bg-gray-100/50'
+                                    ? 'text-blue-300 bg-blue-900/50' 
+                                    : 'text-slate-300 bg-slate-700/50'
                                 }`}>
                                   {React.createElement(SECTION_TYPES[section.type].icon, {
                                     size: 16
@@ -415,8 +415,8 @@ const UserProfileBuilder = () => {
                                 </div>
                                 <span className={`text-sm font-medium truncate ${
                                   selectedSection === index 
-                                    ? 'text-blue-700' 
-                                    : 'text-gray-700'
+                                    ? 'text-blue-200' 
+                                    : 'text-slate-300'
                                 }`}>
                                   {section.title}
                                 </span>
@@ -429,8 +429,8 @@ const UserProfileBuilder = () => {
                                   }}
                                   className={`p-1.5 rounded-md transition-colors duration-200 ${
                                     selectedSection === index
-                                      ? 'text-blue-500 hover:bg-blue-100'
-                                      : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+                                      ? 'text-blue-300 hover:bg-blue-900/70'
+                                      : 'text-slate-400 hover:text-slate-300 hover:bg-slate-700'
                                   }`}
                                 >
                                   <Edit size={14} />
@@ -440,7 +440,7 @@ const UserProfileBuilder = () => {
                                     e.stopPropagation()
                                     deleteSection(index)
                                   }}
-                                  className="p-1.5 text-red-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors duration-200"
+                                  className="p-1.5 text-red-400 hover:text-red-300 hover:bg-red-900/50 rounded-md transition-colors duration-200"
                                 >
                                   <Trash2 size={14} />
                                 </button>
@@ -464,24 +464,24 @@ const UserProfileBuilder = () => {
                   }
                 }}
               >
-                <SelectTrigger className="w-full p-0 border-0 bg-black">
+                <SelectTrigger className="w-full p-0 border-0 bg-blue-600">
                   <div className="w-full">
-                    <Button variant="default" className="w-full bg-black hover:bg-black/90 text-white">
+                    <Button variant="default" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
                       <Plus className="h-4 w-4 mr-2" />
                       Add Section
                     </Button>
                   </div>
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-slate-800 border border-slate-700 text-white">
                   {Object.entries(SECTION_TYPES).map(([type, { icon: Icon, label, description }]) => (
                     <SelectItem key={type} value={type}>
                       <div className="flex items-center space-x-3 py-1">
-                        <div className="p-1.5 bg-gray-50 rounded-md">
-                          <Icon size={16} className="text-gray-600" />
+                        <div className="p-1.5 bg-slate-700 rounded-md">
+                          <Icon size={16} className="text-blue-200" />
                         </div>
                         <div className="flex-1">
-                          <div className="font-medium text-sm text-gray-700">{label}</div>
-                          <div className="text-xs text-gray-500">{description}</div>
+                          <div className="font-medium text-sm text-blue-200">{label}</div>
+                          <div className="text-xs text-slate-400">{description}</div>
                         </div>
                       </div>
                     </SelectItem>
@@ -499,7 +499,7 @@ const UserProfileBuilder = () => {
                 onChange={(updatedSection) => updateSection(selectedSection, updatedSection as ProfileSection)}
               />
             ) : (
-              <div className="h-full flex items-center justify-center text-gray-500">
+              <div className="h-full flex items-center justify-center text-blue-200/70">
                 Select a section to edit or add a new one
               </div>
             )}
@@ -538,37 +538,71 @@ const SectionEditor: React.FC<SectionEditorProps> = ({ section, onChange }) => {
   }
 }
 
+// Utility function to update the remaining editor components with consistent styles
+// Apply these styles to all editor components throughout the file
+const applyDarkThemeStyles = () => {
+  // Common container styles for all section editors
+  const containerStyle = "space-y-6 p-6 bg-slate-900/70 backdrop-blur-sm rounded-lg nice-shadow border border-white/10";
+  
+  // Common styles for section headers
+  const headerIconStyle = "w-5 h-5 text-blue-200";
+  const headerTitleStyle = "font-medium text-lg text-white";
+  
+  // Common styles for form elements
+  const labelStyle = "text-blue-200";
+  const inputStyle = "bg-slate-800/80 border-slate-600 text-white/90";
+  
+  // Button styles
+  const addButtonStyle = "w-full bg-slate-800 text-blue-200 border-slate-700 hover:bg-slate-700 hover:text-white";
+  const removeButtonStyle = "text-red-400 hover:text-red-300 hover:bg-red-900/50";
+  
+  // Item container styles (for lists of items)
+  const itemContainerStyle = "p-4 border border-slate-700 rounded-lg bg-slate-800/50";
+  
+  return {
+    containerStyle,
+    headerIconStyle,
+    headerTitleStyle,
+    labelStyle,
+    inputStyle,
+    addButtonStyle,
+    removeButtonStyle,
+    itemContainerStyle
+  };
+};
+
 const ImageGalleryEditor: React.FC<{
   section: ImageGallerySection;
   onChange: (section: ImageGallerySection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <ImageIcon className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Image Gallery</h3>
+        <ImageIcon className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Image Gallery</h3>
       </div>
       
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <Label htmlFor="title">Section Title</Label>
+          <Label htmlFor="title" className={applyDarkThemeStyles().labelStyle}>Section Title</Label>
           <Input
             id="title"
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Enter section title"
+            className={applyDarkThemeStyles().inputStyle}
           />
         </div>
 
         {/* Images */}
         <div>
-          <Label>Images</Label>
+          <Label className={applyDarkThemeStyles().labelStyle}>Images</Label>
           <div className="space-y-3 mt-2">
             {section.images.map((image, index) => (
-              <div key={index} className="grid grid-cols-[2fr_1fr_auto] gap-4 p-4 border rounded-lg">
+              <div key={index} className={applyDarkThemeStyles().itemContainerStyle}>
                 <div>
-                  <Label>Image URL</Label>
+                  <Label className={applyDarkThemeStyles().labelStyle}>Image URL</Label>
                   <Input
                     value={image.url}
                     onChange={(e) => {
@@ -577,10 +611,11 @@ const ImageGalleryEditor: React.FC<{
                       onChange({ ...section, images: newImages })
                     }}
                     placeholder="Enter image URL"
+                    className={applyDarkThemeStyles().inputStyle}
                   />
                 </div>
                 <div>
-                  <Label>Caption</Label>
+                  <Label className={applyDarkThemeStyles().labelStyle}>Caption</Label>
                   <Input
                     value={image.caption || ''}
                     onChange={(e) => {
@@ -589,6 +624,7 @@ const ImageGalleryEditor: React.FC<{
                       onChange({ ...section, images: newImages })
                     }}
                     placeholder="Image caption"
+                    className={applyDarkThemeStyles().inputStyle}
                   />
                 </div>
                 <div className="flex flex-col justify-between">
@@ -600,7 +636,7 @@ const ImageGalleryEditor: React.FC<{
                       const newImages = section.images.filter((_, i) => i !== index)
                       onChange({ ...section, images: newImages })
                     }}
-                    className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                    className={applyDarkThemeStyles().removeButtonStyle}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -628,7 +664,7 @@ const ImageGalleryEditor: React.FC<{
                   images: [...section.images, newImage]
                 })
               }}
-              className="w-full"
+              className={applyDarkThemeStyles().addButtonStyle}
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Image
@@ -645,33 +681,34 @@ const TextEditor: React.FC<{
   onChange: (section: TextSection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <TextIcon className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Text Content</h3>
+        <TextIcon className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Text Content</h3>
       </div>
       
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <Label htmlFor="title">Section Title</Label>
+          <Label htmlFor="title" className={applyDarkThemeStyles().labelStyle}>Section Title</Label>
           <Input
             id="title"
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Enter section title"
+            className={applyDarkThemeStyles().inputStyle}
           />
         </div>
 
         {/* Content */}
         <div>
-          <Label htmlFor="content">Content</Label>
+          <Label htmlFor="content" className={applyDarkThemeStyles().labelStyle}>Content</Label>
           <Textarea
             id="content"
             value={section.content}
             onChange={(e) => onChange({ ...section, content: e.target.value })}
             placeholder="Enter your content here..."
-            className="min-h-[200px]"
+            className="min-h-[200px] bg-slate-800/80 border-slate-600 text-white/90"
           />
         </div>
       </div>
@@ -684,21 +721,22 @@ const LinksEditor: React.FC<{
   onChange: (section: LinksSection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <LinkIcon className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Links</h3>
+        <LinkIcon className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Links</h3>
       </div>
       
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <Label htmlFor="title">Section Title</Label>
+          <Label htmlFor="title" className={applyDarkThemeStyles().labelStyle}>Section Title</Label>
           <Input
             id="title"
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Enter section title"
+            className={applyDarkThemeStyles().inputStyle}
           />
         </div>
 
@@ -768,30 +806,31 @@ const SkillsEditor: React.FC<{
   onChange: (section: SkillsSection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <Award className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Skills</h3>
+        <Award className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Skills</h3>
       </div>
       
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <Label htmlFor="title">Section Title</Label>
+          <Label htmlFor="title" className={applyDarkThemeStyles().labelStyle}>Section Title</Label>
           <Input
             id="title"
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Enter section title"
+            className={applyDarkThemeStyles().inputStyle}
           />
         </div>
 
         {/* Skills */}
         <div>
-          <Label>Skills</Label>
+          <Label className={applyDarkThemeStyles().labelStyle}>Skills</Label>
           <div className="space-y-3 mt-2">
             {section.skills.map((skill, index) => (
-              <div key={index} className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2 p-4 border rounded-lg">
+              <div key={index} className={`grid grid-cols-[1fr_1fr_1fr_auto] gap-2 ${applyDarkThemeStyles().itemContainerStyle}`}>
                 <Input
                   value={skill.name}
                   onChange={(e) => {
@@ -800,6 +839,7 @@ const SkillsEditor: React.FC<{
                     onChange({ ...section, skills: newSkills })
                   }}
                   placeholder="Skill name"
+                  className={applyDarkThemeStyles().inputStyle}
                 />
                 <Select
                   value={skill.level || 'intermediate'}
@@ -809,10 +849,10 @@ const SkillsEditor: React.FC<{
                     onChange({ ...section, skills: newSkills })
                   }}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className={applyDarkThemeStyles().inputStyle}>
                     <SelectValue placeholder="Select level" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-slate-800 border border-slate-700 text-white">
                     <SelectItem value="beginner">Beginner</SelectItem>
                     <SelectItem value="intermediate">Intermediate</SelectItem>
                     <SelectItem value="advanced">Advanced</SelectItem>
@@ -827,6 +867,7 @@ const SkillsEditor: React.FC<{
                     onChange({ ...section, skills: newSkills })
                   }}
                   placeholder="Category (optional)"
+                  className={applyDarkThemeStyles().inputStyle}
                 />
                 <Button
                   variant="ghost"
@@ -835,7 +876,7 @@ const SkillsEditor: React.FC<{
                     const newSkills = section.skills.filter((_, i) => i !== index)
                     onChange({ ...section, skills: newSkills })
                   }}
-                  className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                  className={applyDarkThemeStyles().removeButtonStyle}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -853,7 +894,7 @@ const SkillsEditor: React.FC<{
                   skills: [...section.skills, newSkill]
                 })
               }}
-              className="w-full"
+              className={applyDarkThemeStyles().addButtonStyle}
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Skill
@@ -870,33 +911,34 @@ const ExperienceEditor: React.FC<{
   onChange: (section: ExperienceSection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <Briefcase className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Experience</h3>
+        <Briefcase className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Experience</h3>
       </div>
       
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <Label htmlFor="title">Section Title</Label>
+          <Label htmlFor="title" className={applyDarkThemeStyles().labelStyle}>Section Title</Label>
           <Input
             id="title"
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Enter section title"
+            className={applyDarkThemeStyles().inputStyle}
           />
         </div>
 
         {/* Experiences */}
         <div>
-          <Label>Experience Items</Label>
+          <Label className={applyDarkThemeStyles().labelStyle}>Experience Items</Label>
           <div className="space-y-4 mt-2">
             {section.experiences.map((experience, index) => (
-              <div key={index} className="space-y-4 p-4 border rounded-lg">
+              <div key={index} className={`space-y-4 ${applyDarkThemeStyles().itemContainerStyle}`}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label>Title</Label>
+                    <Label className={applyDarkThemeStyles().labelStyle}>Title</Label>
                     <Input
                       value={experience.title}
                       onChange={(e) => {
@@ -905,10 +947,11 @@ const ExperienceEditor: React.FC<{
                         onChange({ ...section, experiences: newExperiences })
                       }}
                       placeholder="Position or role"
+                      className={applyDarkThemeStyles().inputStyle}
                     />
                   </div>
                   <div>
-                    <Label>Organization</Label>
+                    <Label className={applyDarkThemeStyles().labelStyle}>Organization</Label>
                     <Input
                       value={experience.organization}
                       onChange={(e) => {
@@ -917,13 +960,14 @@ const ExperienceEditor: React.FC<{
                         onChange({ ...section, experiences: newExperiences })
                       }}
                       placeholder="Company or organization"
+                      className={applyDarkThemeStyles().inputStyle}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-[1fr_1fr_auto] gap-4">
                   <div>
-                    <Label>Start Date</Label>
+                    <Label className={applyDarkThemeStyles().labelStyle}>Start Date</Label>
                     <Input
                       type="date"
                       value={experience.startDate}
@@ -932,10 +976,11 @@ const ExperienceEditor: React.FC<{
                         newExperiences[index] = { ...experience, startDate: e.target.value }
                         onChange({ ...section, experiences: newExperiences })
                       }}
+                      className={applyDarkThemeStyles().inputStyle}
                     />
                   </div>
                   <div>
-                    <Label>End Date</Label>
+                    <Label className={applyDarkThemeStyles().labelStyle}>End Date</Label>
                     <Input
                       type="date"
                       value={experience.endDate || ''}
@@ -945,6 +990,7 @@ const ExperienceEditor: React.FC<{
                         onChange({ ...section, experiences: newExperiences })
                       }}
                       disabled={experience.current}
+                      className={applyDarkThemeStyles().inputStyle}
                     />
                   </div>
                   <div className="flex items-end">
@@ -962,15 +1008,15 @@ const ExperienceEditor: React.FC<{
                           }
                           onChange({ ...section, experiences: newExperiences })
                         }}
-                        className="rounded border-gray-300"
+                        className="rounded border-slate-600 bg-slate-700"
                       />
-                      <Label htmlFor={`current-${index}`}>Current</Label>
+                      <Label htmlFor={`current-${index}`} className={applyDarkThemeStyles().labelStyle}>Current</Label>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <Label>Description</Label>
+                  <Label className={applyDarkThemeStyles().labelStyle}>Description</Label>
                   <Textarea
                     value={experience.description}
                     onChange={(e) => {
@@ -979,7 +1025,7 @@ const ExperienceEditor: React.FC<{
                       onChange({ ...section, experiences: newExperiences })
                     }}
                     placeholder="Describe your role and achievements"
-                    className="min-h-[100px]"
+                    className={`min-h-[100px] ${applyDarkThemeStyles().inputStyle}`}
                   />
                 </div>
 
@@ -991,7 +1037,7 @@ const ExperienceEditor: React.FC<{
                       const newExperiences = section.experiences.filter((_, i) => i !== index)
                       onChange({ ...section, experiences: newExperiences })
                     }}
-                    className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                    className={applyDarkThemeStyles().removeButtonStyle}
                   >
                     <Trash2 className="h-4 w-4 mr-2" />
                     Remove
@@ -1014,7 +1060,7 @@ const ExperienceEditor: React.FC<{
                   experiences: [...section.experiences, newExperience]
                 })
               }}
-              className="w-full"
+              className={applyDarkThemeStyles().addButtonStyle}
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Experience
@@ -1031,10 +1077,10 @@ const EducationEditor: React.FC<{
   onChange: (section: EducationSection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <GraduationCap className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Education</h3>
+        <GraduationCap className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Education</h3>
       </div>
       
       <div className="space-y-4">
@@ -1136,7 +1182,7 @@ const EducationEditor: React.FC<{
                           }
                           onChange({ ...section, education: newEducation })
                         }}
-                        className="rounded border-gray-300"
+                        className="rounded border-white/10"
                       />
                       <Label htmlFor={`current-edu-${index}`}>Current</Label>
                     </div>
@@ -1206,33 +1252,34 @@ const AffiliationEditor: React.FC<{
   onChange: (section: AffiliationSection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <MapPin className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Affiliation</h3>
+        <MapPin className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Affiliations</h3>
       </div>
       
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <Label htmlFor="title">Section Title</Label>
+          <Label htmlFor="title" className={applyDarkThemeStyles().labelStyle}>Section Title</Label>
           <Input
             id="title"
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Enter section title"
+            className={applyDarkThemeStyles().inputStyle}
           />
         </div>
 
         {/* Affiliations */}
         <div>
-          <Label>Affiliations</Label>
+          <Label className={applyDarkThemeStyles().labelStyle}>Affiliations</Label>
           <div className="space-y-3 mt-2">
             {section.affiliations.map((affiliation, index) => (
-              <div key={index} className="space-y-4 p-4 border rounded-lg">
+              <div key={index} className={applyDarkThemeStyles().itemContainerStyle}>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label>Name</Label>
+                    <Label className={applyDarkThemeStyles().labelStyle}>Name</Label>
                     <Input
                       value={affiliation.name}
                       onChange={(e) => {
@@ -1241,10 +1288,11 @@ const AffiliationEditor: React.FC<{
                         onChange({ ...section, affiliations: newAffiliations })
                       }}
                       placeholder="Name of the organization"
+                      className={applyDarkThemeStyles().inputStyle}
                     />
                   </div>
                   <div>
-                    <Label>Logo URL</Label>
+                    <Label className={applyDarkThemeStyles().labelStyle}>Logo URL</Label>
                     <Input
                       value={affiliation.logoUrl}
                       onChange={(e) => {
@@ -1253,12 +1301,13 @@ const AffiliationEditor: React.FC<{
                         onChange({ ...section, affiliations: newAffiliations })
                       }}
                       placeholder="URL to the organization's logo"
+                      className={applyDarkThemeStyles().inputStyle}
                     />
                   </div>
                 </div>
 
                 <div>
-                  <Label>Description</Label>
+                  <Label className={applyDarkThemeStyles().labelStyle}>Description</Label>
                   <Textarea
                     value={affiliation.description}
                     onChange={(e) => {
@@ -1267,7 +1316,7 @@ const AffiliationEditor: React.FC<{
                       onChange({ ...section, affiliations: newAffiliations })
                     }}
                     placeholder="Description of the organization"
-                    className="min-h-[100px]"
+                    className={`min-h-[100px] ${applyDarkThemeStyles().inputStyle}`}
                   />
                 </div>
 
@@ -1278,7 +1327,7 @@ const AffiliationEditor: React.FC<{
                       const newAffiliations = section.affiliations.filter((_, i) => i !== index)
                       onChange({ ...section, affiliations: newAffiliations })
                     }}
-                    className="text-red-500 hover:text-red-600 hover:bg-red-50"
+                    className={applyDarkThemeStyles().removeButtonStyle}
                   >
                     <Trash2 className="h-4 w-4 mr-2" />
                     Remove
@@ -1299,7 +1348,7 @@ const AffiliationEditor: React.FC<{
                   affiliations: [...section.affiliations, newAffiliation]
                 })
               }}
-              className="w-full"
+              className={applyDarkThemeStyles().addButtonStyle}
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Affiliation
@@ -1316,25 +1365,26 @@ const CoursesEditor: React.FC<{
   onChange: (section: CoursesSection) => void;
 }> = ({ section, onChange }) => {
   return (
-    <div className="space-y-6 p-6 bg-white rounded-lg nice-shadow">
+    <div className={applyDarkThemeStyles().containerStyle}>
       <div className="flex items-center space-x-2">
-        <BookOpen className="w-5 h-5 text-gray-500" />
-        <h3 className="font-medium text-lg">Courses</h3>
+        <BookOpen className={applyDarkThemeStyles().headerIconStyle} />
+        <h3 className={applyDarkThemeStyles().headerTitleStyle}>Courses</h3>
       </div>
       
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <Label htmlFor="title">Section Title</Label>
+          <Label htmlFor="title" className={applyDarkThemeStyles().labelStyle}>Section Title</Label>
           <Input
             id="title"
             value={section.title}
             onChange={(e) => onChange({ ...section, title: e.target.value })}
             placeholder="Enter section title"
+            className={applyDarkThemeStyles().inputStyle}
           />
         </div>
 
-        <div className="text-sm text-gray-500 italic">
+        <div className="text-sm text-blue-200/70 italic">
           Your authored courses will be automatically displayed in this section.
         </div>
       </div>
@@ -1342,4 +1392,4 @@ const CoursesEditor: React.FC<{
   )
 }
 
-export default UserProfileBuilder 
+export default UserProfileBuilder

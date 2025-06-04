@@ -112,10 +112,10 @@ function UserProfileClient({ userData, profile }: UserProfileClientProps) {
       </div>
       
       {/* Profile Content */}
-      <div className="bg-white rounded-b-xl nice-shadow p-8 relative">
+      <div className="bg-slate-900/80 backdrop-blur-sm rounded-b-xl nice-shadow p-8 relative border border-white/10">
         {/* Avatar Positioned on the banner */}
         <div className="absolute -top-24 left-8">
-          <div className="rounded-xl overflow-hidden shadow-lg border-4 border-white">
+          <div className="rounded-xl overflow-hidden shadow-lg border-4 border-slate-700">
             <UserAvatar
               width={150}
               avatar_url={userData.avatar_image ? getUserAvatarMediaDirectory(userData.user_uuid, userData.avatar_image) : ''}
@@ -132,7 +132,7 @@ function UserProfileClient({ userData, profile }: UserProfileClientProps) {
           {profile.sections?.map((section: any) => (
             section.type === 'affiliation' && section.affiliations?.map((affiliation: any, index: number) => (
               affiliation.logoUrl && (
-                <div key={index} className="bg-white rounded-lg p-2 shadow-lg border-2 border-white">
+                <div key={index} className="bg-slate-800/80 backdrop-blur-sm rounded-lg p-2 shadow-lg border-2 border-white/20">
                   <img 
                     src={affiliation.logoUrl} 
                     alt={affiliation.name}

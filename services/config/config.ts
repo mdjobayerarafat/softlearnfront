@@ -18,7 +18,13 @@ export const getUriWithOrg = (orgslug: string, path: string) => {
   if (multi_org) {
     return `${LEARNHOUSE_HTTP_PROTOCOL}${orgslug}.${LEARNHOUSE_DOMAIN}${path}`
   }
-  return `${LEARNHOUSE_HTTP_PROTOCOL}${LEARNHOUSE_DOMAIN}${path}`
+  // In non-multiorg mode, if we're trying to navigate to root org path, don't add the query param
+  if (path.startsWith('/orgs/') || path === '/') {
+    return `${LEARNHOUSE_HTTP_PROTOCOL}${LEARNHOUSE_DOMAIN}${path}`
+  }
+  // For single org mode, we use path-based routing instead of query parameters
+  // The middleware will handle routing to the correct organization
+  return `${LEARNHOUSE_HTTP_PROTOCOL}${LEARNHOUSE_DOMAIN}/orgs/${orgslug}${path}`
 }
 
 export const getUriWithoutOrg = (path: string) => {

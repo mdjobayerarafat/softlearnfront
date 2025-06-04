@@ -132,14 +132,14 @@ const EditAssignmentForm: React.FC<EditAssignmentFormProps> = ({
                 <select 
                     id="grading_type"
                     name="grading_type"
-                    className='w-full bg-gray-100/40 rounded-lg px-3 py-2 outline outline-1 outline-gray-100'
+                    className='w-full bg-black/20 backdrop-blur-xl border border-purple-500/30 text-white rounded-lg px-3 py-2 outline-none focus:border-purple-400/50'
                     onChange={(e) => formik.setFieldValue('grading_type', e.target.value, true)}
                     value={formik.values.grading_type}
                     required
                 >
-                    <option value="ALPHABET">Alphabet</option>
-                    <option value="NUMERIC">Numeric</option>
-                    <option value="PERCENTAGE">Percentage</option>
+                    <option value="ALPHABET" className='bg-slate-800 text-white'>Alphabet</option>
+                    <option value="NUMERIC" className='bg-slate-800 text-white'>Numeric</option>
+                    <option value="PERCENTAGE" className='bg-slate-800 text-white'>Percentage</option>
                 </select>
             </FormField>
 

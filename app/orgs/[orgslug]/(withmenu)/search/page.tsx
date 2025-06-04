@@ -190,13 +190,13 @@ function SearchPage() {
       }}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors ${
         selectedType === type
-          ? 'bg-black/10 text-black/80 font-medium'
-          : 'hover:bg-black/5 text-black/60'
+          ? 'bg-slate-700/80 backdrop-blur-sm border border-white/20 text-white font-medium'
+          : 'hover:bg-slate-700/40 text-blue-200 border border-white/10'
       }`}
     >
       <Icon size={16} />
       <span>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
-      <span className="text-black/40">({count})</span>
+      <span className="text-blue-300">({count})</span>
     </button>
   );
 
@@ -211,8 +211,8 @@ function SearchPage() {
             onClick={() => updateSearchParams({ page: pageNum.toString() })}
             className={`w-8 h-8 rounded-lg text-sm transition-colors ${
               page === pageNum
-                ? 'bg-black/10 text-black/80 font-medium'
-                : 'hover:bg-black/5 text-black/60'
+                ? 'bg-slate-700/80 backdrop-blur-sm border border-white/20 text-white font-medium'
+                : 'hover:bg-slate-700/40 text-blue-200 border border-white/10'
             }`}
           >
             {pageNum}
@@ -225,11 +225,11 @@ function SearchPage() {
   const LoadingState = () => (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className="bg-white rounded-xl nice-shadow p-4 animate-pulse">
-          <div className="w-full h-32 bg-black/5 rounded-lg mb-4" />
+        <div key={i} className="bg-slate-800/80 backdrop-blur-sm rounded-xl nice-shadow p-4 animate-pulse border border-white/10">
+          <div className="w-full h-32 bg-slate-700/60 rounded-lg mb-4" />
           <div className="space-y-2">
-            <div className="w-3/4 h-4 bg-black/5 rounded" />
-            <div className="w-1/2 h-3 bg-black/5 rounded" />
+            <div className="w-3/4 h-4 bg-slate-700/60 rounded" />
+            <div className="w-1/2 h-3 bg-slate-700/60 rounded" />
           </div>
         </div>
       ))}
@@ -238,23 +238,23 @@ function SearchPage() {
 
   const EmptyState = () => (
     <div className="flex flex-col items-center justify-center py-16 text-center">
-      <div className="mb-4 p-4 bg-black/5 rounded-full">
-        <Search className="w-8 h-8 text-black/40" />
+      <div className="mb-4 p-4 bg-slate-800/80 backdrop-blur-sm border border-white/10 rounded-full">
+        <Search className="w-8 h-8 text-blue-300" />
       </div>
-      <h3 className="text-lg font-medium text-black/80 mb-2">No results found</h3>
-      <p className="text-sm text-black/50 max-w-md">
+      <h3 className="text-lg font-medium text-white mb-2">No results found</h3>
+      <p className="text-sm text-blue-200 max-w-md">
         We couldn't find any matches for "{query}". Try adjusting your search terms or browse our featured content.
       </p>
     </div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-900/90 backdrop-blur-sm">
       {/* Search Header */}
-      <div className="bg-white border-b border-black/5">
+      <div className="bg-slate-800/80 backdrop-blur-sm border-b border-white/10">
         <div className="container mx-auto px-4 py-6">
           <div className="max-w-2xl mx-auto">
-            <h1 className="text-2xl font-semibold  text-black/80 mb-6">Search</h1>
+            <h1 className="text-2xl font-semibold text-white mb-6">Search</h1>
             
             {/* Search Input */}
             <form onSubmit={handleSearch} className="relative group mb-6">
@@ -263,16 +263,16 @@ function SearchPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search courses, users, collections..."
-                className="w-full h-12 pl-12 pr-4 rounded-xl nice-shadow bg-white 
-                         focus:outline-none focus:ring-1 focus:ring-black/5 focus:border-black/20 
-                         text-sm placeholder:text-black/40 transition-all"
+                className="w-full h-12 pl-12 pr-4 rounded-xl nice-shadow bg-slate-700/80 backdrop-blur-sm border border-white/20 
+                         focus:outline-none focus:ring-1 focus:ring-white/30 focus:border-white/40 
+                         text-sm placeholder:text-blue-200 text-white transition-all"
               />
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search className="text-black/40 group-focus-within:text-black/60 transition-colors" size={20} />
+                <Search className="text-blue-200 group-focus-within:text-blue-100 transition-colors" size={20} />
               </div>
               <button
                 type="submit"
-                className="absolute inset-y-0 right-0 px-4 flex items-center text-sm text-black/60 hover:text-black/80"
+                className="absolute inset-y-0 right-0 px-4 flex items-center text-sm text-blue-200 hover:text-white transition-colors"
               >
                 Search
               </button>
@@ -293,7 +293,7 @@ function SearchPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-7xl mx-auto">
           {query && (
-            <div className="text-sm text-black/60 mb-6">
+            <div className="text-sm text-blue-200 mb-6">
               Found {totalResults} results for "{query}"
             </div>
           )}
@@ -307,8 +307,8 @@ function SearchPage() {
               {/* Courses Grid */}
               {(selectedType === 'all' || selectedType === 'courses') && searchResults.courses.length > 0 && (
                 <div>
-                  <h2 className="text-lg font-medium text-black/80 mb-4 flex items-center gap-2">
-                    <GraduationCap size={20} className="text-black/60" />
+                  <h2 className="text-lg font-medium text-white mb-4 flex items-center gap-2">
+                    <GraduationCap size={20} className="text-blue-200" />
                     Courses ({searchResults.courses.length})
                   </h2>
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -316,7 +316,7 @@ function SearchPage() {
                       <Link
                         key={course.course_uuid}
                         href={getUriWithOrg(org?.slug, `/course/${removeCoursePrefix(course.course_uuid)}`)}
-                        className="bg-white rounded-xl nice-shadow hover:shadow-md transition-all overflow-hidden group"
+                        className="bg-slate-800/80 backdrop-blur-sm rounded-xl nice-shadow hover:shadow-md transition-all overflow-hidden group border border-white/10 hover:border-white/20"
                       >
                         <div className="relative h-48">
                           {course.thumbnail_image ? (
@@ -326,14 +326,14 @@ function SearchPage() {
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
                           ) : (
-                            <div className="w-full h-full bg-black/5 flex items-center justify-center">
-                              <GraduationCap size={32} className="text-black/40" />
+                            <div className="w-full h-full bg-slate-700/60 flex items-center justify-center">
+                              <GraduationCap size={32} className="text-blue-300" />
                             </div>
                           )}
                         </div>
                         <div className="p-4">
-                          <h3 className="text-sm font-medium text-black/80 mb-1">{course.name}</h3>
-                          <p className="text-xs text-black/50 line-clamp-2">{course.description}</p>
+                          <h3 className="text-sm font-medium text-white mb-1">{course.name}</h3>
+                          <p className="text-xs text-blue-200 line-clamp-2">{course.description}</p>
                           {course.authors && course.authors.length > 0 && (
                             <div className="flex items-center gap-2 mt-3">
                               <UserAvatar
@@ -345,7 +345,7 @@ function SearchPage() {
                                 rounded="rounded-full"
                                 backgroundColor="bg-gray-100"
                               />
-                              <span className="text-xs text-black/40">
+                              <span className="text-xs text-blue-300">
                                 {course.authors[0].user.first_name} {course.authors[0].user.last_name}
                               </span>
                             </div>
@@ -360,8 +360,8 @@ function SearchPage() {
               {/* Collections Grid */}
               {(selectedType === 'all' || selectedType === 'collections') && searchResults.collections.length > 0 && (
                 <div>
-                  <h2 className="text-lg font-medium text-black/80 mb-4 flex items-center gap-2">
-                    <Book size={20} className="text-black/60" />
+                  <h2 className="text-lg font-medium text-white mb-4 flex items-center gap-2">
+                    <Book size={20} className="text-blue-200" />
                     Collections ({searchResults.collections.length})
                   </h2>
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -369,14 +369,14 @@ function SearchPage() {
                       <Link
                         key={collection.collection_uuid}
                         href={getUriWithOrg(org?.slug, `/collection/${collection.collection_uuid.replace('collection_', '')}`)}
-                        className="flex items-start gap-4 p-4 bg-white rounded-xl nice-shadow hover:shadow-md transition-all"
+                        className="flex items-start gap-4 p-4 bg-slate-800/80 backdrop-blur-sm rounded-xl nice-shadow hover:shadow-md transition-all border border-white/10 hover:border-white/20"
                       >
-                        <div className="w-12 h-12 bg-black/5 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Book size={24} className="text-black/40" />
+                        <div className="w-12 h-12 bg-slate-700/60 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Book size={24} className="text-blue-300" />
                         </div>
                         <div>
-                          <h3 className="text-sm font-medium text-black/80 mb-1">{collection.name}</h3>
-                          <p className="text-xs text-black/50 line-clamp-2">{collection.description}</p>
+                          <h3 className="text-sm font-medium text-white mb-1">{collection.name}</h3>
+                          <p className="text-xs text-blue-200 line-clamp-2">{collection.description}</p>
                         </div>
                       </Link>
                     ))}
@@ -387,8 +387,8 @@ function SearchPage() {
               {/* Users Grid */}
               {(selectedType === 'all' || selectedType === 'users') && searchResults.users.length > 0 && (
                 <div>
-                  <h2 className="text-lg font-medium text-black/80 mb-4 flex items-center gap-2">
-                    <Users size={20} className="text-black/60" />
+                  <h2 className="text-lg font-medium text-white mb-4 flex items-center gap-2">
+                    <Users size={20} className="text-blue-200" />
                     Users ({searchResults.users.length})
                   </h2>
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -396,7 +396,7 @@ function SearchPage() {
                       <Link
                         key={user.user_uuid}
                         href={getUriWithOrg(org?.slug, `/user/${user.username}`)}
-                        className="flex items-center gap-4 p-4 bg-white rounded-xl nice-shadow hover:shadow-md transition-all"
+                        className="flex items-center gap-4 p-4 bg-slate-800/80 backdrop-blur-sm rounded-xl nice-shadow hover:shadow-md transition-all border border-white/10 hover:border-white/20"
                       >
                         <UserAvatar
                           width={48}
@@ -408,12 +408,12 @@ function SearchPage() {
                           backgroundColor="bg-gray-100"
                         />
                         <div>
-                          <h3 className="text-sm font-medium text-black/80">
+                          <h3 className="text-sm font-medium text-white">
                             {user.first_name} {user.last_name}
                           </h3>
-                          <p className="text-xs text-black/50">@{user.username}</p>
+                          <p className="text-xs text-blue-200">@{user.username}</p>
                           {user.details?.title?.text && (
-                            <p className="text-xs text-black/40 mt-1">{user.details.title.text}</p>
+                            <p className="text-xs text-blue-300 mt-1">{user.details.title.text}</p>
                           )}
                         </div>
                       </Link>

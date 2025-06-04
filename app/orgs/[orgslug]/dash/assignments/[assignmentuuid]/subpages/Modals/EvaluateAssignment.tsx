@@ -43,19 +43,19 @@ function EvaluateAssignment({ user_id }: any) {
     }
 
     return (
-        <div className='flex-col space-y-4 px-3 py-3 overflow-y-auto min-h-fit'>
+        <div className='flex-col space-y-4 px-3 py-3 overflow-y-auto min-h-fit bg-slate-900/20 backdrop-blur-xl rounded-lg'>
             {assignments && assignments?.assignment_tasks?.sort((a: any, b: any) => a.id - b.id).map((task: any, index: number) => {
                 return (
-                    <div className='flex flex-col space-y-2' key={task.assignment_task_uuid}>
+                    <div className='flex flex-col space-y-2 bg-black/20 backdrop-blur-xl border border-purple-500/30 rounded-lg p-4 shadow-lg shadow-purple-500/10' key={task.assignment_task_uuid}>
                         <div className='flex justify-between py-2'>
-                            <div className='flex space-x-2 font-semibold text-slate-800'>
+                            <div className='flex space-x-2 font-semibold text-purple-300'>
                                 <p>Task {index + 1} : </p>
-                                <p className='text-slate-500'>{task.description}</p>
+                                <p className='text-slate-400'>{task.description}</p>
                             </div>
                             <div className='flex space-x-2'>
                                 <div
                                     onClick={() => alert(task.hint)}
-                                    className='px-3 py-1 flex items-center nice-shadow bg-amber-50/40 text-amber-900 rounded-full space-x-2 cursor-pointer'>
+                                    className='px-3 py-1 flex items-center backdrop-blur-xl border border-amber-400/30 bg-amber-600/20 text-amber-300 rounded-full space-x-2 cursor-pointer hover:bg-amber-600/30 transition-all shadow-lg shadow-amber-500/20'>
                                     <Info size={13} />
                                     <p className='text-xs font-semibold'>Hint</p>
                                 </div>
@@ -70,7 +70,7 @@ function EvaluateAssignment({ user_id }: any) {
                                     )}
                                     target='_blank'
                                     download={true}
-                                    className='px-3 py-1 flex items-center nice-shadow bg-cyan-50/40 text-cyan-900 rounded-full space-x-2 cursor-pointer'>
+                                    className='px-3 py-1 flex items-center backdrop-blur-xl border border-cyan-400/30 bg-cyan-600/20 text-cyan-300 rounded-full space-x-2 cursor-pointer hover:bg-cyan-600/30 transition-all shadow-lg shadow-cyan-500/20'>
                                     <Download size={13} />
                                     <div className='flex items-center space-x-2'>
                                         {task.reference_file && (
@@ -90,18 +90,18 @@ function EvaluateAssignment({ user_id }: any) {
                     </div>
                 )
             })}
-            <div className='flex  space-x-4 font-semibold items-center justify-between'>
-                <button onClick={rejectAssignment} className='flex space-x-2 px-4 py-2 text-sm bg-rose-600/80 text-white rounded-lg nice-shadow items-center cursor-pointer'>
+            <div className='flex space-x-4 font-semibold items-center justify-between'>
+                <button onClick={rejectAssignment} className='flex space-x-2 px-4 py-2 text-sm bg-rose-600/90 backdrop-blur-xl border border-rose-400/30 text-white rounded-lg shadow-lg shadow-rose-500/20 items-center cursor-pointer hover:bg-rose-600/70 transition-all'>
                     <X size={18} />
                     <span>Reject Assignment</span>
                 </button>
                 <div className='flex space-x-3 items-center'>
-                    <button onClick={gradeAssignment} className='flex space-x-2 px-4 py-2 text-sm bg-violet-600/80 text-white rounded-lg nice-shadow items-center cursor-pointer'>
+                    <button onClick={gradeAssignment} className='flex space-x-2 px-4 py-2 text-sm bg-purple-600/90 backdrop-blur-xl border border-purple-400/30 text-white rounded-lg shadow-lg shadow-purple-500/20 items-center cursor-pointer hover:bg-purple-600/70 transition-all'>
                         <BookOpenCheck size={18} />
                         <span>Set final grade</span>
                     </button>
-                    <MoveRight className='text-gray-400' size={18} />
-                    <button onClick={markActivityAsDone} className='flex space-x-2 px-4 py-2 text-sm bg-teal-600/80 text-white rounded-lg nice-shadow items-center cursor-pointer'>
+                    <MoveRight className='text-purple-400' size={18} />
+                    <button onClick={markActivityAsDone} className='flex space-x-2 px-4 py-2 text-sm bg-emerald-600/90 backdrop-blur-xl border border-emerald-400/30 text-white rounded-lg shadow-lg shadow-emerald-500/20 items-center cursor-pointer hover:bg-emerald-600/70 transition-all'>
                         <Check size={18} />
                         <span>Mark Activity as Done for User</span>
                     </button>

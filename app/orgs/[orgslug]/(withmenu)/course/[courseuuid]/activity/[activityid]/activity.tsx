@@ -102,7 +102,7 @@ function ActivityClient(props: ActivityClientProps) {
   const session = useLHSession() as any;
   const pathname = usePathname()
   const access_token = session?.data?.tokens?.access_token;
-  const [bgColor, setBgColor] = React.useState('bg-white')
+  const [bgColor, setBgColor] = React.useState('bg-slate-900')
   const [assignment, setAssignment] = React.useState(null) as any;
   const [markStatusButtonActive, setMarkStatusButtonActive] = React.useState(false);
   const [isFocusMode, setIsFocusMode] = React.useState(false);
@@ -146,7 +146,7 @@ function ActivityClient(props: ActivityClientProps) {
     if (!activity) return;
     
     const cleanCourseUuid = course.course_uuid?.replace('course_', '');
-    router.push(getUriWithOrg(orgslug, '') + `/course/${cleanCourseUuid}/activity/${activity.cleanUuid}`);
+    router.push(getUriWithOrg(orgslug, `/course/${cleanCourseUuid}/activity/${activity.cleanUuid}`));
   };
 
   // Initialize focus mode from localStorage
@@ -189,15 +189,15 @@ function ActivityClient(props: ActivityClientProps) {
 
   useEffect(() => {
     if (activity.activity_type == 'TYPE_DYNAMIC') {
-      setBgColor(isFocusMode ? 'bg-white' : 'bg-white nice-shadow');
+      setBgColor(isFocusMode ? 'bg-slate-900/80 backdrop-blur-xl border border-slate-700/50' : 'bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 shadow-2xl shadow-purple-500/10');
     }
     else if (activity.activity_type == 'TYPE_ASSIGNMENT') {
       setMarkStatusButtonActive(false);
-      setBgColor(isFocusMode ? 'bg-white' : 'bg-white nice-shadow');
+      setBgColor(isFocusMode ? 'bg-slate-900/80 backdrop-blur-xl border border-slate-700/50' : 'bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 shadow-2xl shadow-purple-500/10');
       getAssignmentUI();
     }
     else {
-      setBgColor(isFocusMode ? 'bg-zinc-950' : 'bg-zinc-950 nice-shadow');
+      setBgColor(isFocusMode ? 'bg-slate-900/80 backdrop-blur-xl border border-slate-700/50' : 'bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 shadow-2xl shadow-purple-500/10');
     }
   }
     , [activity, pathname, isFocusMode])
@@ -213,7 +213,7 @@ function ActivityClient(props: ActivityClientProps) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="fixed inset-0 bg-white z-50"
+                className="fixed inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 z-50"
               >
                 {/* Focus Mode Top Bar */}
                 <motion.div 
@@ -221,7 +221,7 @@ function ActivityClient(props: ActivityClientProps) {
                   animate={{ y: 0 }}
                   exit={{ y: -100 }}
                   transition={{ duration: 0.3 }}
-                  className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-b border-gray-100"
+                  className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-xl border-b border-purple-500/30"
                 >
                   <div className="container mx-auto px-4 py-2">
                     <div className="flex items-center justify-between h-14">
@@ -230,10 +230,10 @@ function ActivityClient(props: ActivityClientProps) {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => setIsFocusMode(false)}
-                          className="bg-white nice-shadow p-2 rounded-full cursor-pointer hover:bg-gray-50"
+                          className="bg-slate-800/80 backdrop-blur-xl border border-purple-500/30 p-2 rounded-full cursor-pointer hover:bg-slate-700/80 transition-all duration-200 shadow-lg shadow-purple-500/20"
                           title="Exit focus mode"
                         >
-                          <Minimize2 size={16} className="text-gray-700" />
+                          <Minimize2 size={16} className="text-purple-300" />
                         </motion.button>
                         <ActivityChapterDropdown 
                           course={course}
@@ -265,8 +265,8 @@ function ActivityClient(props: ActivityClientProps) {
                           </Link>
                         </div>
                         <div className="flex flex-col -space-y-1">
-                          <p className="font-bold text-gray-700 text-sm">Course </p>
-                          <h1 className="font-bold text-gray-950 text-lg first-letter:uppercase">
+                          <p className="font-bold text-purple-300 text-sm">Course </p>
+                          <h1 className="font-bold text-white text-lg first-letter:uppercase">
                             {course.name}
                           </h1>
                         </div>
@@ -293,7 +293,7 @@ function ActivityClient(props: ActivityClientProps) {
                               cx="16"
                               cy="16"
                               r="14"
-                              stroke="#10b981"
+                              stroke="#8b5cf6"
                               strokeWidth="3"
                               fill="none"
                               strokeLinecap="round"
@@ -302,12 +302,12 @@ function ActivityClient(props: ActivityClientProps) {
                             />
                           </svg>
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs font-bold text-gray-800">
+                            <span className="text-xs font-bold text-purple-300">
                               {Math.round(((course.trail?.runs?.find((run: any) => run.course_id === course.id)?.steps?.filter((step: any) => step.complete)?.length || 0) / (course.chapters?.reduce((acc: number, chapter: any) => acc + chapter.activities.length, 0) || 1)) * 100)}%
                             </span>
                           </div>
                         </div>
-                        <div className="text-xs text-gray-600">
+                        <div className="text-xs text-purple-300">
                           {course.trail?.runs?.find((run: any) => run.course_id === course.id)?.steps?.filter((step: any) => step.complete)?.length || 0} of {course.chapters?.reduce((acc: number, chapter: any) => acc + chapter.activities.length, 0) || 0}
                         </div>
                       </motion.div>
@@ -373,7 +373,7 @@ function ActivityClient(props: ActivityClientProps) {
                     animate={{ y: 0 }}
                     exit={{ y: 100 }}
                     transition={{ duration: 0.3 }}
-                    className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl border-t border-gray-100"
+                    className="fixed bottom-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-xl border-t border-purple-500/30"
                   >
                     <div className="container mx-auto px-4">
                       <div className="flex items-center justify-between h-16">
@@ -382,16 +382,16 @@ function ActivityClient(props: ActivityClientProps) {
                             onClick={() => navigateToActivity(prevActivity)}
                             className={`flex items-center space-x-1.5 p-2 rounded-md transition-all duration-200 cursor-pointer ${
                               prevActivity 
-                                ? 'text-gray-700' 
-                                : 'opacity-50 text-gray-400 cursor-not-allowed'
+                                ? 'text-purple-300 hover:bg-slate-800/50' 
+                                : 'opacity-50 text-gray-500 cursor-not-allowed'
                             }`}
                             disabled={!prevActivity}
                             title={prevActivity ? `Previous: ${prevActivity.name}` : 'No previous activity'}
                           >
-                            <ChevronLeft size={20} className="text-gray-800 shrink-0" />
+                            <ChevronLeft size={20} className="text-purple-400 shrink-0" />
                             <div className="flex flex-col items-start">
-                              <span className="text-xs text-gray-500">Previous</span>
-                              <span className="text-sm capitalize font-semibold text-left">
+                              <span className="text-xs text-purple-400">Previous</span>
+                              <span className="text-sm capitalize font-semibold text-left text-white">
                                 {prevActivity ? prevActivity.name : 'No previous activity'}
                               </span>
                             </div>
@@ -410,19 +410,19 @@ function ActivityClient(props: ActivityClientProps) {
                             onClick={() => navigateToActivity(nextActivity)}
                             className={`flex items-center space-x-1.5 p-2 rounded-md transition-all duration-200 cursor-pointer ${
                               nextActivity 
-                                ? 'text-gray-700' 
-                                : 'opacity-50 text-gray-400 cursor-not-allowed'
+                                ? 'text-purple-300 hover:bg-slate-800/50' 
+                                : 'opacity-50 text-gray-500 cursor-not-allowed'
                             }`}
                             disabled={!nextActivity}
                             title={nextActivity ? `Next: ${nextActivity.name}` : 'No next activity'}
                           >
                             <div className="flex flex-col items-end">
-                              <span className="text-xs text-gray-500">Next</span>
-                              <span className="text-sm capitalize font-semibold text-right">
+                              <span className="text-xs text-purple-400">Next</span>
+                              <span className="text-sm capitalize font-semibold text-right text-white">
                                 {nextActivity ? nextActivity.name : 'No next activity'}
                               </span>
                             </div>
-                            <ChevronRight size={20} className="text-gray-800 shrink-0" />
+                            <ChevronRight size={20} className="text-purple-400 shrink-0" />
                           </button>
                         </div>
                       </div>
@@ -463,8 +463,8 @@ function ActivityClient(props: ActivityClientProps) {
                             </Link>
                           </div>
                           <div className="flex flex-col -space-y-1">
-                            <p className="font-bold text-gray-700 text-md">Course </p>
-                            <h1 className="font-bold text-gray-950 text-2xl first-letter:uppercase">
+                            <p className="font-bold text-purple-300 text-md">Course </p>
+                            <h1 className="font-bold text-white text-2xl first-letter:uppercase">
                               {course.name}
                             </h1>
                           </div>
@@ -500,10 +500,10 @@ function ActivityClient(props: ActivityClientProps) {
                         <div className="flex flex-1/3 items-center space-x-3">
                           <button
                             onClick={() => setIsFocusMode(true)}
-                            className="bg-white nice-shadow p-2 rounded-full cursor-pointer hover:bg-gray-50 transition-all duration-200"
+                            className="bg-slate-800/80 backdrop-blur-xl border border-purple-500/30 p-2 rounded-full cursor-pointer hover:bg-slate-700/80 transition-all duration-200 shadow-lg shadow-purple-500/20"
                             title="Enter focus mode"
                           >
-                            <Maximize2 size={16} className="text-gray-700" />
+                            <Maximize2 size={16} className="text-purple-300" />
                           </button>
                           <ActivityChapterDropdown 
                             course={course}
@@ -511,10 +511,10 @@ function ActivityClient(props: ActivityClientProps) {
                             orgslug={orgslug}
                           />
                           <div className="flex flex-col -space-y-1">
-                            <p className="font-bold text-gray-700 text-md">
+                            <p className="font-bold text-purple-300 text-md">
                               Chapter : {getChapterNameByActivityId(course, activity.id)}
                             </p>
-                            <h1 className="font-bold text-gray-950 text-2xl first-letter:uppercase">
+                            <h1 className="font-bold text-white text-2xl first-letter:uppercase">
                               {activity.name}
                             </h1>
                           </div>
@@ -528,7 +528,7 @@ function ActivityClient(props: ActivityClientProps) {
                                   {contributorStatus === 'ACTIVE' && activity.activity_type == 'TYPE_DYNAMIC' && (
                                     <Link
                                       href={getUriWithOrg(orgslug, '') + `/course/${courseuuid}/activity/${activityid}/edit`}
-                                      className="bg-emerald-600 rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white hover:cursor-pointer transition delay-150 duration-300 ease-in-out"
+                                      className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full px-5 backdrop-blur-xl border border-emerald-500/30 flex items-center space-x-2 p-2.5 text-white hover:cursor-pointer transition-all duration-300 ease-in-out hover:from-emerald-500 hover:to-teal-500 shadow-lg shadow-emerald-500/20"
                                     >
                                       <Edit2 size={17} />
                                       <span className="text-xs font-bold">Contribute</span>
@@ -543,8 +543,8 @@ function ActivityClient(props: ActivityClientProps) {
                     </div>
 
                     {activity && activity.published == false && (
-                      <div className="p-7 drop-shadow-xs rounded-lg bg-gray-800">
-                        <div className="text-white">
+                      <div className="p-7 backdrop-blur-xl border border-red-500/30 rounded-lg bg-red-900/20 shadow-lg shadow-red-500/10">
+                        <div className="text-red-300">
                           <h1 className="font-bold text-2xl">
                             This activity is not published yet
                           </h1>
@@ -737,7 +737,7 @@ export function MarkStatus(props: {
     <>
       {isActivityCompleted() ? (
         <div className="flex items-center space-x-2">
-          <div className="bg-teal-600 rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white">
+          <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full px-5 backdrop-blur-xl border border-emerald-500/30 flex items-center space-x-2 p-2.5 text-white shadow-lg shadow-emerald-500/20">
             <i>
               <Check size={17}></Check>
             </i>{' '}
@@ -753,7 +753,7 @@ export function MarkStatus(props: {
               dialogTitle="Unmark activity as complete"
               dialogTrigger={
                 <div
-                  className={`${isLoading ? 'opacity-75 cursor-not-allowed' : ''} bg-red-400 rounded-full p-2 drop-shadow-md flex items-center text-white hover:cursor-pointer transition delay-150 duration-300 ease-in-out`}
+                  className={`${isLoading ? 'opacity-75 cursor-not-allowed' : ''} bg-gradient-to-r from-red-600 to-pink-600 rounded-full p-2 backdrop-blur-xl border border-red-500/30 flex items-center text-white hover:cursor-pointer transition-all duration-300 ease-in-out hover:from-red-500 hover:to-pink-500 shadow-lg shadow-red-500/20`}
                 >
                   {isLoading ? (
                     <div className="animate-spin">
@@ -775,7 +775,7 @@ export function MarkStatus(props: {
       ) : (
         <div className="flex items-center space-x-2">
           <div
-            className={`${isLoading ? 'opacity-75 cursor-not-allowed' : ''} bg-gray-800 rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white hover:cursor-pointer transition delay-150 duration-300 ease-in-out`}
+            className={`${isLoading ? 'opacity-75 cursor-not-allowed' : ''} bg-gradient-to-r from-purple-600 to-pink-600 rounded-full px-5 backdrop-blur-xl border border-purple-500/30 flex items-center space-x-2 p-2.5 text-white hover:cursor-pointer transition-all duration-300 ease-in-out hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-500/20`}
             onClick={!isLoading ? markActivityAsCompleteFront : undefined}
           >
             {isLoading ? (
@@ -839,12 +839,12 @@ function NextActivityButton({ course, currentActivityId, orgslug }: { course: an
   return (
     <div
       onClick={navigateToActivity}
-      className="bg-white rounded-full px-5 nice-shadow flex items-center space-x-1 p-2.5 text-gray-600 hover:cursor-pointer transition delay-150 duration-300 ease-in-out"
+      className="bg-slate-900/80 backdrop-blur-xl border border-purple-500/30 rounded-full px-5 shadow-lg shadow-purple-500/20 flex items-center space-x-1 p-2.5 text-purple-300 hover:cursor-pointer hover:bg-slate-800/90 hover:border-purple-400/50 transition-all duration-300 ease-in-out"
     >
-      <span className="text-xs font-bold text-gray-500">Next</span>
-      <EllipsisVertical className='text-gray-400' size={13} />
-      <span className="text-sm font-semibold truncate max-w-[200px]">{nextActivity.name}</span>
-      <ChevronRight size={17} />
+      <span className="text-xs font-bold text-purple-400">Next</span>
+      <EllipsisVertical className='text-purple-500/70' size={13} />
+      <span className="text-sm font-semibold truncate max-w-[200px] text-white">{nextActivity.name}</span>
+      <ChevronRight size={17} className="text-purple-400" />
     </div>
   );
 }
@@ -890,12 +890,12 @@ function PreviousActivityButton({ course, currentActivityId, orgslug }: { course
   return (
     <div
       onClick={navigateToActivity}
-      className="bg-white rounded-full px-5 nice-shadow flex items-center space-x-1 p-2.5 text-gray-600 hover:cursor-pointer transition delay-150 duration-300 ease-in-out"
+      className="bg-slate-900/80 backdrop-blur-xl border border-purple-500/30 rounded-full px-5 shadow-lg shadow-purple-500/20 flex items-center space-x-1 p-2.5 text-purple-300 hover:cursor-pointer hover:bg-slate-800/90 hover:border-purple-400/50 transition-all duration-300 ease-in-out"
     >
-      <ChevronLeft size={17} />
-      <span className="text-xs font-bold text-gray-500">Previous</span>
-      <EllipsisVertical className='text-gray-400' size={13} />
-      <span className="text-sm font-semibold truncate max-w-[200px]">{previousActivity.name}</span>
+      <ChevronLeft size={17} className="text-purple-400" />
+      <span className="text-xs font-bold text-purple-400">Previous</span>
+      <EllipsisVertical className='text-purple-500/70' size={13} />
+      <span className="text-sm font-semibold truncate max-w-[200px] text-white">{previousActivity.name}</span>
     </div>
   );
 }
@@ -983,7 +983,7 @@ function AssignmentTools(props: {
         confirmationMessage="Are you sure you want to submit your assignment for grading? Once submitted, you will not be able to make any changes."
         dialogTitle="Submit your assignment for grading"
         dialogTrigger={
-          <div className="bg-cyan-800 rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white hover:cursor-pointer transition delay-150 duration-300 ease-in-out">
+          <div className="bg-purple-500/90 backdrop-blur-xl rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white hover:cursor-pointer hover:bg-purple-400/90 transition delay-150 duration-300 ease-in-out border border-purple-400/30 shadow-lg shadow-purple-500/20">
             <BookOpenCheck size={17} />
             <span className="text-xs font-bold">Submit for grading</span>
           </div>
@@ -996,7 +996,7 @@ function AssignmentTools(props: {
 
   if (submission[0].submission_status === 'SUBMITTED') {
     return (
-      <div className="bg-amber-800 rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white transition delay-150 duration-300 ease-in-out">
+      <div className="bg-amber-500/90 backdrop-blur-xl rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white transition delay-150 duration-300 ease-in-out border border-amber-400/30 shadow-lg shadow-amber-500/20">
         <UserRoundPen size={17} />
         <span className="text-xs font-bold">Grading in progress</span>
       </div>
@@ -1005,9 +1005,9 @@ function AssignmentTools(props: {
 
   if (submission[0].submission_status === 'GRADED') {
     return (
-      <div className="bg-teal-600 rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white transition delay-150 duration-300 ease-in-out">
+      <div className="bg-emerald-500/90 backdrop-blur-xl rounded-full px-5 drop-shadow-md flex items-center space-x-2 p-2.5 text-white transition delay-150 duration-300 ease-in-out border border-emerald-400/30 shadow-lg shadow-emerald-500/20">
         <CheckCircle size={17} />
-        <span className="text-xs flex space-x-2 font-bold items-center"><span>Graded </span> <span className='bg-white text-teal-800 px-1 py-0.5 rounded-md'>{finalGrade}</span></span>
+        <span className="text-xs flex space-x-2 font-bold items-center"><span>Graded </span> <span className='bg-slate-900/80 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-400/30'>{finalGrade}</span></span>
       </div>
     )
   }

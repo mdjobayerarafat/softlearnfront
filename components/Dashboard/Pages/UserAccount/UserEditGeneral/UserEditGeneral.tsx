@@ -167,19 +167,19 @@ const DetailCard = React.memo(({
   }, [detail.label]);
 
   return (
-    <div className="space-y-2 p-4 border rounded-lg bg-white shadow-sm">
+    <div className="space-y-2 p-4 border border-slate-700 rounded-lg bg-slate-800/50 backdrop-blur-sm shadow-md">
       <div className="flex justify-between items-center mb-3">
         <Input
           value={localLabel}
           onChange={handleLabelChange}
           placeholder="Enter label (e.g., Title, Location)"
-          className="max-w-[200px]"
+          className="max-w-[200px] border-blue-400/30 text-white"
         />
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          className="text-red-500 hover:text-red-700"
+          className="text-red-400 hover:text-red-300 hover:bg-red-900/30"
           onClick={handleRemove}
         >
           Remove
@@ -188,7 +188,7 @@ const DetailCard = React.memo(({
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <Label>Icon</Label>
+          <Label className="text-blue-200">Icon</Label>
           <Select
             value={detail.icon}
             onValueChange={handleIconChange}
@@ -218,11 +218,12 @@ const DetailCard = React.memo(({
           </Select>
         </div>
         <div>
-          <Label>Text</Label>
+          <Label className="text-blue-200">Text</Label>
           <Input
             value={detail.text}
             onChange={handleTextChange}
             placeholder="Enter detail text"
+            className="bg-slate-800/80 border-slate-600 text-white/90"
           />
         </div>
       </div>
@@ -292,11 +293,11 @@ const UserEditForm = ({
   return (
     <Form>
       <div className="flex flex-col gap-0">
-        <div className="flex flex-col bg-gray-50 -space-y-1 px-5 py-3 mx-3 my-3 rounded-md">
-          <h1 className="font-bold text-xl text-gray-800">
+        <div className="flex flex-col bg-slate-900/70 backdrop-blur-sm -space-y-1 px-5 py-3 mx-3 my-3 rounded-md border border-white/20">
+          <h1 className="font-bold text-xl text-white">
             Account Settings
           </h1>
-          <h2 className="text-gray-500 text-md">
+          <h2 className="text-blue-200 text-md">
             Manage your personal information and preferences
           </h2>
         </div>
@@ -315,10 +316,10 @@ const UserEditForm = ({
                 placeholder="Your email address"
               />
               {touched.email && errors.email && (
-                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
               )}
               {values.email !== values.email && (
-                <div className="flex items-center space-x-2 mt-2 text-amber-600 bg-amber-50 p-2 rounded-md">
+                <div className="flex items-center space-x-2 mt-2 text-amber-300 bg-amber-900/50 border border-amber-600/50 p-2 rounded-md">
                   <AlertTriangle size={16} />
                   <span className="text-sm">You will be logged out after changing your email</span>
                 </div>
@@ -335,7 +336,7 @@ const UserEditForm = ({
                 placeholder="Your username"
               />
               {touched.username && errors.username && (
-                <p className="text-red-500 text-sm mt-1">{errors.username}</p>
+                <p className="text-red-400 text-sm mt-1">{errors.username}</p>
               )}
             </div>
 
@@ -349,7 +350,7 @@ const UserEditForm = ({
                 placeholder="Your first name"
               />
               {touched.first_name && errors.first_name && (
-                <p className="text-red-500 text-sm mt-1">{errors.first_name}</p>
+                <p className="text-red-400 text-sm mt-1">{errors.first_name}</p>
               )}
             </div>
 
@@ -363,14 +364,14 @@ const UserEditForm = ({
                 placeholder="Your last name"
               />
               {touched.last_name && errors.last_name && (
-                <p className="text-red-500 text-sm mt-1">{errors.last_name}</p>
+                <p className="text-red-400 text-sm mt-1">{errors.last_name}</p>
               )}
             </div>
 
             <div>
               <Label htmlFor="bio">
                 Bio
-                <span className="text-gray-500 text-sm ml-2">
+                <span className="text-blue-300 text-sm ml-2 font-normal">
                   ({400 - (values.bio?.length || 0)} characters left)
                 </span>
               </Label>
@@ -384,20 +385,20 @@ const UserEditForm = ({
                 maxLength={400}
               />
               {touched.bio && errors.bio && (
-                <p className="text-red-500 text-sm mt-1">{errors.bio}</p>
+                <p className="text-red-400 text-sm mt-1">{errors.bio}</p>
               )}
             </div>
 
             <div className="space-y-4">
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between items-center">
-                  <Label>Additional Details</Label>
+                  <Label className="text-blue-100 text-base">Additional Details</Label>
                   <div className="flex gap-2">
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
-                      className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-400 hover:text-red-300 hover:bg-red-900/30 border-red-500/50"
                       onClick={() => {
                         setFieldValue('details', {});
                       }}
@@ -408,6 +409,7 @@ const UserEditForm = ({
                       type="button"
                       variant="outline"
                       size="sm"
+                      className="text-blue-200 border-blue-400/50 hover:bg-blue-900/30"
                       onClick={() => {
                         const newDetails = { ...values.details };
                         const id = `detail-${Date.now()}`;
@@ -484,17 +486,17 @@ const UserEditForm = ({
 
           {/* Profile Picture Section */}
           <div className="lg:w-80 w-full">
-            <div className="bg-gray-50/50 p-6 rounded-lg nice-shadow h-full">
+            <div className="bg-slate-900/70 backdrop-blur-sm p-6 rounded-lg nice-shadow h-full border border-white/10">
               <div className="flex flex-col items-center space-y-6">
-                <Label className="font-bold">Profile Picture</Label>
+                <Label className="font-bold text-blue-100 text-base">Profile Picture</Label>
                 {profilePicture.error && (
-                  <div className="flex items-center bg-red-200 rounded-md text-red-950 px-4 py-2 text-sm">
+                  <div className="flex items-center bg-red-900/50 border border-red-600/50 rounded-md text-red-300 px-4 py-2 text-sm">
                     <FileWarning size={16} className="mr-2" />
                     <span className="font-semibold first-letter:uppercase">{profilePicture.error}</span>
                   </div>
                 )}
                 {profilePicture.success && (
-                  <div className="flex items-center bg-green-200 rounded-md text-green-950 px-4 py-2 text-sm">
+                  <div className="flex items-center bg-green-900/50 border border-green-600/50 rounded-md text-green-300 px-4 py-2 text-sm">
                     <Check size={16} className="mr-2" />
                     <span className="font-semibold first-letter:uppercase">{profilePicture.success}</span>
                   </div>
@@ -509,7 +511,7 @@ const UserEditForm = ({
                   <UserAvatar border="border-8" width={120} />
                 )}
                 {profilePicture.isLoading ? (
-                  <div className="font-bold animate-pulse antialiased bg-green-200 text-gray text-sm rounded-md px-4 py-2 flex items-center">
+                  <div className="font-bold animate-pulse antialiased bg-blue-900/50 border border-blue-600/50 text-blue-200 text-sm rounded-md px-4 py-2 flex items-center">
                     <ArrowBigUpDash size={16} className="mr-2" />
                     <span>Uploading</span>
                   </div>
@@ -533,7 +535,7 @@ const UserEditForm = ({
                     </Button>
                   </>
                 )}
-                <div className="flex items-center text-xs text-gray-500">
+                <div className="flex items-center text-xs text-blue-200 bg-blue-900/30 border border-blue-600/30 py-1 px-2 rounded">
                   <Info size={13} className="mr-2" />
                   <p>Recommended size 100x100</p>
                 </div>
@@ -546,7 +548,7 @@ const UserEditForm = ({
           <Button 
             type="submit" 
             disabled={isSubmitting}
-            className="bg-black text-white hover:bg-black/90"
+            className="bg-blue-600 text-white hover:bg-blue-700 font-semibold shadow-lg px-5 py-2 h-10"
           >
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </Button>
@@ -612,21 +614,21 @@ function UserEditGeneral() {
 
     // Wait for 4 seconds before signing out
     await new Promise(resolve => setTimeout(resolve, 4000))
-    signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/') })
+    signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/home') })
   }
 
   if (!userData) {
     return (
-      <div className="sm:mx-10 mx-0 bg-white rounded-xl nice-shadow p-8">
+      <div className="sm:mx-10 mx-0 bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow border border-white/10 p-8">
         <div className="flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-400"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="sm:mx-10 mx-0 bg-white rounded-xl nice-shadow">
+    <div className="sm:mx-10 mx-0 bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow border border-white/10">
       <Formik<FormValues>
         enableReinitialize
         initialValues={{

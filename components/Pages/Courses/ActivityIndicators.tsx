@@ -110,12 +110,12 @@ function ActivityIndicators(props: Props) {
                     sideOffset={8}
                     unstyled
                     content={
-                      <div className="bg-white rounded-lg nice-shadow py-3 px-4 min-w-[200px] animate-in fade-in duration-200">
+                      <div className="bg-slate-900/90 backdrop-blur-sm rounded-lg nice-shadow py-3 px-4 min-w-[200px] animate-in fade-in duration-200 border border-white/10">
                         <div className="flex items-center gap-2">
                           {getActivityTypeIcon(activity.activity_type)}
-                          <span className="text-sm text-gray-700">{activity.name}</span>
+                          <span className="text-sm text-white">{activity.name}</span>
                           {isDone && (
-                            <span className="ml-auto text-gray-400">
+                            <span className="ml-auto text-blue-200">
                               <Check size={14} />
                             </span>
                           )}

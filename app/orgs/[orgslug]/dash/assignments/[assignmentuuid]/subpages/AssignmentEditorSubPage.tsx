@@ -10,14 +10,14 @@ const AssignmentTaskEditor = dynamic(() => import('../_components/TaskEditor/Tas
 function AssignmentEditorSubPage({ assignmentuuid }: { assignmentuuid: string }) {
     return (
         <AssignmentsTaskProvider>
-            <div className='flex w-[400px] flex-col h-full custom-dots-bg'>
-                <div className='flex mx-auto px-3.5 py-1 bg-neutral-600/80 space-x-2 my-5 items-center text-sm font-bold text-white rounded-full'>
+            <div className='flex w-[400px] flex-col h-full bg-slate-900/40 backdrop-blur-xl border-r border-purple-500/30'>
+                <div className='flex mx-auto px-3.5 py-1 bg-purple-600/80 backdrop-blur-xl space-x-2 my-5 items-center text-sm font-bold text-white rounded-full border border-purple-400/30 shadow-lg shadow-purple-500/20'>
                     <LayoutList size={18} />
                     <p>Tasks</p>
                 </div>
                 <AssignmentTasks assignment_uuid={'assignment_' + assignmentuuid} />
             </div>
-            <div className='flex grow bg-[#fefcfe] nice-shadow h-full w-full'>
+            <div className='flex grow bg-slate-900/20 backdrop-blur-xl shadow-lg shadow-purple-500/10 h-full w-full border border-purple-500/20'>
                 <AssignmentProvider assignment_uuid={'assignment_' + assignmentuuid}>
                     <AssignmentTaskEditor page='general' />
                 </AssignmentProvider>

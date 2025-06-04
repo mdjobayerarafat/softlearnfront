@@ -150,7 +150,7 @@ function NewCollection(params: any) {
                     {courses?.map((course: any) => (
                       <label
                         key={course.id}
-                        className="relative flex items-center p-4 bg-white rounded-md hover:bg-gray-50 transition cursor-pointer gap-4"
+                        className="relative flex items-center p-4 bg-slate-800/60 backdrop-blur-sm rounded-md hover:bg-slate-700/60 transition cursor-pointer gap-4 border border-white/10"
                       >
                         <input
                           type="checkbox"
@@ -204,7 +204,7 @@ function NewCollection(params: any) {
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
+              className="px-4 py-2 text-sm font-medium text-blue-200 bg-slate-800/60 backdrop-blur-sm border border-white/20 rounded-lg hover:bg-slate-700/60 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition"
             >
               Cancel
             </button>

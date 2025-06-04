@@ -36,8 +36,10 @@ function TabLink({ tab, isActive, orgslug }: {
   return (
     <Link href={getUriWithOrg(orgslug, '') + `/dash/org/settings/${tab.id}`}>
       <div
-        className={`py-2 w-fit text-center border-black transition-all ease-linear ${
-          isActive ? 'border-b-4' : 'opacity-50'
+        className={`py-3 w-fit text-center transition-all duration-300 ease-out ${
+          isActive 
+            ? 'border-b-2 border-purple-400 text-purple-400'
+            : 'text-white/70 hover:text-white'
         } cursor-pointer`}
       >
         <div className="flex items-center space-x-2.5 mx-2.5">
@@ -75,20 +77,20 @@ function OrgPage(props: { params: Promise<OrgParams> }) {
   }, [params.subpage, params])
 
   return (
-    <div className="h-full w-full bg-[#f8f8f8] flex flex-col">
-      <div className="pl-10 pr-10 tracking-tight bg-[#fcfbfc] nice-shadow flex-shrink-0">
+    <div className="h-full w-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col">
+      <div className="pl-10 pr-10 tracking-tight bg-black/20 backdrop-blur-xl border-b border-white/10 flex-shrink-0">
         <BreadCrumbs type="org"></BreadCrumbs>
         <div className="my-2  py-2">
           <div className="w-100 flex flex-col space-y-1">
-            <div className="pt-3 flex font-bold text-4xl tracking-tighter">
+            <div className="pt-3 flex font-bold text-4xl tracking-tighter text-white">
               {H1Label}
             </div>
-            <div className="flex font-medium text-gray-400 text-md">
+            <div className="flex font-medium text-white/70 text-md">
               {H2Label}{' '}
             </div>
           </div>
         </div>
-        <div className="flex space-x-0.5 font-black text-sm">
+        <div className="flex space-x-0.5 font-semibold text-sm">
           {SETTING_TABS.map((tab) => (
             <TabLink
               key={tab.id}
@@ -101,16 +103,18 @@ function OrgPage(props: { params: Promise<OrgParams> }) {
       </div>
       <div className="h-6 flex-shrink-0"></div>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.1, type: 'spring', stiffness: 80 }}
-        className="flex-1 overflow-y-auto"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, type: 'spring', stiffness: 100, damping: 20 }}
+        className="flex-1 overflow-y-auto bg-slate-900/50 backdrop-blur-sm"
       >
-        {params.subpage == 'general' ? <OrgEditGeneral /> : ''}
-        {params.subpage == 'previews' ? <OrgEditImages /> : ''}
-        {params.subpage == 'socials' ? <OrgEditSocials /> : ''}
-        {params.subpage == 'landing' ? <OrgEditLanding /> : ''}
+        <div className="p-6">
+          {params.subpage == 'general' ? <OrgEditGeneral /> : ''}
+          {params.subpage == 'previews' ? <OrgEditImages /> : ''}
+          {params.subpage == 'socials' ? <OrgEditSocials /> : ''}
+          {params.subpage == 'landing' ? <OrgEditLanding /> : ''}
+        </div>
       </motion.div>
     </div>
   )

@@ -50,10 +50,10 @@ function EditCourseAccess(props: EditCourseAccessProps) {
             {courseStructure && (
                 <div>
                     <div className="h-6"></div>
-                    <div className="mx-4 sm:mx-10 bg-white rounded-xl shadow-xs px-4 py-4">
-                        <div className="flex flex-col bg-gray-50 -space-y-1 px-3 sm:px-5 py-3 rounded-md mb-3">
-                            <h1 className="font-bold text-lg sm:text-xl text-gray-800">Access to the course</h1>
-                            <h2 className="text-gray-500 text-xs sm:text-sm">
+                    <div className="mx-4 sm:mx-10 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-xs px-4 py-4 border border-white/10">
+                        <div className="flex flex-col bg-slate-800/80 backdrop-blur-sm -space-y-1 px-3 sm:px-5 py-3 rounded-md mb-3 border border-white/10">
+                            <h1 className="font-bold text-lg sm:text-xl text-white">Access to the course</h1>
+                            <h2 className="text-blue-200 text-xs sm:text-sm">
                                 Choose if you want your course to be publicly available on the internet or only accessible to signed in users
                             </h2>
                         </div>
@@ -88,18 +88,18 @@ function EditCourseAccess(props: EditCourseAccessProps) {
                                 confirmationMessage="Are you sure you want this course to be only accessible to signed in users?"
                                 dialogTitle="Change to Users Only?"
                                 dialogTrigger={
-                                    <div className="w-full h-[200px] bg-slate-100 rounded-lg cursor-pointer hover:bg-slate-200 transition-all">
+                                    <div className="w-full h-[200px] bg-slate-800/80 backdrop-blur-sm border border-white/10 rounded-lg cursor-pointer hover:bg-slate-700/80 transition-all">
                                         {!isClientPublic && (
-                                            <div className="bg-green-200 text-green-600 font-bold w-fit my-3 mx-3 absolute text-sm px-3 py-1 rounded-lg">
+                                            <div className="bg-green-600/80 text-green-200 font-bold w-fit my-3 mx-3 absolute text-sm px-3 py-1 rounded-lg backdrop-blur-sm">
                                                 Active
                                             </div>
                                         )}
                                         <div className="flex flex-col space-y-1 justify-center items-center h-full p-2 sm:p-4">
-                                            <Users className="text-slate-400" size={32} />
-                                            <div className="text-xl sm:text-2xl text-slate-700 font-bold">
+                                            <Users className="text-blue-200" size={32} />
+                                            <div className="text-xl sm:text-2xl text-white font-bold">
                                                 Users Only
                                             </div>
-                                            <div className="text-gray-400 text-sm sm:text-md tracking-tight w-full sm:w-[500px] leading-5 text-center">
+                                            <div className="text-blue-200 text-sm sm:text-md tracking-tight w-full sm:w-[500px] leading-5 text-center">
                                                 The Course is only accessible to signed in users, additionally you can choose which UserGroups can access this course
                                             </div>
                                         </div>
@@ -139,24 +139,24 @@ function UserGroupsSection({ usergroups }: { usergroups: any[] }) {
 
     return (
         <>
-            <div className="flex flex-col bg-gray-50 -space-y-1 px-3 sm:px-5 py-3 rounded-md mb-3">
-                <h1 className="font-bold text-lg sm:text-xl text-gray-800">UserGroups</h1>
-                <h2 className="text-gray-500 text-xs sm:text-sm">
+            <div className="flex flex-col bg-slate-800/80 backdrop-blur-sm border border-white/10 -space-y-1 px-3 sm:px-5 py-3 rounded-md mb-3">
+                <h1 className="font-bold text-lg sm:text-xl text-white">UserGroups</h1>
+                <h2 className="text-blue-200 text-xs sm:text-sm">
                     You can choose to give access to this course to specific groups of users only by linking it to a UserGroup
                 </h2>
             </div>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full text-left whitespace-nowrap rounded-md overflow-hidden">
-                    <thead className="bg-gray-100 text-gray-500 rounded-xl uppercase">
+                    <thead className="bg-slate-700/80 text-blue-200 rounded-xl uppercase backdrop-blur-sm">
                         <tr className="font-bolder text-sm">
                             <th className="py-3 px-4">Name</th>
                             <th className="py-3 px-4">Actions</th>
                         </tr>
                     </thead>
-                    <tbody className="mt-5 bg-white rounded-md">
+                    <tbody className="mt-5 bg-slate-800/80 backdrop-blur-sm rounded-md">
                         {usergroups?.map((usergroup: any) => (
-                            <tr key={usergroup.invite_code_uuid} className="border-b border-gray-100 text-sm">
-                                <td className="py-3 px-4">{usergroup.name}</td>
+                            <tr key={usergroup.invite_code_uuid} className="border-b border-white/10 text-sm">
+                                <td className="py-3 px-4 text-white">{usergroup.name}</td>
                                 <td className="py-3 px-4">
                                     <ConfirmationModal
                                         confirmationButtonText="Delete Link"
@@ -187,7 +187,7 @@ function UserGroupsSection({ usergroups }: { usergroups: any[] }) {
                     dialogTitle="Link Course to a UserGroup"
                     dialogDescription="Choose a UserGroup to link this course to. Users from this UserGroup will have access to this course."
                     dialogTrigger={
-                        <button className="flex space-x-2 hover:cursor-pointer p-1 px-3 bg-green-700 rounded-md font-bold items-center text-xs sm:text-sm text-green-100">
+                        <button className="flex space-x-2 hover:cursor-pointer p-1 px-3 bg-green-600/80 backdrop-blur-sm rounded-md font-bold items-center text-xs sm:text-sm text-green-200 hover:bg-green-600">
                             <SquareUserRound className="w-3 h-3 sm:w-4 sm:h-4" />
                             <span>Link to a UserGroup</span>
                         </button>

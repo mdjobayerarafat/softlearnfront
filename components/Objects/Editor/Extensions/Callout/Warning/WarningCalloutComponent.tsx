@@ -49,7 +49,7 @@ const DismissButton = styled.button`
   border-radius: 50%;
   
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 `
 
@@ -100,11 +100,11 @@ function WarningCalloutComponent(props: any) {
   const getVariantClasses = () => {
     switch(options.variant) {
       case 'filled':
-        return 'bg-yellow-500 text-white';
+        return 'bg-yellow-600/80 text-white backdrop-blur-sm';
       case 'outlined':
-        return 'bg-transparent border-2 border-yellow-500 text-yellow-700';
+        return 'bg-slate-900/70 border-2 border-yellow-500 text-yellow-300 backdrop-blur-sm';
       default:
-        return 'bg-yellow-200 text-yellow-900';
+        return 'bg-yellow-900/60 text-yellow-200 backdrop-blur-sm';
     }
   }
   

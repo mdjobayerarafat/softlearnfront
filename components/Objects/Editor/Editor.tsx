@@ -175,7 +175,7 @@ function Editor(props: Editor) {
     // TODO: Work on a better editor mobile experience
     return (
       <div className="h-screen w-full bg-[#f8f8f8] flex items-center justify-center p-4">
-        <div className="bg-white p-6 rounded-lg shadow-md text-center">
+        <div className="bg-slate-900/70 backdrop-blur-sm p-6 rounded-lg shadow-md text-center border border-white/10">
           <h2 className="text-xl font-bold mb-4">Desktop Only</h2>
           <Monitor className='mx-auto my-5' size={60} />
           <p>The editor is only accessible from a desktop device.</p>
@@ -200,7 +200,7 @@ function Editor(props: Editor) {
           }}
           exit={{ opacity: 0 }}
         >
-          <EditorTop className="fixed bg-white bg-opacity-95 backdrop-blur-sm backdrop-brightness-125">
+          <EditorTop className="fixed bg-slate-900/70 backdrop-blur-sm backdrop-brightness-125 border-b border-white/10">
             <EditorDocSection>
               <EditorInfoWrapper>
                 <Link href="/">

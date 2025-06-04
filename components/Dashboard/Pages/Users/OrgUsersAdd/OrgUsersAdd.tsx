@@ -56,10 +56,10 @@ function OrgUsersAdd() {
             {!isLoading ? (
                 <>
                     <div className="h-6"></div>
-                    <div className="ml-10 mr-10 mx-auto bg-white rounded-xl shadow-xs px-4 py-4 anit ">
-                        <div className="flex flex-col bg-gray-50 -space-y-1  px-5 py-3 rounded-md mb-3 ">
-                            <h1 className="font-bold text-xl text-gray-800">Invite users to your Organization</h1>
-                            <h2 className="text-gray-500  text-md">
+                    <div className="ml-10 mr-10 mx-auto bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-xs px-4 py-4 border border-white/10">
+                        <div className="flex flex-col bg-slate-800/60 -space-y-1 px-5 py-3 rounded-md mb-3">
+                            <h1 className="font-bold text-xl text-white">Invite users to your Organization</h1>
+                            <h2 className="text-blue-200 text-md">
                                 {' '}
                                 Send invite via email, separated by comma{' '}
                             </h2>
@@ -114,11 +114,11 @@ function OrgUsersAdd() {
                                     </tr>
                                 </thead>
                                 <>
-                                    <tbody className="mt-5 bg-white rounded-md">
+                                    <tbody className="mt-5 bg-slate-800/60 rounded-md">
                                         {invited_users?.map((invited_user: any) => (
                                             <tr
                                                 key={invited_user.email}
-                                                className="border-b border-gray-100 text-sm"
+                                                className="border-b border-white/10 text-sm"
                                             >
                                                 <td className="py-3 px-4">{invited_user.email}</td>
                                                 <td className="py-3 px-4">{invited_user.pending ? <div className='bg-orange-400 text-orange-100 w-fit px-2 py1 rounded-md'>Pending</div> : <div className='bg-green-400 text-green-100 w-fit px-2 py1 rounded-md'>Signed</div>}</td>

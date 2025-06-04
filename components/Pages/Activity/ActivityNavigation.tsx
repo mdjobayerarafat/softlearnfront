@@ -102,16 +102,16 @@ export default function ActivityNavigation(props: ActivityNavigationProps): Reac
             onClick={() => navigateToActivity(prevActivity)}
             className={`flex items-center space-x-1.5 p-2 rounded-md transition-all duration-200 cursor-pointer ${
               prevActivity 
-                ? 'text-gray-700' 
-                : 'opacity-50 text-gray-400 cursor-not-allowed'
+                ? 'text-purple-300 hover:bg-slate-800/50' 
+                : 'opacity-50 text-gray-500 cursor-not-allowed'
             }`}
             disabled={!prevActivity}
             title={prevActivity ? `Previous: ${prevActivity.name}` : 'No previous activity'}
           >
-            <ChevronLeft size={20} className="text-gray-800 shrink-0" />
+            <ChevronLeft size={20} className="text-purple-400 shrink-0" />
             <div className="flex flex-col items-start">
-              <span className="text-xs text-gray-500">Previous</span>
-              <span className="text-sm capitalize font-semibold text-left">
+              <span className="text-xs text-purple-400">Previous</span>
+              <span className="text-sm capitalize font-semibold text-left text-white">
                 {prevActivity ? prevActivity.name : 'No previous activity'}
               </span>
             </div>
@@ -121,19 +121,19 @@ export default function ActivityNavigation(props: ActivityNavigationProps): Reac
             onClick={() => navigateToActivity(nextActivity)}
             className={`flex items-center space-x-1.5 p-2 rounded-md transition-all duration-200 cursor-pointer ${
               nextActivity 
-                ? 'text-gray-700' 
-                : 'opacity-50 text-gray-400 cursor-not-allowed'
+                ? 'text-purple-300 hover:bg-slate-800/50' 
+                : 'opacity-50 text-gray-500 cursor-not-allowed'
             }`}
             disabled={!nextActivity}
             title={nextActivity ? `Next: ${nextActivity.name}` : 'No next activity'}
           >
             <div className="flex flex-col items-end">
-              <span className="text-xs text-gray-500">Next</span>
-              <span className="text-sm capitalize font-semibold text-right">
+              <span className="text-xs text-purple-400">Next</span>
+              <span className="text-sm capitalize font-semibold text-right text-white">
                 {nextActivity ? nextActivity.name : 'No next activity'}
               </span>
             </div>
-            <ChevronRight size={20} className="text-gray-800 shrink-0" />
+            <ChevronRight size={20} className="text-purple-400 shrink-0" />
           </button>
         </>
       ) : (
@@ -144,23 +144,23 @@ export default function ActivityNavigation(props: ActivityNavigationProps): Reac
               onClick={() => navigateToActivity(prevActivity)}
               className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-md transition-all duration-200 cursor-pointer ${
                 prevActivity 
-                  ? 'bg-white nice-shadow text-gray-700' 
-                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  ? 'bg-slate-900/80 backdrop-blur-xl border border-purple-500/30 shadow-lg shadow-purple-500/20 text-purple-300 hover:bg-slate-800/90 hover:border-purple-400/50' 
+                  : 'bg-slate-800/50 border border-slate-600/50 text-gray-500 cursor-not-allowed'
               }`}
               disabled={!prevActivity}
               title={prevActivity ? `Previous: ${prevActivity.name}` : 'No previous activity'}
             >
-              <ChevronLeft size={16} className="shrink-0" />
+              <ChevronLeft size={16} className="shrink-0 text-purple-400" />
               <div className="flex flex-col items-start">
-                <span className="text-xs text-gray-500">Previous</span>
-                <span className="text-sm capitalize font-semibold text-left">
+                <span className="text-xs text-purple-400">Previous</span>
+                <span className="text-sm capitalize font-semibold text-left text-white">
                   {prevActivity ? prevActivity.name : 'No previous activity'}
                 </span>
               </div>
             </button>
           </div>
           
-          <div className="text-sm text-gray-500 justify-self-center">
+          <div className="text-sm text-purple-300 justify-self-center font-medium">
             {currentIndex + 1} of {allActivities.length}
           </div>
           
@@ -169,19 +169,19 @@ export default function ActivityNavigation(props: ActivityNavigationProps): Reac
               onClick={() => navigateToActivity(nextActivity)}
               className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-md transition-all duration-200 cursor-pointer ${
                 nextActivity 
-                  ? 'bg-white nice-shadow text-gray-700' 
-                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  ? 'bg-slate-900/80 backdrop-blur-xl border border-purple-500/30 shadow-lg shadow-purple-500/20 text-purple-300 hover:bg-slate-800/90 hover:border-purple-400/50' 
+                  : 'bg-slate-800/50 border border-slate-600/50 text-gray-500 cursor-not-allowed'
               }`}
               disabled={!nextActivity}
               title={nextActivity ? `Next: ${nextActivity.name}` : 'No next activity'}
             >
               <div className="flex flex-col items-end">
-                <span className="text-xs text-gray-500">Next</span>
-                <span className="text-sm capitalize font-semibold text-right">
+                <span className="text-xs text-purple-400">Next</span>
+                <span className="text-sm capitalize font-semibold text-right text-white">
                   {nextActivity ? nextActivity.name : 'No next activity'}
                 </span>
               </div>
-              <ChevronRight size={16} className="shrink-0" />
+              <ChevronRight size={16} className="shrink-0 text-purple-400" />
             </button>
           </div>
         </>
@@ -200,7 +200,7 @@ export default function ActivityNavigation(props: ActivityNavigationProps): Reac
       {!isBottomNavVisible && (
         <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-[85%] sm:w-auto sm:min-w-[350px] max-w-lg transition-all duration-300 ease-in-out">
           <div 
-            className="bg-white/90 backdrop-blur-xl rounded-full py-1.5 px-2.5 shadow-xs animate-in fade-in slide-in-from-bottom duration-300"
+            className="bg-slate-900/90 backdrop-blur-xl border border-purple-500/30 rounded-full py-1.5 px-2.5 shadow-lg shadow-purple-500/20 animate-in fade-in slide-in-from-bottom duration-300"
           >
             <NavigationButtons isFloating={true} />
           </div>

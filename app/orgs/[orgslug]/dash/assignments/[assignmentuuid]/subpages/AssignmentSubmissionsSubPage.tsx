@@ -34,10 +34,10 @@ function AssignmentSubmissionsSubPage({ assignment_uuid }: { assignment_uuid: st
     };
 
     return (
-        <div className='pl-10 mr-10 flex flex-col pt-3 w-full'>
+        <div className='pl-10 mr-10 flex flex-col pt-3 w-full bg-slate-900/20 backdrop-blur-xl'>
             <div className='flex flex-row w-full'>
                 <div className='flex-1'>
-                    <div className='flex w-fit mx-auto px-3.5 py-1 bg-rose-600/80 space-x-2 my-5 items-center text-sm font-bold text-white rounded-full'>
+                    <div className='flex w-fit mx-auto px-3.5 py-1 bg-rose-600/80 backdrop-blur-xl border border-rose-400/30 space-x-2 my-5 items-center text-sm font-bold text-white rounded-full shadow-lg shadow-rose-500/20'>
                         <X size={18} />
                         <h3>Late</h3>
                     </div>
@@ -46,7 +46,7 @@ function AssignmentSubmissionsSubPage({ assignment_uuid }: { assignment_uuid: st
                     </div>
                 </div>
                 <div className='flex-1'>
-                    <div className='flex w-fit mx-auto px-3.5 py-1 bg-amber-600/80 space-x-2 my-5 items-center text-sm font-bold text-white rounded-full'>
+                    <div className='flex w-fit mx-auto px-3.5 py-1 bg-amber-600/80 backdrop-blur-xl border border-amber-400/30 space-x-2 my-5 items-center text-sm font-bold text-white rounded-full shadow-lg shadow-amber-500/20'>
                         <SendHorizonal size={18} />
                         <h3>Submitted</h3>
                     </div>
@@ -55,7 +55,7 @@ function AssignmentSubmissionsSubPage({ assignment_uuid }: { assignment_uuid: st
                     </div>
                 </div>
                 <div className='flex-1'>
-                    <div className='flex w-fit mx-auto px-3.5 py-1 bg-emerald-600/80 space-x-2 my-5 items-center text-sm font-bold text-white rounded-full'>
+                    <div className='flex w-fit mx-auto px-3.5 py-1 bg-emerald-600/80 backdrop-blur-xl border border-emerald-400/30 space-x-2 my-5 items-center text-sm font-bold text-white rounded-full shadow-lg shadow-emerald-500/20'>
                         <UserCheck size={18} />
                         <h3>Graded</h3>
                     </div>
@@ -88,11 +88,11 @@ function SubmissionBox({ assignment_uuid, user_id, submission }: any) {
         , [session, user]);
 
     return (
-        <div className='flex flex-row bg-white shadow-[0px_4px_16px_rgba(0,0,0,0.06)] nice-shadow rounded-lg p-4 w-[350px] mx-auto'>
+        <div className='flex flex-row bg-black/20 backdrop-blur-xl border border-purple-500/30 shadow-lg shadow-purple-500/10 rounded-lg p-4 w-[350px] mx-auto'>
             <div className='flex flex-col space-y-2 w-full'>
                 <div className='flex justify-between w-full'>
-                    <h2 className='uppercase text-slate-400 text-xs tracking-tight font-semibold'>Submission</h2>
-                    <p className='uppercase text-xs tracking-tight font-semibold'>
+                    <h2 className='uppercase text-purple-400 text-xs tracking-tight font-semibold'>Submission</h2>
+                    <p className='uppercase text-xs tracking-tight font-semibold text-slate-400'>
                         {new Date(submission.creation_date).toLocaleDateString('en-UK', {
                             year: 'numeric',
                             month: 'long',
@@ -109,7 +109,7 @@ function SubmissionBox({ assignment_uuid, user_id, submission }: any) {
                             width={40}
                         />
                         <div className='flex flex-col'>
-                            {user?.first_name && user?.last_name ? (<p className='text-sm font-semibold'>{user?.first_name} {user?.last_name}</p>) : (<p className='text-sm font-semibold'>@{user?.username}</p>)}
+                            {user?.first_name && user?.last_name ? (<p className='text-sm font-semibold text-white'>{user?.first_name} {user?.last_name}</p>) : (<p className='text-sm font-semibold text-white'>@{user?.username}</p>)}
                             <p className='text-xs text-slate-400'>{user?.email}</p>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ function SubmissionBox({ assignment_uuid, user_id, submission }: any) {
                             dialogTitle={`Evaluate @${user?.username}`}
                             dialogDescription="Evaluate the submission"
                             dialogTrigger={
-                                <div className='bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded text-xs cursor-pointer'>
+                                <div className='bg-purple-600/90 backdrop-blur-xl border border-purple-400/30 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded text-xs cursor-pointer transition-all shadow-lg shadow-purple-500/20'>
                                     Evaluate
                                 </div>
                             }

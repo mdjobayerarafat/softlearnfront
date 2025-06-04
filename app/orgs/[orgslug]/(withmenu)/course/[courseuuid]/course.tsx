@@ -90,15 +90,15 @@ const CourseClient = (props: any) => {
   const getActivityTypeBadgeColor = (activityType: string) => {
     switch (activityType) {
       case 'TYPE_VIDEO':
-        return 'bg-neutral-100 text-neutral-500'
+        return 'bg-slate-700/80 text-blue-200'
       case 'TYPE_DOCUMENT':
-        return 'bg-neutral-100 text-neutral-500'
+        return 'bg-slate-700/80 text-blue-200'
       case 'TYPE_DYNAMIC':
-        return 'bg-neutral-100 text-neutral-500'
+        return 'bg-slate-700/80 text-blue-200'
       case 'TYPE_ASSIGNMENT':
-        return 'bg-neutral-100 text-neutral-500'
+        return 'bg-slate-700/80 text-blue-200'
       default:
-        return 'bg-neutral-100 text-neutral-500'
+        return 'bg-slate-700/80 text-blue-200'
     }
   }
 
@@ -129,8 +129,8 @@ const CourseClient = (props: any) => {
           <GeneralWrapperStyled>
             <div className="pb-2 pt-5 flex flex-col md:flex-row justify-between items-start md:items-center">
               <div>
-                <p className="text-md font-bold text-gray-400 pb-2">Course</p>
-                <h1 className="text-3xl md:text-3xl -mt-3 font-bold">{course.name}</h1>
+                <p className="text-md font-bold text-blue-200 pb-2">Course</p>
+                <h1 className="text-3xl md:text-3xl -mt-3 font-bold text-white">{course.name}</h1>
               </div>
             </div>
 
@@ -167,7 +167,7 @@ const CourseClient = (props: any) => {
 
                 <div className="course_metadata_left space-y-2">
                   <div className="">
-                    <p className="py-5 whitespace-pre-wrap">{course.about}</p>
+                    <p className="py-5 whitespace-pre-wrap text-blue-200">{course.about}</p>
                   </div>
                 </div>
               </div>
@@ -177,7 +177,7 @@ const CourseClient = (props: any) => {
                 <CoursesActions courseuuid={courseuuid} orgslug={orgslug} course={course} />
                 
                 {/* Authors & Updates Box */}
-                <div className="bg-white shadow-md shadow-gray-300/25 outline outline-1 outline-neutral-200/40 rounded-lg overflow-hidden p-4">
+                <div className="bg-slate-800/80 backdrop-blur-sm border border-white/10 shadow-md rounded-lg overflow-hidden p-4">
                   <CourseProvider courseuuid={course.course_uuid}>
                     <CourseAuthors authors={course.authors} />
                   </CourseProvider>
@@ -187,8 +187,8 @@ const CourseClient = (props: any) => {
 
             {learnings.length > 0 && learnings[0]?.text !== 'null' && (
               <div className="w-full">
-                <h2 className="py-5 text-xl md:text-2xl font-bold">What you will learn</h2>
-                <div className="bg-white shadow-md shadow-gray-300/25 outline outline-1 outline-neutral-200/40 rounded-lg overflow-hidden px-5 py-5 space-y-2">
+                <h2 className="py-5 text-xl md:text-2xl font-bold text-white">What you will learn</h2>
+                <div className="bg-slate-800/80 backdrop-blur-sm border border-white/10 shadow-md rounded-lg overflow-hidden px-5 py-5 space-y-2">
                   {learnings.map((learning: any) => {
                     // Handle both new format (object with text and emoji) and legacy format (string)
                     const learningText = typeof learning === 'string' ? learning : learning.text
@@ -200,13 +200,13 @@ const CourseClient = (props: any) => {
                     return (
                       <div
                         key={learningId}
-                        className="flex space-x-2 items-center font-semibold text-gray-500"
+                        className="flex space-x-2 items-center font-semibold text-blue-200"
                       >
                         <div className="px-2 py-2 rounded-full">
                           {learningEmoji ? (
                             <span>{learningEmoji}</span>
                           ) : (
-                            <Check className="text-gray-400" size={15} />
+                            <Check className="text-blue-300" size={15} />
                           )}
                         </div>
                         <p>{learningText}</p>
@@ -215,7 +215,7 @@ const CourseClient = (props: any) => {
                             href={learning.link} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline text-sm"
+                            className="text-blue-400 hover:text-blue-300 hover:underline text-sm transition-colors"
                           >
                             <span className="sr-only">Link to {learningText}</span>
                             <ArrowRight size={14} />
@@ -229,14 +229,14 @@ const CourseClient = (props: any) => {
             )}
 
             <div className="w-full my-5 mb-10">
-              <h2 className="py-5 text-xl md:text-2xl font-bold">Course Lessons</h2>
-              <div className="bg-white shadow-md shadow-gray-300/25 outline outline-1 outline-neutral-200/40 rounded-lg overflow-hidden">
+              <h2 className="py-5 text-xl md:text-2xl font-bold text-white">Course Lessons</h2>
+              <div className="bg-slate-800/80 backdrop-blur-sm border border-white/10 shadow-md rounded-lg overflow-hidden">
                 {course.chapters.map((chapter: any) => {
                   const isExpanded = expandedChapters[chapter.chapter_uuid] ?? true; // Default to expanded
                   return (
                     <div key={chapter.chapter_uuid || `chapter-${chapter.name}`} className="">
                       <div 
-                        className="flex text-lg py-4 px-4 outline outline-1 outline-neutral-200/40 font-bold bg-neutral-50 text-neutral-600 items-center cursor-pointer hover:bg-neutral-100 transition-colors"
+                        className="flex text-lg py-4 px-4 border border-white/10 font-bold bg-slate-700/80 backdrop-blur-sm text-blue-200 items-center cursor-pointer hover:bg-slate-600/80 transition-colors"
                         onClick={() => setExpandedChapters(prev => ({
                           ...prev,
                           [chapter.chapter_uuid]: !isExpanded
@@ -244,7 +244,7 @@ const CourseClient = (props: any) => {
                       >
                         <h3 className="grow mr-3 break-words">{chapter.name}</h3>
                         <div className="flex items-center space-x-3">
-                          <p className="text-sm font-normal text-neutral-400 px-3 py-[2px] outline-1 outline outline-neutral-200 rounded-full whitespace-nowrap shrink-0">
+                          <p className="text-sm font-normal text-blue-300 px-3 py-[2px] border border-white/20 rounded-full whitespace-nowrap shrink-0">
                             {chapter.activities.length} Activities
                           </p>
                           <svg 
@@ -269,31 +269,31 @@ const CourseClient = (props: any) => {
                                 }
                                 rel="noopener noreferrer"
                                 prefetch={false}
-                                className="block group activity-container transition-all duration-200 px-4 py-4"
+                                className="block group activity-container transition-all duration-200 px-4 py-4 hover:bg-slate-700/40 border-b border-white/5 last:border-b-0"
                               >
                                 <div className="flex space-x-3 items-center">
                                   <div className="flex items-center">
                                     {isActivityDone(activity) ? (
                                       <div className="relative cursor-pointer">
-                                        <Square size={16} className="stroke-[2] text-teal-600" />
-                                        <Check size={16} className="stroke-[2.5] text-teal-600 absolute top-0 left-0" />
+                                        <Square size={16} className="stroke-[2] text-teal-400" />
+                                        <Check size={16} className="stroke-[2.5] text-teal-400 absolute top-0 left-0" />
                                       </div>
                                     ) : (
-                                      <div className="text-neutral-300 cursor-pointer">
+                                      <div className="text-blue-300 cursor-pointer">
                                         <Square size={16} className="stroke-[2]" />
                                       </div>
                                     )}
                                   </div>
                                   <div className="flex flex-col grow">
                                     <div className="flex items-center space-x-2 w-full">
-                                      <p className="font-semibold text-neutral-600 group-hover:text-neutral-800 transition-colors">{activity.name}</p>
+                                      <p className="font-semibold text-blue-200 group-hover:text-white transition-colors">{activity.name}</p>
                                       {isActivityCurrent(activity) && (
-                                        <div className="flex items-center space-x-1 text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full text-xs font-semibold animate-pulse">
+                                        <div className="flex items-center space-x-1 text-blue-400 bg-blue-900/60 backdrop-blur-sm border border-blue-400/30 px-2 py-0.5 rounded-full text-xs font-semibold animate-pulse">
                                           <span>Current</span>
                                         </div>
                                       )}
                                     </div>
-                                    <div className="flex items-center space-x-1.5 mt-0.5 text-neutral-400">
+                                    <div className="flex items-center space-x-1.5 mt-0.5 text-blue-300">
                                       {activity.activity_type === 'TYPE_DYNAMIC' && (
                                         <StickyNote size={10} />
                                       )}
@@ -309,7 +309,7 @@ const CourseClient = (props: any) => {
                                       <span className="text-xs font-medium">{getActivityTypeLabel(activity.activity_type)}</span>
                                     </div>
                                   </div>
-                                  <div className="text-neutral-300 group-hover:text-neutral-400 transition-colors cursor-pointer">
+                                  <div className="text-blue-300 group-hover:text-white transition-colors cursor-pointer">
                                     <ArrowRight size={14} />
                                   </div>
                                 </div>

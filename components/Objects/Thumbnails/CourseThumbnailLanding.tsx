@@ -66,8 +66,8 @@ const AdminEditOptions: React.FC<AdminEditOptionsProps> = ({ course, orgslug, de
       <div className="absolute top-2 right-2 z-20">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="p-1 bg-white rounded-full hover:bg-gray-100 transition-colors shadow-md">
-              <MoreVertical size={20} className="text-gray-700" />
+            <button className="p-1 bg-slate-800/80 backdrop-blur-sm rounded-full hover:bg-slate-700/80 transition-colors shadow-md border border-white/20">
+              <MoreVertical size={20} className="text-white" />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
@@ -131,7 +131,7 @@ const CourseThumbnailLanding: React.FC<PropsType> = ({ course, orgslug, customLi
     : '../empty_thumbnail.png'
 
   return (
-    <div className="relative flex flex-col bg-white rounded-xl nice-shadow overflow-hidden min-w-[280px] w-full max-w-sm shrink-0 m-2">
+    <div className="relative flex flex-col bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow overflow-hidden min-w-[280px] w-full max-w-sm shrink-0 m-2 border border-white/10">
       <AdminEditOptions
         course={course}
         orgslug={orgslug}
@@ -151,8 +151,8 @@ const CourseThumbnailLanding: React.FC<PropsType> = ({ course, orgslug, customLi
         
         <div className="flex flex-wrap items-center justify-between gap-2">
           {course.update_date && (
-            <div className="inline-flex h-5 min-w-[140px] items-center justify-center px-2 rounded-md bg-gray-100/80 border border-gray-200">
-              <span className="text-[10px] font-medium text-gray-600 truncate">
+            <div className="inline-flex h-5 min-w-[140px] items-center justify-center px-2 rounded-md bg-slate-800/80 backdrop-blur-sm border border-white/10">
+              <span className="text-[10px] font-medium text-blue-200 truncate">
                 Updated {new Date(course.update_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
             </div>

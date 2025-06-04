@@ -159,7 +159,7 @@ const BadgesExtension: React.FC = (props: any) => {
                 <Palette size={14} />
               </button>
               {showColorPicker && (
-                <div ref={colorPickerRef} className="absolute left-full ml-2 p-2 bg-white rounded-full nice-shadow">
+                <div ref={colorPickerRef} className="absolute left-full ml-2 p-2 bg-slate-900/70 backdrop-blur-sm rounded-full nice-shadow border border-white/10">
                   <div className="flex space-x-2">
                     {colors.map((c) => (
                       <button
@@ -178,19 +178,19 @@ const BadgesExtension: React.FC = (props: any) => {
         {isEditable && (
           <button
             onClick={() => setShowPredefinedCallouts(!showPredefinedCallouts)}
-            className="text-neutral-300 hover:text-neutral-400 transition-colors"
+            className="text-blue-200 hover:text-white transition-colors"
           >
             <ChevronRight size={16} />
           </button>
         )}
 
         {isEditable && showPredefinedCallouts && (
-          <div className='flex flex-wrap gap-2 absolute top-full mt-2 left-0 bg-white/90 backdrop-blur-md p-2 rounded-lg nice-shadow z-10'>
+          <div className='flex flex-wrap gap-2 absolute top-full mt-2 left-0 bg-slate-900/70 backdrop-blur-sm p-2 rounded-lg nice-shadow z-10 border border-white/10'>
             {predefinedBadges.map((badge, index) => (
               <button
                 key={index}
                 onClick={() => handlePredefinedBadgeSelect(badge)}
-                className={`flex text-xs items-center px-3 py-1 rounded-xl space-x-2 ${getBadgeColor(badge.color)} text-gray-600 font-bold light-shadow hover:opacity-80 transition-all duration-100 ease-linear`}
+                className={`flex text-xs items-center px-3 py-1 rounded-xl space-x-2 ${getBadgeColor(badge.color)} font-bold light-shadow hover:opacity-80 transition-all duration-100 ease-linear`}
               >
                 <span className='text-xs'>{badge.emoji}</span>
                 <span className="content capitalize">{badge.content}</span>

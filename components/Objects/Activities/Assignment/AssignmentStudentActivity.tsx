@@ -21,7 +21,7 @@ function AssignmentStudentActivity() {
     <div className='flex flex-col space-y-4 md:space-y-6'>
       <div className='flex flex-col md:flex-row justify-center md:space-x-3 space-y-3 md:space-y-0 items-center'>
         <div className='text-xs h-fit flex space-x-3 items-center'>
-          <div className='flex gap-2 py-2 px-4 md:px-5 h-fit text-sm text-slate-700 bg-slate-100/5 rounded-full nice-shadow items-center'>
+          <div className='flex gap-2 py-2 px-4 md:px-5 h-fit text-sm text-purple-300 bg-purple-600/20 backdrop-blur-xl border border-purple-500/30 rounded-full shadow-lg shadow-purple-500/20 items-center'>
             <Backpack size={14} className="md:size-[14px]" />
             <p className='font-semibold'>Assignment</p>
           </div>
@@ -30,10 +30,10 @@ function AssignmentStudentActivity() {
           <div className='flex gap-2 items-center'>
             <EllipsisVertical className='text-slate-400 hidden md:block' size={18} />
             <div className='flex gap-2 items-center'>
-              <div className='flex gap-1 md:space-x-2 text-xs items-center text-slate-400'>
+              <div className='flex gap-1 md:space-x-2 text-xs items-center text-slate-300'>
                 <Calendar size={14} />
                 <p className='font-semibold'>Due Date</p>
-                <p className='font-semibold'>{assignments?.assignment_object?.due_date}</p>
+                <p className='font-semibold text-white'>{assignments?.assignment_object?.due_date}</p>
               </div>
             </div>
           </div>
@@ -43,14 +43,14 @@ function AssignmentStudentActivity() {
       
       
       {assignments?.assignment_object?.description && (
-        <div className='flex flex-col space-y-2 p-4 md:p-6 bg-slate-100/30 rounded-md nice-shadow'>
+        <div className='flex flex-col space-y-2 p-4 md:p-6 bg-slate-900/40 backdrop-blur-xl border border-purple-500/30 rounded-xl shadow-lg shadow-purple-500/10'>
           <div className='flex flex-col space-y-3'>
-            <div className='flex items-center gap-2 text-slate-700'>
-              <Info size={16} className="text-slate-500" />
+            <div className='flex items-center gap-2 text-white'>
+              <Info size={16} className="text-purple-400" />
               <h3 className='text-sm font-semibold'>Assignment Description</h3>
             </div>
             <div className='pl-6'>
-              <p className='text-sm leading-relaxed text-slate-600'>{assignments.assignment_object.description}</p>
+              <p className='text-sm leading-relaxed text-slate-300'>{assignments.assignment_object.description}</p>
             </div>
           </div>
         </div>

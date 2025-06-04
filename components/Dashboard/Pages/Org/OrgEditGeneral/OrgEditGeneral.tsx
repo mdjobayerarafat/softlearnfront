@@ -103,7 +103,7 @@ const OrgEditGeneral: React.FC = () => {
   }
 
   return (
-    <div className="sm:mx-10 mx-0 bg-white rounded-xl nice-shadow ">
+    <div className="sm:mx-10 mx-0 bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow border border-white/10">
       <Formik
         enableReinitialize
         initialValues={initialValues}

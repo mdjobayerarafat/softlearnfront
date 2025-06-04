@@ -53,7 +53,7 @@ const FormTagInput = ({
     onChange(newTags.map((tag) => tag.text).join(separator))
   }
 
-  return (
+	return (
 		<div>
 			<div className="space-y-2">
 				<TagInput
@@ -62,19 +62,19 @@ const FormTagInput = ({
 					placeholder={placeholder}
 					styleClasses={{
 						inlineTagsContainer:
-							'border-input rounded-lg bg-background shadow-2xs transition-shadow focus-within:border-ring/40 focus-within:outline-hidden focus-within:ring-[3px] ring-ring/8 dark:ring-ring/12 p-1 gap-1',
+							'border-slate-600 rounded-lg bg-slate-800/80 shadow-2xs transition-shadow focus-within:border-blue-400/40 focus-within:outline-hidden focus-within:ring-[3px] ring-blue-500/8 dark:ring-blue-500/12 p-1 gap-1',
 						input:
-							'w-full min-w-[80px] focus-visible:outline-hidden shadow-none px-2 h-7',
+							'w-full min-w-[80px] focus-visible:outline-hidden shadow-none px-2 h-7 bg-transparent text-white',
 						tag: {
-							body: 'h-7 relative bg-background border border-input hover:bg-background rounded-md font-medium text-xs ps-2 pe-7',
+							body: 'h-7 relative bg-slate-700 border border-slate-600 hover:bg-slate-700 rounded-md font-medium text-xs ps-2 pe-7 text-blue-200',
 							closeButton:
-								'absolute -inset-y-px -end-px p-0 rounded-e-lg flex size-7 transition-colors outline-hidden focus-visible:ring-2 focus-visible:ring-ring/30 dark:focus-visible:ring-ring/40 text-muted-foreground/80 hover:text-foreground',
+								'absolute -inset-y-px -end-px p-0 rounded-e-lg flex size-7 transition-colors outline-hidden focus-visible:ring-2 focus-visible:ring-blue-400/30 dark:focus-visible:ring-blue-400/40 text-blue-200/80 hover:text-white',
 						},
 					}}
 					activeTagIndex={activeTagIndex}
 					setActiveTagIndex={setActiveTagIndex}
 				/>
-				{error && <p className="text-sm font-medium text-destructive">{error}</p>}
+				{error && <p className="text-sm font-medium text-red-400">{error}</p>}
 			</div>
 		</div>
   )

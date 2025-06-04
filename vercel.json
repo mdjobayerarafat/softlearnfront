@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_LEARNHOUSE_HTTPS": "true"
+    }
+  },
+  "functions": {
+    "app/**/*.{js,ts,tsx}": {
+      "maxDuration": 30
+    }
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/home",
+      "permanent": false
+    }
+  ]
+}

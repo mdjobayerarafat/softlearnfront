@@ -106,16 +106,16 @@ const UnsplashImagePicker: React.FC<UnsplashImagePickerProps> = ({ onSelect, onC
             value={query}
             onChange={handleSearch}
             placeholder="Search for images..."
-            className="w-full p-2 pl-10 border rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 pl-10 border rounded-lg focus:outline-hidden focus:ring-2 focus:ring-blue-500 border-slate-600 bg-slate-800/80 text-white placeholder:text-slate-400"
           />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-300" size={20} />
         </div>
         <div className="flex flex-wrap gap-2">
           {predefinedLabels.map(label => (
             <button
               key={label.name}
               onClick={() => handleLabelClick(label.name)}
-              className="px-3 py-1 bg-neutral-100 rounded-lg hover:bg-neutral-200 nice-shadow transition-colors flex items-center gap-1 space-x-1"
+              className="px-3 py-1 bg-slate-800/80 text-blue-200 rounded-lg hover:bg-slate-700 nice-shadow transition-colors flex items-center gap-1 space-x-1 border border-slate-600"
             >
               <label.icon size={16} />
               <span>{label.name}</span>
@@ -137,11 +137,11 @@ const UnsplashImagePicker: React.FC<UnsplashImagePickerProps> = ({ onSelect, onC
             </div>
           ))}
         </div>
-        {loading && <p className="text-center mt-4">Loading...</p>}
+        {loading && <p className="text-center mt-4 text-blue-200">Loading...</p>}
         {!loading && images.length > 0 && (
           <button
             onClick={handleLoadMore}
-            className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            className="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Load More
           </button>

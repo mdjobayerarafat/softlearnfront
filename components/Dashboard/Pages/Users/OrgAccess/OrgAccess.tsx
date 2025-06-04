@@ -76,10 +76,10 @@ function OrgAccess() {
       {!isLoading ? (
         <>
           <div className="h-6"></div>
-          <div className="ml-10 mr-10 mx-auto bg-white rounded-xl shadow-xs px-4 py-4 anit ">
-            <div className="flex flex-col bg-gray-50 -space-y-1  px-5 py-3 rounded-md mb-3 ">
-              <h1 className="font-bold text-xl text-gray-800">Join method</h1>
-              <h2 className="text-gray-500  text-md">
+          <div className="ml-10 mr-10 mx-auto bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-xs px-4 py-4 border border-white/10">
+            <div className="flex flex-col bg-slate-800/60 -space-y-1 px-5 py-3 rounded-md mb-3">
+              <h1 className="font-bold text-xl text-white">Join method</h1>
+              <h2 className="text-blue-200 text-md">
                 {' '}
                 Choose how users can join your organization{' '}
               </h2>
@@ -166,14 +166,14 @@ function OrgAccess() {
                   </tr>
                 </thead>
                 <>
-                  <tbody className="mt-5 bg-white rounded-md">
+                  <tbody className="mt-5 bg-slate-800/60 rounded-md">
                     {invites?.map((invite: any) => (
                       <tr
                         key={invite.invite_code_uuid}
-                        className="border-b border-gray-100 text-sm"
+                        className="border-b border-white/10 text-sm text-white"
                       >
                         <td className="py-3 px-4">{invite.invite_code}</td>
-                        <td className="py-3 px-4 ">
+                        <td className="py-3 px-4">
                           <Link
                             className="outline bg-gray-50 text-gray-600 px-2 py-1 rounded-md outline-gray-300 outline-dashed outline-1"
                             target="_blank"

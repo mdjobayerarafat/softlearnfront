@@ -113,17 +113,17 @@ function SaveState(props: { orgslug: string }) {
       {saved ? (
         <></>
       ) : (
-        <div className="text-gray-600 flex space-x-2 items-center antialiased">
-          <Timer size={15} />
+        <div className="text-purple-300 flex space-x-2 items-center antialiased animate-pulse">
+          <Timer size={15} className="text-amber-400" />
           <div>Unsaved changes</div>
         </div>
       )}
       <div
         className={
-          `px-4 py-2 rounded-lg drop-shadow-md cursor-pointer flex space-x-2 items-center font-bold antialiased transition-all ease-linear ` +
+          `px-4 py-2 rounded-lg backdrop-blur-xl cursor-pointer flex space-x-2 items-center font-bold antialiased transition-all ease-linear duration-300 ` +
           (saved
-            ? 'bg-gray-600 text-white'
-            : 'bg-black text-white border hover:bg-gray-900 ') +
+            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-lg shadow-emerald-500/20'
+            : 'bg-gradient-to-r from-purple-600 to-pink-600 text-white border border-purple-500/30 hover:from-purple-500 hover:to-pink-500 shadow-lg shadow-purple-500/20') +
           (isLoading ? 'opacity-50 cursor-not-allowed' : '')
         }
         onClick={saveCourseState}

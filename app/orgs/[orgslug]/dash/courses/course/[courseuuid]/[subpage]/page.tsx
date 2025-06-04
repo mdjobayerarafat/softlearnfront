@@ -24,11 +24,11 @@ function CourseOverviewPage(props: { params: Promise<CourseOverviewParams> }) {
   }
 
   return (
-      <div className="h-screen w-full bg-[#f8f8f8] grid grid-rows-[auto_1fr]">
+      <div className="h-screen w-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 grid grid-rows-[auto_1fr]">
         <CourseProvider courseuuid={getEntireCourseUUID(params.courseuuid)} withUnpublishedActivities={true}>
-          <div className="pl-10 pr-10 text-sm tracking-tight bg-[#fcfbfc] z-10 nice-shadow">
+          <div className="pl-10 pr-10 text-sm tracking-tight bg-black/20 backdrop-blur-xl border-b border-white/10 z-10">
             <CourseOverviewTop params={params} />
-            <div className="flex space-x-3 font-black text-sm">
+            <div className="flex space-x-3 font-semibold text-sm">
               <Link
                   href={
                       getUriWithOrg(params.orgslug, '') +
@@ -36,9 +36,9 @@ function CourseOverviewPage(props: { params: Promise<CourseOverviewParams> }) {
                   }
               >
                 <div
-                    className={`flex space-x-4 py-2 w-fit text-center border-black transition-all ease-linear ${params.subpage.toString() === 'general'
-                        ? 'border-b-4'
-                        : 'opacity-50'
+                    className={`flex space-x-4 py-3 w-fit text-center transition-all duration-300 ease-out ${params.subpage.toString() === 'general'
+                        ? 'border-b-2 border-purple-400 text-purple-400'
+                        : 'text-white/70 hover:text-white'
                     } cursor-pointer`}
                 >
                   <div className="flex items-center space-x-2.5 mx-2">
@@ -55,9 +55,9 @@ function CourseOverviewPage(props: { params: Promise<CourseOverviewParams> }) {
                   }
               >
                 <div
-                    className={`flex space-x-4 py-2 w-fit text-center border-black transition-all ease-linear ${params.subpage.toString() === 'content'
-                        ? 'border-b-4'
-                        : 'opacity-50'
+                    className={`flex space-x-4 py-3 w-fit text-center transition-all duration-300 ease-out ${params.subpage.toString() === 'content'
+                        ? 'border-b-2 border-purple-400 text-purple-400'
+                        : 'text-white/70 hover:text-white'
                     } cursor-pointer`}
                 >
                   <div className="flex items-center space-x-2.5 mx-2">
@@ -73,9 +73,9 @@ function CourseOverviewPage(props: { params: Promise<CourseOverviewParams> }) {
                   }
               >
                 <div
-                    className={`flex space-x-4 py-2 w-fit text-center border-black transition-all ease-linear ${params.subpage.toString() === 'access'
-                        ? 'border-b-4'
-                        : 'opacity-50'
+                    className={`flex space-x-4 py-3 w-fit text-center transition-all duration-300 ease-out ${params.subpage.toString() === 'access'
+                        ? 'border-b-2 border-purple-400 text-purple-400'
+                        : 'text-white/70 hover:text-white'
                     } cursor-pointer`}
                 >
                   <div className="flex items-center space-x-2.5 mx-2">
@@ -91,9 +91,9 @@ function CourseOverviewPage(props: { params: Promise<CourseOverviewParams> }) {
                   }
               >
                 <div
-                    className={`flex space-x-4 py-2 w-fit text-center border-black transition-all ease-linear ${params.subpage.toString() === 'contributors'
-                        ? 'border-b-4'
-                        : 'opacity-50'
+                    className={`flex space-x-4 py-3 w-fit text-center transition-all duration-300 ease-out ${params.subpage.toString() === 'contributors'
+                        ? 'border-b-2 border-purple-400 text-purple-400'
+                        : 'text-white/70 hover:text-white'
                     } cursor-pointer`}
                 >
                   <div className="flex items-center space-x-2.5 mx-2">
@@ -106,11 +106,11 @@ function CourseOverviewPage(props: { params: Promise<CourseOverviewParams> }) {
 
           </div>
           <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1, type: 'spring', stiffness: 80 }}
-              className="h-full overflow-y-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, type: 'spring', stiffness: 100, damping: 20 }}
+              className="h-full overflow-y-auto bg-slate-900/50 backdrop-blur-sm"
           >
             {params.subpage == 'content' ? (<EditCourseStructure orgslug={params.orgslug} />) : ('')}
             {params.subpage == 'general' ? (<EditCourseGeneral orgslug={params.orgslug} />) : ('')}

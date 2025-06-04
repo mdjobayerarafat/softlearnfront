@@ -88,7 +88,7 @@ function ForgotPasswordClient() {
                                     )}`}
                                     alt="Learnhouse"
                                     style={{ width: 'auto', height: 70 }}
-                                    className="rounded-xl shadow-xl inset-0 ring-1 ring-inset ring-black/10 bg-white"
+                                    className="rounded-xl shadow-xl inset-0 ring-1 ring-inset ring-white/20 bg-slate-800/80"
                                 />
                             ) : (
                                 <Image
@@ -104,22 +104,22 @@ function ForgotPasswordClient() {
                     </div>
                 </div>
             </div>
-            <div className="left-login-part bg-white flex flex-row">
+            <div className="left-login-part bg-slate-900/90 backdrop-blur-sm flex flex-row border border-white/10">
                 <div className="login-form m-auto w-72">
-                    <h1 className="text-2xl font-bold mb-4">Forgot Password</h1>
-                    <p className="text-sm mb-4">
+                    <h1 className="text-2xl font-bold mb-4 text-white">Forgot Password</h1>
+                    <p className="text-sm mb-4 text-blue-200">
                         Enter your email address and we will send you a link to reset your
                         password
                     </p>
 
                     {error && (
-                        <div className="flex justify-center bg-red-200 rounded-md text-red-950 space-x-2 items-center p-4 transition-all shadow-xs">
+                        <div className="flex justify-center bg-red-800/80 backdrop-blur-sm border border-red-400/30 rounded-md text-red-400 space-x-2 items-center p-4 transition-all shadow-xs">
                             <AlertTriangle size={18} />
                             <div className="font-bold text-sm">{error}</div>
                         </div>
                     )}
                     {message && (
-                        <div className="flex justify-center bg-green-200 rounded-md text-green-950 space-x-2 items-center p-4 transition-all shadow-xs">
+                        <div className="flex justify-center bg-green-800/80 backdrop-blur-sm border border-green-400/30 rounded-md text-green-400 space-x-2 items-center p-4 transition-all shadow-xs">
                             <Info size={18} />
                             <div className="font-bold text-sm">{message}</div>
                         </div>
@@ -141,7 +141,7 @@ function ForgotPasswordClient() {
                         </FormField>
                         <div className="flex  py-4">
                             <Form.Submit asChild>
-                                <button className="w-full bg-black text-white font-bold text-center p-2 rounded-md shadow-md hover:cursor-pointer">
+                                <button className="w-full bg-slate-700/80 backdrop-blur-sm border border-white/10 text-white font-bold text-center p-2 rounded-md shadow-md hover:bg-slate-600/80 transition-colors hover:cursor-pointer">
                                     {isSubmitting ? 'Loading...' : 'Send Reset Link'}
                                 </button>
                             </Form.Submit>

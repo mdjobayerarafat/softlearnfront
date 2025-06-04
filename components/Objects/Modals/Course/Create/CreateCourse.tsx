@@ -158,7 +158,7 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
           label="Course Thumbnail"
           message={formik.errors.thumbnail}
         />
-        <div className="w-auto bg-gray-50 rounded-xl outline outline-1 outline-gray-200 h-[200px] shadow-sm">
+        <div className="w-auto bg-slate-800/80 rounded-xl outline outline-1 outline-slate-600 h-[200px] shadow-sm">
           <div className="flex flex-col justify-center items-center h-full">
             <div className="flex flex-col justify-center items-center">
               {formik.values.thumbnail ? (
@@ -169,7 +169,7 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
               ) : (
                 <img
                   src="/empty_thumbnail.png"
-                  className="shadow-sm w-[200px] h-[100px] rounded-md bg-gray-200"
+                  className="shadow-sm w-[200px] h-[100px] rounded-md bg-slate-700"
                 />
               )}
               <div className="flex justify-center items-center space-x-2">
@@ -182,7 +182,7 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
                 />
                 <button
                   type="button"
-                  className="font-bold antialiased items-center text-gray text-sm rounded-md px-4 mt-6 flex"
+                  className="font-bold antialiased items-center text-blue-200 text-sm rounded-md px-4 mt-6 flex"
                   onClick={() => document.getElementById('fileInput')?.click()}
                 >
                   <UploadCloud size={16} className="mr-2" />
@@ -190,7 +190,7 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
                 </button>
                 <button
                   type="button"
-                  className="font-bold antialiased items-center text-gray text-sm rounded-md px-4 mt-6 flex"
+                  className="font-bold antialiased items-center text-blue-200 text-sm rounded-md px-4 mt-6 flex"
                   onClick={() => setShowUnsplashPicker(true)}
                 >
                   <ImageIcon size={16} className="mr-2" />
@@ -251,7 +251,7 @@ function CreateCourseModal({ closeModal, orgslug }: any) {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="px-4 py-2 bg-black text-white text-sm font-bold rounded-md"
+          className="px-4 py-2 bg-blue-600 text-white text-sm font-bold rounded-md hover:bg-blue-700 transition-all duration-200"
         >
           {formik.isSubmitting ? (
             <BarLoader

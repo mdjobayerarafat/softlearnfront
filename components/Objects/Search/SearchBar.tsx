@@ -199,7 +199,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     if (searchQuery.trim()) {
       return (
         <div className="p-2">
-          <div className="flex items-center gap-2 px-2 py-2 text-sm text-black/50">
+          <div className="flex items-center gap-2 px-2 py-2 text-sm text-blue-200">
             <ScanSearch size={16} />
             <span className="font-medium">Search suggestions</span>
           </div>
@@ -208,13 +208,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               <Link
                 key={`${term}-${type}`}
                 href={getUriWithOrg(orgslug, `/search?q=${encodeURIComponent(term)}`)}
-                className="flex items-center px-3 py-2 hover:bg-black/[0.02] rounded-lg transition-colors group"
+                className="flex items-center px-3 py-2 hover:bg-slate-700/60 rounded-lg transition-colors group"
               >
                 <div className="flex items-center gap-2 flex-1">
                   {icon}
-                  <span className="text-sm text-black/70">{term}</span>
+                  <span className="text-sm text-blue-200">{term}</span>
                 </div>
-                <ArrowUpRight size={14} className="text-black/30 group-hover:text-black/50 transition-colors" />
+                <ArrowUpRight size={14} className="text-blue-300 group-hover:text-white transition-colors" />
               </Link>
             ))}
           </div>
@@ -233,7 +233,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     
     return (
       <div className="p-2">
-        <div className="flex items-center gap-2 px-2 py-2 text-sm text-black/50">
+        <div className="flex items-center gap-2 px-2 py-2 text-sm text-blue-200">
           <TextSearch size={16} />
           <span className="font-medium">Quick Results</span>
         </div>
@@ -241,7 +241,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         {/* Courses Section */}
         {searchResults.courses.length > 0 && (
           <div className="mb-2">
-            <div className="flex items-center gap-2 px-2 py-1 text-xs text-black/40">
+            <div className="flex items-center gap-2 px-2 py-1 text-xs text-blue-300">
               <GraduationCap size={12} />
               <span>Courses</span>
             </div>
@@ -249,7 +249,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               <Link
                 key={course.course_uuid}
                 href={getUriWithOrg(orgslug, `/course/${removeCoursePrefix(course.course_uuid)}`)}
-                className="flex items-center gap-3 p-2 hover:bg-black/[0.02] rounded-lg transition-colors"
+                className="flex items-center gap-3 p-2 hover:bg-slate-700/60 rounded-lg transition-colors"
               >
                 <div className="relative">
                   {course.thumbnail_image ? (
@@ -269,10 +269,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <h3 className="text-sm font-medium text-black/80 truncate">{course.name}</h3>
-                    <span className="text-[10px] font-medium text-black/40 uppercase tracking-wide whitespace-nowrap">Course</span>
+                    <h3 className="text-sm font-medium text-white truncate">{course.name}</h3>
+                    <span className="text-[10px] font-medium text-blue-300 uppercase tracking-wide whitespace-nowrap">Course</span>
                   </div>
-                  <p className="text-xs text-black/50 truncate">{course.description}</p>
+                  <p className="text-xs text-blue-200 truncate">{course.description}</p>
                 </div>
               </Link>
             ))}
@@ -360,18 +360,18 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           onChange={handleSearchChange}
           onFocus={() => setShowResults(true)}
           placeholder="Search courses, users, collections..."
-          className="w-full h-9 pl-11 pr-4 rounded-xl nice-shadow bg-white 
-                     focus:outline-none focus:ring-1 focus:ring-black/5 focus:border-black/20 
-                     text-sm placeholder:text-black/40 transition-all"
+          className="w-full h-9 pl-11 pr-4 rounded-xl nice-shadow bg-slate-800/80 backdrop-blur-sm border border-white/20 
+                     focus:outline-none focus:ring-1 focus:ring-white/30 focus:border-white/40 
+                     text-sm placeholder:text-blue-200 text-white transition-all"
         />
         <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-          <Search className="text-black/40 group-focus-within:text-black/60 transition-colors" size={18} />
+          <Search className="text-blue-200 group-focus-within:text-blue-100 transition-colors" size={18} />
         </div>
       </div>
 
       <div 
-        className={`absolute z-50 w-full mt-2 bg-white rounded-xl nice-shadow 
-                   overflow-hidden divide-y divide-black/5
+        className={`absolute z-50 w-full mt-2 bg-slate-800/90 backdrop-blur-sm border border-white/10 rounded-xl nice-shadow 
+                   overflow-hidden divide-y divide-white/10
                    transition-all duration-200 ease-in-out transform
                    ${showResults ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}
                    ${isMobile ? 'max-w-full' : 'min-w-[400px]'}`}
@@ -392,7 +392,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                    searchQuery.trim()) && (
                   <Link
                     href={getUriWithOrg(orgslug, `/search?q=${encodeURIComponent(searchQuery)}`)}
-                    className="flex items-center justify-between px-4 py-2.5 text-xs text-black/50 hover:text-black/70 hover:bg-black/[0.02] transition-colors"
+                    className="flex items-center justify-between px-4 py-2.5 text-xs text-blue-200 hover:text-white hover:bg-slate-700/60 transition-colors"
                   >
                     <span>View all results</span>
                     <ArrowRight size={14} />

@@ -193,10 +193,10 @@ function EditCourseContributors(props: EditCourseContributorsProps) {
             {courseStructure && (
                 <div>
                     <div className="h-6"></div>
-                    <div className="mx-4 sm:mx-10 bg-white rounded-xl shadow-xs px-4 py-4">
-                        <div className="flex flex-col bg-gray-50 -space-y-1 px-3 sm:px-5 py-3 rounded-md mb-3">
-                            <h1 className="font-bold text-lg sm:text-xl text-gray-800">Course Contributors</h1>
-                            <h2 className="text-gray-500 text-xs sm:text-sm">
+                    <div className="mx-4 sm:mx-10 bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-xs px-4 py-4 border border-white/10">
+                        <div className="flex flex-col bg-slate-800/60 -space-y-1 px-3 sm:px-5 py-3 rounded-md mb-3">
+                            <h1 className="font-bold text-lg sm:text-xl text-white">Course Contributors</h1>
+                            <h2 className="text-blue-200 text-xs sm:text-sm">
                                 Choose if you want your course to be open for contributors and manage existing contributors
                             </h2>
                         </div>

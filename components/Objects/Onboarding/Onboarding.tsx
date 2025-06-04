@@ -10,8 +10,7 @@ import OnBoardUGs from '@public/onboarding/OnBoardUGs.png';
 import OnBoardAccess from '@public/onboarding/OnBoardAccess.png';
 import OnBoardMore from '@public/onboarding/OnBoardMore.png';
 import OnBoardAssignments from '@public/onboarding/OnBoardAssignments.png';
-import OnBoardPayments from '@public/onboarding/OnBoardPayments.png';
-import { ArrowRight, Book, Check, Globe, Info, PictureInPicture, Sparkle, Sprout, SquareUser, CreditCard } from 'lucide-react';
+import { ArrowRight, Book, Check, Globe, Info, PictureInPicture, Sparkle, Sprout, SquareUser } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { getUriWithOrg } from '@services/config/config';
 import { useOrg } from '@components/Contexts/OrgContext';
@@ -140,18 +139,6 @@ const Onboarding: React.FC = () => {
           label: 'Create Assignment',
           action: () => router.push(getUriWithOrg(org?.slug, '/dash/assignments?new=true')),
           icon: <Book size={16} />,
-        },
-      ],
-    },
-    {
-      imageSrc: OnBoardPayments,
-      title: 'Monetize Your Content',
-      description: 'Set up payment plans, sell courses, and manage subscriptions with our integrated payment system.',
-      buttons: [
-        {
-          label: 'Payment Settings',
-          action: () => router.push(getUriWithOrg(org?.slug, '/dash/payments/customers')),
-          icon: <CreditCard size={16} />,
         },
       ],
     },

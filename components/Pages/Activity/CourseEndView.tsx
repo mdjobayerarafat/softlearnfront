@@ -30,7 +30,7 @@ const CourseEndView: React.FC<CourseEndViewProps> = ({ courseName, orgslug, cour
         />
       </div>
       
-      <div className="bg-white rounded-2xl p-8 nice-shadow max-w-2xl w-full space-y-6 relative z-10">
+      <div className="bg-slate-900/80 backdrop-blur-sm rounded-2xl p-8 nice-shadow max-w-2xl w-full space-y-6 relative z-10 border border-white/10">
         <div className="flex flex-col items-center space-y-6">
           {thumbnailImage && (
             <img

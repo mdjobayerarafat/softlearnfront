@@ -40,14 +40,14 @@ function AssignmentEdit() {
     }
     
     return (
-        <div className='flex w-full flex-col'>
+        <div className='flex w-full flex-col bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen'>
             <AssignmentProvider assignment_uuid={'assignment_' + params.assignmentuuid}>
-                <div className='flex flex-col  bg-white z-50 shadow-[0px_4px_16px_rgba(0,0,0,0.06)] nice-shadow'>
+                <div className='flex flex-col bg-black/20 backdrop-blur-xl border border-purple-500/30 z-50 shadow-lg shadow-purple-500/10'>
                     <div className='flex justify-between mr-10 h-full'>
                         <div className="pl-10 mr-10 tracking-tighter">
                             <BrdCmpx />
                             <div className="w-100 flex justify-between">
-                                <div className="flex font-bold text-2xl">
+                                <div className="flex font-bold text-2xl text-white">
                                     <AssignmentTitle />
                                 </div>
                             </div>
@@ -59,9 +59,9 @@ function AssignmentEdit() {
                     <div className='flex space-x-2 pt-2 text-sm tracking-tight font-semibold pl-10 mr-10'>
                         <div
                             onClick={() => setSelectedSubPage('editor')}
-                            className={`flex space-x-4 py-2 w-fit text-center border-black transition-all ease-linear ${selectedSubPage === 'editor'
-                                ? 'border-b-4'
-                                : 'opacity-50'
+                            className={`flex space-x-4 py-2 w-fit text-center border-purple-400 transition-all ease-linear ${selectedSubPage === 'editor'
+                                ? 'border-b-4 text-purple-300'
+                                : 'opacity-50 text-slate-300 hover:opacity-75'
                                 } cursor-pointer`}
                         >
                             <div className="flex items-center space-x-2.5 mx-2">
@@ -71,9 +71,9 @@ function AssignmentEdit() {
                         </div>
                         <div
                             onClick={() => setSelectedSubPage('submissions')}
-                            className={`flex space-x-4 py-2 w-fit text-center border-black transition-all ease-linear ${selectedSubPage === 'submissions'
-                                ? 'border-b-4'
-                                : 'opacity-50'
+                            className={`flex space-x-4 py-2 w-fit text-center border-purple-400 transition-all ease-linear ${selectedSubPage === 'submissions'
+                                ? 'border-b-4 text-purple-300'
+                                : 'opacity-50 text-slate-300 hover:opacity-75'
                                 } cursor-pointer`}
                         >
                             <div className="flex items-center space-x-2.5 mx-2">
@@ -131,10 +131,10 @@ function PublishingState() {
     return (
         <>
             <div className='flex mx-auto mt-5 items-center space-x-4'>
-                <div className={`flex text-xs rounded-full px-3.5 py-2 mx-auto font-bold outline outline-1 ${!assignment?.assignment_object?.published ? 'outline-gray-300 bg-gray-200/60' : 'outline-green-300 bg-green-200/60'}`}>
+                <div className={`flex text-xs rounded-full px-3.5 py-2 mx-auto font-bold backdrop-blur-xl border ${!assignment?.assignment_object?.published ? 'border-slate-500/50 bg-slate-800/80 text-slate-300' : 'border-emerald-500/50 bg-emerald-800/80 text-emerald-300'}`}>
                     {assignment?.assignment_object?.published ? 'Published' : 'Unpublished'}
                 </div>
-                <div><EllipsisVertical className='text-gray-500' size={13} /></div>
+                <div><EllipsisVertical className='text-slate-400' size={13} /></div>
 
                 <ToolTip
                     side='left'
@@ -143,7 +143,7 @@ function PublishingState() {
                     content="Edit Assignment Details">
                     <div
                         onClick={() => setIsEditModalOpen(true)}
-                        className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center bg-linear-to-bl text-blue-800 font-medium from-blue-400/50 to-blue-200/80 border border-blue-600/10 shadow-blue-900/10 shadow-lg'>
+                        className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center text-blue-300 font-medium bg-blue-600/20 backdrop-blur-xl border border-blue-500/30 shadow-lg shadow-blue-500/20 hover:bg-blue-600/30 transition-all'>
                         <Pencil size={18} />
                         <p className='text-sm font-bold'>Edit</p>
                     </div>
@@ -157,7 +157,7 @@ function PublishingState() {
                     <Link
                         target='_blank'
                         href={`/course/${assignment?.course_object?.course_uuid.replace('course_', '')}/activity/${assignment?.activity_object?.activity_uuid.replace('activity_', '')}`}
-                        className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center bg-linear-to-bl text-cyan-800 font-medium from-sky-400/50 to-cyan-200/80  border border-cyan-600/10 shadow-cyan-900/10 shadow-lg'>
+                        className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center text-cyan-300 font-medium bg-cyan-600/20 backdrop-blur-xl border border-cyan-500/30 shadow-lg shadow-cyan-500/20 hover:bg-cyan-600/30 transition-all'>
                         <Eye size={18} />
                         <p className=' text-sm font-bold'>Preview</p>
                     </Link>
@@ -169,7 +169,7 @@ function PublishingState() {
                     content="Make your Assignment unavailable for students" >
                     <div
                         onClick={() => updateAssignmentPublishState(assignment?.assignment_object?.assignment_uuid)}
-                        className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center bg-linear-to-bl text-gray-800 font-medium from-gray-400/50 to-gray-200/80 border border-gray-600/10 shadow-gray-900/10 shadow-lg'>
+                        className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center text-slate-300 font-medium bg-slate-600/20 backdrop-blur-xl border border-slate-500/30 shadow-lg shadow-slate-500/20 hover:bg-slate-600/30 transition-all'>
                         <BookX size={18} />
                         <p className='text-sm font-bold'>Unpublish</p>
                     </div>
@@ -182,7 +182,7 @@ function PublishingState() {
                         content="Make your Assignment public and available for students" >
                         <div
                             onClick={() => updateAssignmentPublishState(assignment?.assignment_object?.assignment_uuid)}
-                            className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center bg-linear-to-bl text-green-800 font-medium from-green-400/50 to-lime-200/80  border border-green-600/10 shadow-green-900/10 shadow-lg'>
+                            className='flex px-3 py-2 cursor-pointer rounded-md space-x-2 items-center text-emerald-300 font-medium bg-emerald-600/20 backdrop-blur-xl border border-emerald-500/30 shadow-lg shadow-emerald-500/20 hover:bg-emerald-600/30 transition-all'>
                             <BookOpen size={18} />
                             <p className=' text-sm font-bold'>Publish</p>
                         </div>

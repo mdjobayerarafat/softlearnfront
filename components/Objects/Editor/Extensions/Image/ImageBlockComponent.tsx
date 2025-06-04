@@ -158,24 +158,24 @@ function ImageBlockComponent(props: any) {
                 className="rounded-lg shadow-sm max-w-full h-auto"
                 style={{ width: '100%' }}
               />
-              <div className="absolute top-2 right-2 flex items-center gap-1.5 bg-white bg-opacity-90 backdrop-blur-xs rounded-lg p-1 shadow-xs transition-opacity opacity-70 hover:opacity-100">
+              <div className="absolute top-2 right-2 flex items-center gap-1.5 bg-slate-900/70 backdrop-blur-sm rounded-lg p-1 shadow-xs transition-opacity opacity-70 hover:opacity-100 border border-white/10">
                 <button
                   onClick={() => handleAlignmentChange('left')}
-                  className={`p-1.5 rounded-md hover:bg-gray-100 text-gray-600 ${alignment === 'left' ? 'bg-gray-100' : ''}`}
+                  className={`p-1.5 rounded-md hover:bg-slate-700/70 text-blue-200 ${alignment === 'left' ? 'bg-slate-700/70' : ''}`}
                   title="Align left"
                 >
                   <AlignLeft size={16} />
                 </button>
                 <button
                   onClick={() => handleAlignmentChange('center')}
-                  className={`p-1.5 rounded-md hover:bg-gray-100 text-gray-600 ${alignment === 'center' ? 'bg-gray-100' : ''}`}
+                  className={`p-1.5 rounded-md hover:bg-slate-700/70 text-blue-200 ${alignment === 'center' ? 'bg-slate-700/70' : ''}`}
                   title="Center align"
                 >
                   <AlignCenter size={16} />
                 </button>
                 <button
                   onClick={() => handleAlignmentChange('right')}
-                  className={`p-1.5 rounded-md hover:bg-gray-100 text-gray-600 ${alignment === 'right' ? 'bg-gray-100' : ''}`}
+                  className={`p-1.5 rounded-md hover:bg-slate-700/70 text-blue-200 ${alignment === 'right' ? 'bg-slate-700/70' : ''}`}
                   title="Align right"
                 >
                   <AlignRight size={16} />

@@ -59,13 +59,13 @@ function DashboardHome() {
 
         <Link
           href={'/dash/user-account/settings/general'}
-          className="flex bg-white shadow-lg p-4 items-center rounded-lg mx-auto hover:scale-105 transition-all ease-linear cursor-pointer max-w-md"
+          className="flex bg-slate-900/70 backdrop-blur-sm shadow-lg p-4 items-center rounded-lg mx-auto hover:scale-105 transition-all ease-linear cursor-pointer max-w-md border border-white/10"
         >
           <div className="flex flex-col sm:flex-row mx-auto gap-2 sm:gap-3 items-center text-center sm:text-left">
-            <Settings className="text-gray-500/100" size={20} />
+            <Settings className="text-blue-200" size={20} />
             <div>
-              <div className="font-bold text-gray-500/100">Account Settings</div>
-              <p className="text-sm text-gray-400/100">
+              <div className="font-bold text-white">Account Settings</div>
+              <p className="text-sm text-blue-200">
                 Configure your personal settings, passwords, email
               </p>
             </div>
@@ -81,12 +81,12 @@ function DashboardCard({ href, icon, title, description }: { href: string, icon:
   return (
     <Link
       href={href}
-      className="flex bg-white shadow-lg p-6 w-full sm:w-[250px] rounded-lg items-center mx-auto hover:scale-105 transition-all ease-linear cursor-pointer"
+      className="flex bg-slate-900/70 backdrop-blur-sm shadow-lg p-6 w-full sm:w-[250px] rounded-lg items-center mx-auto hover:scale-105 transition-all ease-linear cursor-pointer border border-white/10"
     >
       <div className="flex flex-col mx-auto gap-2">
         {icon}
-        <div className="text-center font-bold text-gray-500/100">{title}</div>
-        <p className="text-center text-sm text-gray-400/100">{description}</p>
+        <div className="text-center font-bold text-white">{title}</div>
+        <p className="text-center text-sm text-blue-200">{description}</p>
       </div>
     </Link>
   )

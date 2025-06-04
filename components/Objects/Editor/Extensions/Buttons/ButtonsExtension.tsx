@@ -112,22 +112,22 @@ const ButtonsExtension: React.FC = (props: any) => {
         </button>
         {isEditable && (
           <div className="flex mt-2 space-x-2">
-            <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="p-1 bg-gray-200 rounded-md">
+            <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="p-1 bg-slate-700/70 rounded-md text-blue-200 hover:bg-slate-600/70">
               <ChevronDown size={14} />
             </button>
-            <button onClick={() => setShowLinkInput(!showLinkInput)} className="p-1 bg-gray-200 rounded-md">
+            <button onClick={() => setShowLinkInput(!showLinkInput)} className="p-1 bg-slate-700/70 rounded-md text-blue-200 hover:bg-slate-600/70">
               <Link size={14} />
             </button>
-            <button onClick={() => handleAlignmentChange('left')} className="p-1 bg-gray-200 rounded-md">
+            <button onClick={() => handleAlignmentChange('left')} className="p-1 bg-slate-700/70 rounded-md text-blue-200 hover:bg-slate-600/70">
               <AlignLeft size={14} />
             </button>
-            <button onClick={() => handleAlignmentChange('center')} className="p-1 bg-gray-200 rounded-md">
+            <button onClick={() => handleAlignmentChange('center')} className="p-1 bg-slate-700/70 rounded-md text-blue-200 hover:bg-slate-600/70">
               <AlignCenter size={14} />
             </button>
-            <button onClick={() => handleAlignmentChange('right')} className="p-1 bg-gray-200 rounded-md">
+            <button onClick={() => handleAlignmentChange('right')} className="p-1 bg-slate-700/70 rounded-md text-blue-200 hover:bg-slate-600/70">
               <AlignRight size={14} />
             </button>
-            <button onClick={() => setShowColorPicker(!showColorPicker)} className="p-1 bg-gray-200 rounded-md">
+            <button onClick={() => setShowColorPicker(!showColorPicker)} className="p-1 bg-slate-700/70 rounded-md text-blue-200 hover:bg-slate-600/70">
               <Palette size={14} />
             </button>
           </div>
@@ -145,11 +145,11 @@ const ButtonsExtension: React.FC = (props: any) => {
           value={link}
           onChange={handleLinkChange}
           placeholder="Enter link URL"
-          className="mt-2 p-2 w-full border rounded-md"
+          className="mt-2 p-2 w-full border border-slate-600 rounded-md bg-slate-700/70 text-white placeholder:text-blue-200"
         />
       )}
       {isEditable && showColorPicker && (
-        <div ref={colorPickerRef} className="absolute mt-2 p-2 bg-white rounded-md nice-shadow">
+        <div ref={colorPickerRef} className="absolute mt-2 p-2 bg-slate-900/70 backdrop-blur-sm rounded-md nice-shadow border border-white/10">
           <div className="flex flex-wrap gap-2">
             {colors.map((c) => (
               <button

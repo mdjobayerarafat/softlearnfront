@@ -49,10 +49,10 @@ function OrgUserGroups() {
     return (
         <>
             <div className="h-6"></div>
-            <div className="ml-10 mr-10 mx-auto bg-white rounded-xl shadow-xs px-4 py-4">
-                <div className="flex flex-col bg-gray-50 -space-y-1  px-5 py-3 rounded-md mb-3 ">
-                    <h1 className="font-bold text-xl text-gray-800">Manage UserGroups & Users</h1>
-                    <h2 className="text-gray-500 text-sm">
+            <div className="ml-10 mr-10 mx-auto bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-xs px-4 py-4 border border-white/10">
+                <div className="flex flex-col bg-slate-800/60 -space-y-1 px-5 py-3 rounded-md mb-3">
+                    <h1 className="font-bold text-xl text-white">Manage UserGroups & Users</h1>
+                    <h2 className="text-blue-200 text-sm">
                         {' '}
                         UserGroups are a way to group users together to manage their access to the resources (Courses) in your organization.{' '}
                     </h2>
@@ -68,9 +68,9 @@ function OrgUserGroups() {
                             </tr>
                         </thead>
                         <>
-                            <tbody className="mt-5 bg-white rounded-md">
+                            <tbody className="mt-5 bg-slate-800/60 rounded-md">
                                 {usergroups?.map((usergroup: any) => (
-                                    <tr key={usergroup.id} className="border-b border-gray-100 text-sm">
+                                    <tr key={usergroup.id} className="border-b border-white/10 text-sm">
                                         <td className="py-3 px-4">{usergroup.name}</td>
                                         <td className="py-3 px-4 ">{usergroup.description}</td>
                                         <td className="py-3 px-4 ">

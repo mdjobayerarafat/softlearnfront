@@ -43,8 +43,9 @@ const getVideoSizeFromWidth = (width: number | string | undefined): VideoSize =>
 
 const VideoWrapper = styled.div`
   transition: all 0.2s ease;
-  background-color: #f9f9f9;
-  border: 1px solid #eaeaea;
+  background-color: rgba(51, 65, 85, 0.8);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 `
 
 const VideoContainer = styled.div`
@@ -55,8 +56,8 @@ const VideoContainer = styled.div`
 `
 
 const UploadZone = styled(motion.div)<{ isDragging: boolean }>`
-  border: 2px dashed ${props => props.isDragging ? '#3b82f6' : '#e5e7eb'};
-  background: ${props => props.isDragging ? 'rgba(59, 130, 246, 0.05)' : '#ffffff'};
+  border: 2px dashed ${props => props.isDragging ? '#3b82f6' : 'rgba(71, 85, 105, 1)'};
+  background: ${props => props.isDragging ? 'rgba(59, 130, 246, 0.05)' : 'rgba(51, 65, 85, 0.5)'};
   transition: all 0.2s ease;
   border-radius: 0.75rem;
   padding: 2rem;
@@ -76,13 +77,13 @@ const SizeButton = styled(motion.button)<{ isActive: boolean }>`
   padding: 0.5rem 0.75rem;
   border-radius: 0.375rem;
   font-size: 0.875rem;
-  color: ${props => props.isActive ? '#ffffff' : '#4b5563'};
+  color: ${props => props.isActive ? '#ffffff' : 'rgb(147, 197, 253)'};
   background: ${props => props.isActive ? '#3b82f6' : 'transparent'};
-  border: 1px solid ${props => props.isActive ? '#3b82f6' : '#e5e7eb'};
+  border: 1px solid ${props => props.isActive ? '#3b82f6' : 'rgba(71, 85, 105, 1)'};
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${props => props.isActive ? '#2563eb' : '#f9fafb'};
+    background: ${props => props.isActive ? '#2563eb' : 'rgba(51, 65, 85, 0.7)'};
   }
 
   &:disabled {

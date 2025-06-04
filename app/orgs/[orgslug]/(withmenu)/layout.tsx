@@ -18,12 +18,14 @@ export default function RootLayout(
   } = props;
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <SessionProvider>
         <OrgMenu orgslug={params?.orgslug}></OrgMenu>
-        {children}
+        <div className="flex-1 pt-[60px]">{/* Add padding-top to account for fixed header */}
+          {children}
+        </div>
         <Watermark />
       </SessionProvider>
-    </>
+    </div>
   )
 }

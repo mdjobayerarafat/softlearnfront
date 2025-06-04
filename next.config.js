@@ -13,7 +13,6 @@ const nextConfig = {
     ]
   },
   images: {
-    domains: ['4.240.102.85', 'localhost', '127.0.0.1'],
     remotePatterns: [
       {
         protocol: 'http',
@@ -21,10 +20,23 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   reactStrictMode: false,
-  output: 'standalone',
+  // Remove output: 'standalone' for Vercel deployment
+  // output: 'standalone',
 }
 
 module.exports = nextConfig

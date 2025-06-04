@@ -44,7 +44,7 @@ function UserEditPassword() {
 
         // Wait for 4 seconds before signing out
         await new Promise(resolve => setTimeout(resolve, 4000))
-        signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/') })
+        signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/home') })
       } else {
         toast.error(response.data.detail || 'Failed to update password', { id: loadingToast })
       }
@@ -58,13 +58,13 @@ function UserEditPassword() {
   useEffect(() => { }, [session])
 
   return (
-    <div className="sm:mx-10 mx-0 bg-white rounded-xl nice-shadow">
+    <div className="sm:mx-10 mx-0 bg-slate-900/70 backdrop-blur-sm rounded-xl nice-shadow border border-white/10">
       <div className="flex flex-col">
-        <div className="flex flex-col bg-gray-50 -space-y-1 px-5 py-3 mx-3 my-3 rounded-md">
-          <h1 className="font-bold text-xl text-gray-800">
+        <div className="flex flex-col bg-white/10 backdrop-blur-sm -space-y-1 px-5 py-3 mx-3 my-3 rounded-md border border-white/20">
+          <h1 className="font-bold text-xl text-white">
             Change Password
           </h1>
-          <h2 className="text-gray-500 text-md">
+          <h2 className="text-blue-200 text-md">
             Update your password to keep your account secure
           </h2>
         </div>
@@ -110,7 +110,7 @@ function UserEditPassword() {
                   )}
                 </div>
 
-                <div className="flex items-center space-x-2 text-amber-600 bg-amber-50 p-3 rounded-md">
+                <div className="flex items-center space-x-2 text-amber-300 bg-amber-900/30 p-3 rounded-md border border-amber-500/30">
                   <AlertTriangle size={16} />
                   <span className="text-sm">You will be logged out after changing your password</span>
                 </div>
@@ -119,7 +119,7 @@ function UserEditPassword() {
                   <Button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="bg-black text-white hover:bg-black/90"
+                    className="bg-blue-600 text-white hover:bg-blue-700 font-semibold shadow-lg px-5 py-2 h-10"
                   >
                     {isSubmitting ? 'Updating...' : 'Update Password'}
                   </Button>

@@ -17,10 +17,10 @@ type ModalParams = {
 
 const ConfirmationModal = (params: ModalParams) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false)
-  const warningColors = 'bg-red-100 text-red-600'
-  const infoColors = 'bg-blue-100 text-blue-600'
-  const warningButtonColors = 'text-white bg-red-500 hover:bg-red-600'
-  const infoButtonColors = 'text-white bg-blue-500 hover:bg-blue-600'
+  const warningColors = 'bg-rose-600/20 backdrop-blur-xl border border-rose-400/30 text-rose-300'
+  const infoColors = 'bg-cyan-600/20 backdrop-blur-xl border border-cyan-400/30 text-cyan-300'
+  const warningButtonColors = 'text-white bg-rose-600/90 backdrop-blur-xl border border-rose-400/30 hover:bg-rose-600/70 shadow-lg shadow-rose-500/20'
+  const infoButtonColors = 'text-white bg-cyan-600/90 backdrop-blur-xl border border-cyan-400/30 hover:bg-cyan-600/70 shadow-lg shadow-cyan-500/20'
 
   const onOpenChange = React.useCallback(
     (open: any) => {
@@ -51,10 +51,10 @@ const ConfirmationModal = (params: ModalParams) => {
               )}
             </div>
             <div className="text pt-1 space-x-0 w-auto grow">
-              <div className="text-xl font-bold text-black">
+              <div className="text-xl font-bold text-white">
                 {params.dialogTitle}
               </div>
-              <div className="text-md text-gray-500 leading-tight mt-1">
+              <div className="text-md text-purple-300 leading-tight mt-1">
                 {params.confirmationMessage}
               </div>
               <div className="flex flex-row-reverse mt-4">
@@ -115,11 +115,13 @@ const DialogOverlay = styled(Dialog.Overlay, {
 })
 
 const DialogContent = styled(Dialog.Content, {
-  backgroundColor: 'white',
+  backgroundColor: 'rgb(15 23 42 / 0.7)',
+  backdropFilter: 'blur(8px)',
   borderRadius: 18,
   zIndex: 501,
   boxShadow:
-    'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
+    'hsl(206 22% 7% / 50%) 0px 10px 38px -10px, hsl(206 22% 7% / 30%) 0px 10px 20px -15px',
+  border: '1px solid rgba(255, 255, 255, 0.1)',
   position: 'fixed',
   top: '50%',
   left: '50%',

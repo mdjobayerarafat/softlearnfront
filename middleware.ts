@@ -1,4 +1,4 @@
-import { isInstallModeEnabled } from '@services/install/install'
+
 import {
   LEARNHOUSE_DOMAIN,
   LEARNHOUSE_TOP_DOMAIN,
@@ -8,6 +8,7 @@ import {
 } from './services/config/config'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getToken } from 'next-auth/jwt'
 
 export const config = {
   matcher: [
@@ -36,6 +37,20 @@ export default async function middleware(req: NextRequest) {
   const orgslug = fullhost
     ? fullhost.replace(`.${LEARNHOUSE_DOMAIN}`, '')
     : (default_org as string)
+
+  // Check authentication status
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
+  const isAuthenticated = !!token
+
+  // Authentication-based routing for root path
+  if (pathname === '/') {
+    if (isAuthenticated) {
+      // Authenticated user - proceed normally (will be handled by existing logic below)
+    } else {
+      // Not authenticated - redirect to /home
+      return NextResponse.redirect(new URL('/home', req.url))
+    }
+  }
 
   // Out of orgslug paths & rewrite
   const standard_paths = ['/home']
@@ -66,15 +81,6 @@ export default async function middleware(req: NextRequest) {
   }
 
   // Install Page (depreceated)
-  if (pathname.startsWith('/install')) {
-    // Check if install mode is enabled
-    const install_mode = await isInstallModeEnabled()
-    if (install_mode) {
-      return NextResponse.rewrite(new URL(pathname, req.url))
-    } else {
-      return NextResponse.redirect(new URL('/', req.url))
-    }
-  }
 
   // Dynamic Pages Editor
   if (pathname.match(/^\/course\/[^/]+\/activity\/[^/]+\/edit$/)) {
@@ -173,6 +179,11 @@ export default async function middleware(req: NextRequest) {
 
   // Single Organization Mode
   if (hosting_mode === 'single') {
+    // Don't rewrite if the path already starts with /orgs/
+    if (pathname.startsWith('/orgs/')) {
+      return NextResponse.next()
+    }
+    
     // Get the default organization slug
     const orgslug = default_org as string
     const response = NextResponse.rewrite(

@@ -242,7 +242,7 @@ const LearningItemsList = ({ value, onChange, error }: LearningItemsListProps) =
       >
         {items.map((item) => (
           <div key={item.id} id={`learning-item-${item.id}`} className="group relative">
-            <div className="flex items-center gap-2 py-2 px-3 bg-gray-50/70 hover:bg-gray-50 border border-gray-100 rounded-lg transition-colors">
+            <div className="flex items-center gap-2 py-2 px-3 bg-slate-800/70 backdrop-blur-sm hover:bg-slate-700/70 border border-white/10 rounded-lg transition-colors">
               <button
                 type="button"
                 onClick={() => {
@@ -318,7 +318,7 @@ const LearningItemsList = ({ value, onChange, error }: LearningItemsListProps) =
             )}
             
             {showLinkInput === item.id && (
-              <div ref={linkInputRef} className="mt-1 p-2 bg-white border border-gray-200 rounded-lg shadow-xs">
+              <div ref={linkInputRef} className="mt-1 p-2 bg-slate-800/80 backdrop-blur-sm border border-white/10 rounded-lg shadow-xs">
                 <Input
                   ref={setLinkInputRef(item.id)}
                   value={items.find(i => i.id === item.id)?.link || ''}

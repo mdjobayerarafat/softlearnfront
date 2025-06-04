@@ -62,19 +62,21 @@ const SettingsNavigation = ({
   currentPage: string
   orgslug: string 
 }) => (
-  <div className="flex space-x-5 font-black text-sm">
+  <div className="flex space-x-5 font-semibold text-sm">
     {items.map((item) => (
       <Link
         key={item.id}
         href={getUriWithOrg(orgslug, `/dash/user-account/settings/${item.id}`)}
       >
         <div
-          className={`py-2 w-fit text-center border-black transition-all ease-linear ${
-            currentPage === item.id ? 'border-b-4' : 'opacity-50'
+          className={`py-3 w-fit text-center transition-all duration-300 ease-out ${
+            currentPage === item.id 
+              ? 'border-b-2 border-blue-400 text-blue-300 bg-blue-900/20 px-4 rounded-t-lg' 
+              : 'text-white/80 hover:text-white hover:bg-white/5 px-4 rounded-lg'
           } cursor-pointer`}
         >
           <div className="flex items-center space-x-2.5 mx-2">
-            <item.icon size={16} />
+            <item.icon size={18} className={currentPage === item.id ? "text-blue-300" : ""} />
             <div>{item.label}</div>
           </div>
         </div>
@@ -92,15 +94,15 @@ function SettingsPage({ params }: { params: Promise<SettingsParams> }) {
   const CurrentComponent = navigationItems.find(item => item.id === subpage)?.component;
 
   return (
-    <div className="h-full w-full bg-[#f8f8f8] flex flex-col">
-      <div className="pl-10 pr-10 tracking-tight bg-[#fcfbfc] z-10 nice-shadow flex-shrink-0">
+    <div className="h-full w-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col">
+      <div className="pl-10 pr-10 tracking-tight bg-black/40 backdrop-blur-xl border-b border-white/10 z-10 flex-shrink-0 shadow-lg">
         <BreadCrumbs
           type="user"
           last_breadcrumb={session?.user?.username}
         />
         <div className="my-2 tracking-tighter">
           <div className="w-100 flex justify-between">
-            <div className="pt-3 flex font-bold text-4xl">Account Settings</div>
+            <div className="pt-3 flex font-bold text-4xl text-white">Account Settings</div>
           </div>
         </div>
         <SettingsNavigation 
@@ -111,13 +113,15 @@ function SettingsPage({ params }: { params: Promise<SettingsParams> }) {
       </div>
       <div className="h-6 flex-shrink-0" />
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.1, type: 'spring', stiffness: 80 }}
-        className="flex-1 overflow-y-auto"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, type: 'spring', stiffness: 100, damping: 20 }}
+        className="flex-1 overflow-y-auto bg-slate-900/50 backdrop-blur-sm"
       >
-        {CurrentComponent && <CurrentComponent />}
+        <div className="p-6">
+          {CurrentComponent && <CurrentComponent />}
+        </div>
       </motion.div>
     </div>
   )

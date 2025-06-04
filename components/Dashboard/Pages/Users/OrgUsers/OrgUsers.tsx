@@ -57,16 +57,16 @@ function OrgUsers() {
         <>
           <Toast></Toast>
           <div className="h-6"></div>
-          <div className="ml-10 mr-10 mx-auto bg-white rounded-xl shadow-xs px-4 py-4  ">
-            <div className="flex flex-col bg-gray-50 -space-y-1  px-5 py-3 rounded-md mb-3 ">
-              <h1 className="font-bold text-xl text-gray-800">Active users</h1>
-              <h2 className="text-gray-500  text-md">
+          <div className="ml-10 mr-10 mx-auto bg-slate-900/70 backdrop-blur-sm rounded-xl shadow-md px-4 py-4 border border-white/10">
+            <div className="flex flex-col bg-slate-800/50 -space-y-1 px-5 py-3 rounded-md mb-3 border border-slate-700/50">
+              <h1 className="font-bold text-xl text-white">Active users</h1>
+              <h2 className="text-blue-200 text-md">
                 {' '}
                 Manage your organization users, assign roles and permissions{' '}
               </h2>
             </div>
             <table className="table-auto w-full text-left whitespace-nowrap rounded-md overflow-hidden">
-              <thead className="bg-gray-100 text-gray-500 rounded-xl uppercase">
+              <thead className="bg-slate-800/80 text-blue-200 rounded-xl uppercase">
                 <tr className="font-bolder text-sm">
                   <th className="py-3 px-4">User</th>
                   <th className="py-3 px-4">Role</th>
@@ -74,17 +74,17 @@ function OrgUsers() {
                 </tr>
               </thead>
               <>
-                <tbody className="mt-5 bg-white rounded-md">
+                <tbody className="mt-5 bg-slate-800/50 rounded-md text-white">
                   {orgUsers?.map((user: any) => (
                     <tr
                       key={user.user.id}
-                      className="border-b border-gray-200 border-dashed"
+                      className="border-b border-slate-700 border-dashed"
                     >
                       <td className="py-3 px-4 flex space-x-2 items-center">
                         <span>
                           {user.user.first_name + ' ' + user.user.last_name}
                         </span>
-                        <span className="text-xs bg-neutral-100 p-1 px-2 rounded-full text-neutral-400 font-semibold">
+                        <span className="text-xs bg-slate-700 p-1 px-2 rounded-full text-blue-200 font-semibold">
                           @{user.user.username}
                         </span>
                       </td>

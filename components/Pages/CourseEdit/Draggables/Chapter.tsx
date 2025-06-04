@@ -53,25 +53,25 @@ function Chapter(props: any) {
           {...provided.draggableProps}
           ref={provided.innerRef}
           //  isDragging={snapshot.isDragging}
-          className="max-w-(--breakpoint-2xl) mx-auto bg-white px-5"
+          className="max-w-(--breakpoint-2xl) mx-auto bg-slate-900/70 backdrop-blur-sm px-5 border border-white/10"
           key={props.info.list.chapter.id}
         >
           <div className="flex pt-3 pr-3 font-bold text-md items-center space-x-2">
             <div className="flex grow text-lg space-x-3 items-center rounded-md px-3 py-1">
-              <div className="bg-neutral-100 rounded-md p-2">
+              <div className="bg-slate-700/60 rounded-md p-2">
                 <Hexagon
                   strokeWidth={3}
                   size={16}
-                  className="text-neutral-600 "
+                  className="text-blue-200"
                 />
               </div>
 
               <div className="flex space-x-2 items-center">
                 {selectedChapter === props.info.list.chapter.id ? (
-                  <div className="chapter-modification-zone bg-neutral-100 py-1 px-4 rounded-lg space-x-3">
+                  <div className="chapter-modification-zone bg-slate-700/60 py-1 px-4 rounded-lg space-x-3">
                     <input
                       type="text"
-                      className="bg-transparent outline-hidden text-sm text-neutral-700"
+                      className="bg-transparent outline-hidden text-sm text-white"
                       placeholder="Chapter name"
                       value={
                         modifiedChapter

@@ -111,7 +111,7 @@ function ThumbnailUpdate() {
   }
 
   return (
-    <div className="w-auto rounded-xl border border-gray-200 h-[250px] light-shadow bg-gray-50 transition-all duration-200">
+    <div className="w-auto rounded-xl border border-white/10 h-[250px] light-shadow bg-slate-800/80 backdrop-blur-sm transition-all duration-200">
       <div className="flex flex-col justify-center items-center h-full p-6 space-y-4">
         {error && (
           <div className="absolute top-4 flex justify-center bg-red-50 rounded-lg text-red-800 space-x-2 items-center p-3 transition-all">
@@ -125,7 +125,7 @@ function ThumbnailUpdate() {
               src={localThumbnail.url}
               className={`${
                 isLoading ? 'animate-pulse' : ''
-              } shadow-sm w-[280px] h-[140px] object-cover rounded-lg border border-gray-200`}
+              } shadow-sm w-[280px] h-[140px] object-cover rounded-lg border border-white/10`}
               alt="Course thumbnail"
             />
           ) : (
@@ -135,7 +135,7 @@ function ThumbnailUpdate() {
                 course.courseStructure.course_uuid,
                 course.courseStructure.thumbnail_image
               ) : '/empty_thumbnail.png'}`}
-              className="shadow-sm w-[280px] h-[140px] object-cover rounded-lg border border-gray-200 bg-gray-50"
+              className="shadow-sm w-[280px] h-[140px] object-cover rounded-lg border border-white/10 bg-slate-800/80"
               alt="Course thumbnail"
             />
           )}
@@ -150,14 +150,14 @@ function ThumbnailUpdate() {
                 onChange={handleFileChange}
               />
               <button
-                className="bg-gray-50 text-gray-800 px-4 py-2 rounded-md text-sm font-medium flex items-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                className="bg-slate-800/80 backdrop-blur-sm text-blue-200 px-4 py-2 rounded-md text-sm font-medium flex items-center hover:bg-slate-700/80 transition-colors duration-200 border border-white/10"
                 onClick={() => document.getElementById('fileInput')?.click()}
               >
                 <UploadCloud size={16} className="mr-2" />
                 Upload
               </button>
               <button
-                className="bg-gray-50 text-gray-800 px-4 py-2 rounded-md text-sm font-medium flex items-center hover:bg-gray-100 transition-colors duration-200 border border-gray-200"
+                className="bg-slate-800/80 backdrop-blur-sm text-blue-200 px-4 py-2 rounded-md text-sm font-medium flex items-center hover:bg-slate-700/80 transition-colors duration-200 border border-white/10"
                 onClick={() => setShowUnsplashPicker(true)}
               >
                 <ImageIcon size={16} className="mr-2" />

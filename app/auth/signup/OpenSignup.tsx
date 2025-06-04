@@ -15,6 +15,7 @@ import { signup } from '@services/auth/auth'
 import { useOrg } from '@components/Contexts/OrgContext'
 import { signIn } from 'next-auth/react'
 import { getUriWithoutOrg } from '@services/config/config'
+import { motion } from 'framer-motion'
 
 const validate = (values: any) => {
   const errors: any = {}
@@ -124,118 +125,178 @@ function OpenSignUpComponent() {
   }
 
   return (
-    <div className="login-form m-auto w-72">
+    <motion.div 
+      className="login-form m-auto w-80"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.3 }}
+    >
       {error && (
-        <div className="flex flex-col justify-center bg-red-200 rounded-md text-red-950 items-center p-4 transition-all shadow-xs mb-4">
+        <motion.div 
+          className="flex flex-col justify-center bg-red-800/80 backdrop-blur-sm border border-red-400/30 rounded-md text-red-400 items-center p-4 transition-all shadow-xs mb-4"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <div className="flex space-x-2 items-center">
             <AlertTriangle size={18} />
             <div className="font-bold text-sm">{error}</div>
           </div>
           {showLogin && (
-            <div className="mt-3 pt-3 border-t border-red-300 w-full text-center">
+            <motion.div 
+              className="mt-3 pt-3 border-t border-red-400/30 w-full text-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               <Link
-                className="flex space-x-2 items-center justify-center text-sm font-medium"
+                className="flex space-x-2 items-center justify-center text-sm font-medium text-red-400 hover:text-red-300 transition-colors"
                 href="/login"
               >
                 <User size={14} /> <div>Go to Login</div>
               </Link>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       )}
       {message && (
-        <div className="flex flex-col space-y-4 justify-center bg-green-200 rounded-md text-green-950 items-center p-4 transition-all shadow-xs">
+        <motion.div 
+          className="flex flex-col space-y-4 justify-center bg-green-800/80 backdrop-blur-sm border border-green-400/30 rounded-md text-green-400 items-center p-4 transition-all shadow-xs"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <div className="flex space-x-2">
             <Check size={18} />
             <div className="font-bold text-sm">{message}</div>
           </div>
-          <div className="text-sm">Redirecting to login page...</div>
-        </div>
+          <div className="text-sm text-green-300">Redirecting to login page...</div>
+        
+        </motion.div>
       )}
       {!message && (
         <>
-          <FormLayout onSubmit={formik.handleSubmit}>
-            <FormField name="email">
-              <FormLabelAndMessage label="Email" message={formik.errors.email} />
-              <Form.Control asChild>
-                <Input
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                  type="email"
-                  required
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <FormLayout onSubmit={formik.handleSubmit}>
+              <FormField name="email">
+                <FormLabelAndMessage label="Email" message={formik.errors.email} />
+                <Form.Control asChild>
+                  <Input
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                    type="email"
+                    required
+                    className="bg-slate-800/80 border border-slate-600 text-white/90 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </Form.Control>
+              </FormField>
+              <FormField name="password">
+                <FormLabelAndMessage
+                  label="Password"
+                  message={formik.errors.password}
                 />
-              </Form.Control>
-            </FormField>
-            <FormField name="password">
-              <FormLabelAndMessage
-                label="Password"
-                message={formik.errors.password}
-              />
-              <Form.Control asChild>
-                <Input
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  type="password"
-                  required
+                <Form.Control asChild>
+                  <Input
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    type="password"
+                    required
+                    className="bg-slate-800/80 border border-slate-600 text-white/90 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </Form.Control>
+              </FormField>
+              <FormField name="username">
+                <FormLabelAndMessage
+                  label="Username"
+                  message={formik.errors.username}
                 />
-              </Form.Control>
-            </FormField>
-            <FormField name="username">
-              <FormLabelAndMessage
-                label="Username"
-                message={formik.errors.username}
-              />
-              <Form.Control asChild>
-                <Input
-                  onChange={formik.handleChange}
-                  value={formik.values.username}
-                  type="text"
-                  required
-                />
-              </Form.Control>
-            </FormField>
-            <FormField name="bio">
-              <FormLabelAndMessage label="Bio" message={formik.errors.bio} />
-              <Form.Control asChild>
-                <Textarea
-                  onChange={formik.handleChange}
-                  value={formik.values.bio}
-                  required
-                />
-              </Form.Control>
-            </FormField>
-            <div className="flex py-4">
-              <Form.Submit asChild>
-                <button className="w-full bg-black text-white font-bold text-center p-2 rounded-md shadow-md hover:cursor-pointer">
-                  {isSubmitting ? 'Loading...' : 'Create an account'}
-                </button>
-              </Form.Submit>
-            </div>
-          </FormLayout>
+                <Form.Control asChild>
+                  <Input
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
+                    type="text"
+                    required
+                    className="bg-slate-800/80 border border-slate-600 text-white/90 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </Form.Control>
+              </FormField>
+              <FormField name="bio">
+                <FormLabelAndMessage label="Bio" message={formik.errors.bio} />
+                <Form.Control asChild>
+                  <Textarea
+                    onChange={formik.handleChange}
+                    value={formik.values.bio}
+                    required
+                    className="bg-slate-800/80 border border-slate-600 text-white/90 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                  />
+                </Form.Control>
+              </FormField>
+              <motion.div 
+                className="flex py-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <Form.Submit asChild>
+                  <motion.button 
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-center p-2 rounded-md shadow-md hover:from-blue-500 hover:to-purple-500 transition-all duration-300 neon-glow-blue"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    {isSubmitting ? 'Loading...' : 'Create an account'}
+                  </motion.button>
+                </Form.Submit>
+              </motion.div>
+            </FormLayout>
+          </motion.div>
           <div>
-
-            <div className="flex h-0.5 rounded-2xl bg-slate-100 mt-5 mb-5 mx-10"></div>
-            <button
-              onClick={handleGoogleSignIn}
-              className="flex justify-center py-3 text-md w-full bg-white text-slate-600 space-x-3 font-semibold text-center p-2 rounded-md shadow-sm hover:cursor-pointer"
+            <motion.div 
+              className='flex h-0.5 rounded-2xl bg-slate-700/50 mt-5 mb-5 mx-10'
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: "auto", opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+            ></motion.div>
+            
+            <motion.div 
+              className='flex flex-col space-y-4'
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.5 }}
             >
-              <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="" />
-              <span>Sign in with Google</span>
-            </button>
-            <Link
-              href={{
-                pathname: getUriWithoutOrg('/login'),
-                query: org?.slug ? { orgslug: org.slug } : null
-              }}
-              className="flex justify-center items-center py-3 text-md w-full bg-gray-800 text-gray-300 space-x-3 font-semibold text-center p-2 rounded-md shadow-sm hover:cursor-pointer"
-            >
-              <UserRoundPlus size={17} />
-              <span>Login</span>
-            </Link>
+              <motion.button
+                onClick={handleGoogleSignIn}
+                className="flex justify-center py-3 text-md w-full bg-slate-800/80 backdrop-blur-sm border border-white/10 text-blue-200 space-x-3 font-semibold text-center p-2 rounded-md shadow-sm hover:bg-slate-700/80 transition-colors hover:cursor-pointer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="" />
+                <span>Sign in with Google</span>
+              </motion.button>
+              
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                <Link
+                  href={{
+                    pathname: getUriWithoutOrg('/login'),
+                    query: org?.slug ? { orgslug: org.slug } : null
+                  }}
+                  className="flex justify-center items-center py-3 text-md w-full bg-slate-700/80 backdrop-blur-sm border border-white/10 text-blue-200 space-x-3 font-semibold text-center p-2 rounded-md shadow-sm hover:bg-slate-600/80 transition-colors hover:cursor-pointer"
+                >
+                  <UserRoundPlus size={17} />
+                  <span>Login</span>
+                </Link>
+              </motion.div>
+            </motion.div>
+            
           </div>
         </>
       )}
-    </div>
+      
+    </motion.div>
+    
   )
 }
 

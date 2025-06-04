@@ -64,8 +64,8 @@ const AVAILABLE_ICONS = {
 
 const IconComponent = ({ iconName }: { iconName: string }) => {
   const IconElement = AVAILABLE_ICONS[iconName as keyof typeof AVAILABLE_ICONS]
-  if (!IconElement) return <User className="w-4 h-4 text-gray-600" />
-  return <IconElement className="w-4 h-4 text-gray-600" />
+  if (!IconElement) return <User className="w-4 h-4 text-blue-200" />
+  return <IconElement className="w-4 h-4 text-blue-200" />
 }
 
 function UserBlockComponent(props: any) {
@@ -137,17 +137,17 @@ function UserBlockComponent(props: any) {
   if (isEditable && !userData) {
     return (
       <NodeViewWrapper className="block-user">
-        <div className="bg-gray-50 rounded-lg p-6 border border-dashed border-gray-200">
+        <div className="bg-slate-800/80 backdrop-blur-sm rounded-lg p-6 border border-dashed border-slate-600">
           <form onSubmit={handleUsernameSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username" className="text-white">Username</Label>
               <div className="flex gap-2 mt-2">
                 <Input
                   id="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter username"
-                  className="flex-1"
+                  className="flex-1 bg-slate-700/70 border-slate-600 text-white placeholder:text-blue-200"
                 />
                 <Button type="submit" disabled={isLoading}>
                   {isLoading ? (
@@ -158,7 +158,7 @@ function UserBlockComponent(props: any) {
                 </Button>
               </div>
               {error && (
-                <p className="text-sm text-red-500 mt-2">{error}</p>
+                <p className="text-sm text-red-400 mt-2">{error}</p>
               )}
             </div>
           </form>
@@ -171,7 +171,7 @@ function UserBlockComponent(props: any) {
     return (
       <NodeViewWrapper className="block-user">
         <div className="flex items-center justify-center py-8">
-          <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
+          <Loader2 className="w-6 h-6 animate-spin text-blue-200" />
         </div>
       </NodeViewWrapper>
     )
@@ -180,7 +180,7 @@ function UserBlockComponent(props: any) {
   if (error) {
     return (
       <NodeViewWrapper className="block-user">
-        <div className="bg-red-50 text-red-500 p-4 rounded-lg">
+        <div className="bg-slate-800/80 backdrop-blur-sm text-red-400 p-4 rounded-lg border border-red-400/30">
           {error}
         </div>
       </NodeViewWrapper>
@@ -190,8 +190,8 @@ function UserBlockComponent(props: any) {
   if (!userData) {
     return (
       <NodeViewWrapper className="block-user">
-        <div className="bg-gray-50 rounded-lg p-6 border border-dashed border-gray-200">
-          <div className="flex items-center gap-2 text-gray-500">
+        <div className="bg-slate-800/80 backdrop-blur-sm rounded-lg p-6 border border-dashed border-slate-600">
+          <div className="flex items-center gap-2 text-blue-200">
             <User className="w-5 h-5" />
             <span>No user selected</span>
           </div>
@@ -202,11 +202,11 @@ function UserBlockComponent(props: any) {
 
   return (
     <NodeViewWrapper className="block-user">
-      <div className="bg-white rounded-lg nice-shadow overflow-hidden">
+      <div className="bg-slate-900/70 backdrop-blur-sm rounded-lg nice-shadow overflow-hidden border border-white/10">
         {/* Header with Avatar and Name */}
         <div className="relative">
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-100/30 to-transparent h-28 rounded-t-lg" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-800/30 to-transparent h-28 rounded-t-lg" />
           
           {/* Content */}
           <div className="relative px-5 pt-5 pb-4">
@@ -229,11 +229,11 @@ function UserBlockComponent(props: any) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
-                    <h4 className="font-semibold text-gray-900 truncate">
+                    <h4 className="font-semibold text-white truncate">
                       {userData.first_name} {userData.last_name}
                     </h4>
                     {userData.username && (
-                      <Badge variant="outline" className="text-xs font-normal text-gray-500 px-2 truncate">
+                      <Badge variant="outline" className="text-xs font-normal text-blue-200 border-slate-600 px-2 truncate">
                         @{userData.username}
                       </Badge>
                     )}
@@ -241,14 +241,14 @@ function UserBlockComponent(props: any) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-6 w-6 text-gray-600 hover:text-gray-900 flex-shrink-0"
+                    className="h-6 w-6 text-blue-200 hover:text-white flex-shrink-0"
                     onClick={() => userData.username && router.push(`/user/${userData.username}`)}
                   >
                     <ExternalLink className="w-4 h-4" />
                   </Button>
                 </div>
                 {userData.bio && (
-                  <p className="text-sm text-gray-500 mt-1.5 line-clamp-4 leading-normal">
+                  <p className="text-sm text-blue-200 mt-1.5 line-clamp-4 leading-normal">
                     {userData.bio}
                   </p>
                 )}
@@ -259,13 +259,13 @@ function UserBlockComponent(props: any) {
 
         {/* Details */}
         {userData.details && Object.values(userData.details).length > 0 && (
-          <div className="px-5 pb-4 space-y-2.5 border-t border-gray-100 pt-3.5">
+          <div className="px-5 pb-4 space-y-2.5 border-t border-slate-600 pt-3.5">
             {Object.values(userData.details).map((detail) => (
               <div key={detail.id} className="flex items-center gap-2.5">
                 <IconComponent iconName={detail.icon} />
                 <div className="flex flex-col">
-                  <span className="text-xs text-gray-500">{detail.label}</span>
-                  <span className="text-sm text-gray-700">{detail.text}</span>
+                  <span className="text-xs text-blue-200">{detail.label}</span>
+                  <span className="text-sm text-white">{detail.text}</span>
                 </div>
               </div>
             ))}

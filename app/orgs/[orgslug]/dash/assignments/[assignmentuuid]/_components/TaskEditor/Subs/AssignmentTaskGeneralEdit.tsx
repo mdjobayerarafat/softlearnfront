@@ -91,7 +91,7 @@ export function AssignmentTaskGeneralEdit() {
             <FormField name="hint">
                 <div className='flex space-x-3 justify-between items-center'>
                     <FormLabelAndMessage label="Reference file" message={formik.errors.hint} />
-                    <div className='flex space-x-1.5 text-xs items-center text-gray-500 '>
+                    <div className='flex space-x-1.5 text-xs items-center text-purple-300'>
                         <Info size={16} />
                         <p>Allowed formats : pdf, docx, mp4, jpg, jpeg, png, pptx, zip</p>
                     </div>
@@ -117,7 +117,7 @@ export function AssignmentTaskGeneralEdit() {
             <Form.Submit >
                 <button
                     type="submit"
-                    className="flex items-center justify-center w-full px-4 py-2 mt-4 font-semibold text-white bg-green-500 rounded-md hover:bg-green-600"
+                    className="flex items-center justify-center w-full px-4 py-2 mt-4 font-semibold text-white bg-emerald-600/90 backdrop-blur-xl border border-emerald-400/30 rounded-md shadow-lg shadow-emerald-500/20 hover:bg-emerald-600/70 transition-all"
                 >
                     Submit
                 </button>
@@ -209,20 +209,20 @@ function UpdateTaskRef() {
 
 
     return (
-        <div className="w-auto bg-gray-50 rounded-xl outline outline-1 outline-gray-200 h-[200px] shadow-sm">
+        <div className="w-auto bg-slate-900/40 backdrop-blur-xl border border-purple-500/30 rounded-xl h-[200px] shadow-lg shadow-purple-500/10">
             <div className="flex flex-col justify-center items-center h-full">
                 <div className="flex flex-col justify-center items-center">
                     <div className="flex flex-col justify-center items-center">
                         {error && (
-                            <div className="flex justify-center bg-red-200 rounded-md text-red-950 space-x-2 items-center p-2 transition-all shadow-xs">
+                            <div className="flex justify-center bg-rose-600/20 backdrop-blur-xl border border-rose-400/30 rounded-md text-rose-300 space-x-2 items-center p-2 transition-all shadow-lg shadow-rose-500/20">
                                 <div className="text-sm font-semibold">{error}</div>
                             </div>
                         )}
 
                     </div>
                     {assignmentTaskState.assignmentTask.reference_file && !isLoading && (
-                        <div className='flex flex-col rounded-lg bg-white text-gray-400 shadow-lg nice-shadow px-5 py-3 space-y-1 items-center relative'>
-                            <div className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-green-500 rounded-full px-1.5 py-1.5 text-white flex justify-center items-center'>
+                        <div className='flex flex-col rounded-lg bg-black/20 backdrop-blur-xl border border-purple-500/30 text-purple-300 shadow-lg shadow-purple-500/10 px-5 py-3 space-y-1 items-center relative'>
+                            <div className='absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-emerald-500 rounded-full px-1.5 py-1.5 text-white flex justify-center items-center'>
                                 <Cloud size={15} />
                             </div>
                             <File size={20} className='' />
@@ -234,7 +234,7 @@ function UpdateTaskRef() {
                                     href={getTaskRefDirUI()}
                                     download
                                     target='_blank'
-                                    className='bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold'>Download</Link>
+                                    className='bg-cyan-600/90 backdrop-blur-xl border border-cyan-400/30 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg shadow-cyan-500/20 hover:bg-cyan-600/70 transition-all'>Download</Link>
                                 {/** <button onClick={() => deleteReferenceFile()}
                                     className='bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold'>Delete</button> */}
                             </div>
@@ -250,7 +250,7 @@ function UpdateTaskRef() {
                                 style={{ display: 'none' }}
                                 onChange={handleFileChange}
                             />
-                            <div className="font-bold  animate-pulse antialiased items-center bg-slate-200 text-gray text-sm rounded-md px-4 py-2 mt-4 flex">
+                            <div className="font-bold animate-pulse antialiased items-center bg-slate-700/60 backdrop-blur-xl border border-slate-500/30 text-slate-300 text-sm rounded-md px-4 py-2 mt-4 flex shadow-lg">
                                 <Loader size={16} className="mr-2" />
                                 <span>Loading</span>
                             </div>
@@ -265,7 +265,7 @@ function UpdateTaskRef() {
                                 onChange={handleFileChange}
                             />
                             <button
-                                className="font-bold antialiased items-center  text-gray text-sm rounded-md px-4  mt-6 flex"
+                                className="font-bold antialiased items-center text-purple-300 text-sm rounded-md px-4 mt-6 flex hover:text-purple-200 transition-all"
                                 onClick={() => document.getElementById('fileInput')?.click()}
                             >
                                 <UploadCloud size={16} className="mr-2" />

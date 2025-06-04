@@ -25,14 +25,18 @@ const removeCollectionPrefix = (collectionid: string) => {
 function CollectionThumbnail(props: PropsType) {
   const org = useOrg() as any
   return (
-    <div className="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl">
-      <div className="flex h-full w-full items-center justify-between bg-indigo-600 p-4">
-        <div className="flex items-center space-x-5">
+    <div className="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-xl hover:shadow-emerald-500/20 bg-gradient-to-br from-emerald-600/90 to-blue-600/90 backdrop-blur-sm border border-emerald-500/20">
+      <div className="flex h-full w-full items-center justify-between p-4 relative">
+        {/* Animated background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-500 to-blue-600 opacity-90 group-hover:opacity-95 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent group-hover:via-white/10 transition-all duration-500" />
+        
+        <div className="flex items-center space-x-5 relative z-10">
           <div className="flex -space-x-3">
             {props.collection.courses.slice(0, 3).map((course: any, index: number) => (
               <div
                 key={course.course_uuid}
-                className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-white shadow-md transition-all duration-300 hover:z-10 hover:scale-110"
+                className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-white/20 shadow-md transition-all duration-300 hover:z-10 hover:scale-110 hover:border-white/40 hover:shadow-lg"
                 style={{
                   backgroundImage: `url(${getCourseThumbnailMediaDirectory(
                     org?.org_uuid,
@@ -43,8 +47,17 @@ function CollectionThumbnail(props: PropsType) {
                   backgroundPosition: 'center',
                   zIndex: 3 - index,
                 }}
-              ></div>
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 group-hover:opacity-0 transition-opacity duration-300" />
+              </div>
             ))}
+            {props.collection.courses.length > 3 && (
+              <div className="relative h-12 w-12 rounded-full border-2 border-white/20 bg-slate-800/60 backdrop-blur-sm flex items-center justify-center shadow-md transition-all duration-300 hover:scale-110 hover:border-white/40">
+                <span className="text-xs font-medium text-white">
+                  +{props.collection.courses.length - 3}
+                </span>
+              </div>
+            )}
           </div>
           <div className="flex flex-col">
             <Link
@@ -52,11 +65,11 @@ function CollectionThumbnail(props: PropsType) {
                 props.orgslug,
                 '/collection/' + removeCollectionPrefix(props.collection.collection_uuid)
               )}
-              className="text-2xl font-bold text-white hover:underline"
+              className="text-2xl font-bold text-white hover:text-emerald-100 transition-colors duration-300 drop-shadow-sm"
             >
               {props.collection.name}
             </Link>
-            <span className="mt-1 text-sm font-medium text-indigo-200">
+            <span className="mt-1 text-sm font-medium text-emerald-100/80 drop-shadow-sm">
               {props.collection.courses.length} course{props.collection.courses.length !== 1 ? 's' : ''}
             </span>
           </div>
@@ -90,14 +103,14 @@ const CollectionAdminEditsArea = (props: any) => {
       orgId={props.org_id}
       checkMethod="roles"
     >
-      <div className="z-20">
+      <div className="z-20 relative">
         <ConfirmationModal
           confirmationMessage="Are you sure you want to delete this collection?"
           confirmationButtonText="Delete Collection"
           dialogTitle={'Delete ' + props.collection.name + '?'}
           dialogTrigger={
             <button
-              className="absolute right-2 top-2 rounded-full bg-red-500 p-2 text-white transition-colors duration-300 hover:bg-red-600"
+              className="absolute right-2 top-2 rounded-full bg-red-500/80 backdrop-blur-sm p-2 text-white transition-all duration-300 hover:bg-red-600 hover:scale-110 shadow-lg hover:shadow-red-500/25 border border-red-400/20"
               rel="noopener noreferrer"
             >
               <X size={18} />

@@ -288,7 +288,7 @@ const OrgEditLanding = () => {
                 onChange={() => setIsLandingEnabled(!isLandingEnabled)}
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-hidden peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="w-11 h-6 bg-slate-600 peer-focus:outline-hidden peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-400 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
             </label>
             <Button 
               variant="default" 
@@ -328,10 +328,10 @@ const OrgEditLanding = () => {
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 onClick={() => setSelectedSection(index)}
-                                className={`p-4 bg-white/80 backdrop-blur-xs rounded-lg cursor-pointer border  ${
+                                className={`p-4 bg-slate-800/80 backdrop-blur-sm rounded-lg cursor-pointer border  ${
                                   selectedSection === index 
-                                    ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-500/20 shadow-xs' 
-                                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 hover:shadow-xs'
+                                    ? 'border-blue-500 bg-blue-900/50 ring-2 ring-blue-500/20 shadow-xs' 
+                                    : 'border-white/10 hover:border-white/20 hover:bg-slate-700/50 hover:shadow-xs'
                                 } ${snapshot.isDragging ? 'shadow-lg ring-2 ring-blue-500/20 rotate-2' : ''}`}
                               >
                                 <div className="flex items-center justify-between group">

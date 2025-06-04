@@ -56,8 +56,8 @@ async function UserPage({ params }: UserPageProps) {
     console.error('Error fetching user data:', error)
     return (
       <div className="container mx-auto py-8">
-        <div className="bg-white rounded-xl nice-shadow p-6">
-          <p className="text-red-600">Error loading user profile</p>
+        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl nice-shadow p-6 border border-white/10">
+          <p className="text-red-400">Error loading user profile</p>
         </div>
       </div>
     )

@@ -23,9 +23,9 @@ export const FormLabelAndMessage = (props: {
   message?: string
 }) => (
   <div className="flex items-center space-x-3">
-    <FormLabel className="grow text-sm">{props.label}</FormLabel>
+    <FormLabel className="grow text-sm text-white">{props.label}</FormLabel>
     {(props.message && (
-      <div className="text-red-700 text-sm items-center  rounded-md flex  space-x-1">
+      <div className="text-rose-300 text-sm items-center rounded-md flex space-x-1">
         <Info size={10} />
         <div>{props.message}</div>
       </div>
@@ -45,7 +45,7 @@ export const FormField = styled(Form.Field, {
 export const FormLabel = styled(Form.Label, {
   fontWeight: 500,
   lineHeight: '35px',
-  color: 'black',
+  color: 'white',
 })
 
 export const FormMessage = styled(Form.Message, {
@@ -63,14 +63,24 @@ export const inputStyles = {
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: 4,
+  borderRadius: 8,
   fontSize: 15,
-  color: '#7c7c7c',
-  background: '#fbfdff',
-  boxShadow: `0 0 0 1px #edeeef`,
-  '&:hover': { boxShadow: `0 0 0 1px #edeeef` },
-  '&:focus': { boxShadow: `0 0 0 2px #edeeef` },
-  '&::selection': { backgroundColor: blackA.blackA9, color: 'white' },
+  color: 'white',
+  background: 'rgba(0, 0, 0, 0.2)',
+  backdropFilter: 'blur(12px)',
+  border: '1px solid rgba(147, 51, 234, 0.3)',
+  boxShadow: '0 8px 32px rgba(147, 51, 234, 0.1)',
+  '&:hover': { 
+    border: '1px solid rgba(147, 51, 234, 0.5)',
+    background: 'rgba(0, 0, 0, 0.3)',
+  },
+  '&:focus': { 
+    border: '1px solid rgba(147, 51, 234, 0.7)',
+    boxShadow: '0 8px 32px rgba(147, 51, 234, 0.2)',
+    background: 'rgba(0, 0, 0, 0.3)',
+  },
+  '&::placeholder': { color: 'rgba(168, 85, 247, 0.6)' },
+  '&::selection': { backgroundColor: 'rgba(147, 51, 234, 0.3)', color: 'white' },
 }
 
 export const Input = styled('input', {
@@ -92,7 +102,8 @@ export const ButtonBlack = styled('button', {
     state: {
       loading: {
         pointerEvents: 'none',
-        backgroundColor: '#808080',
+        backgroundColor: 'rgba(100, 116, 139, 0.6)',
+        backdropFilter: 'blur(12px)',
       },
       none: {},
     },
@@ -108,10 +119,17 @@ export const ButtonBlack = styled('button', {
   fontWeight: 500,
   height: 35,
 
-  background: '#000000',
+  background: 'rgba(147, 51, 234, 0.9)',
+  backdropFilter: 'blur(12px)',
+  border: '1px solid rgba(147, 51, 234, 0.3)',
+  boxShadow: '0 8px 32px rgba(147, 51, 234, 0.2)',
   color: '#FFFFFF',
-  '&:hover': { backgroundColor: '#181818', cursor: 'pointer' },
-  '&:focus': { boxShadow: `0 0 0 2px black` },
+  '&:hover': { 
+    backgroundColor: 'rgba(147, 51, 234, 0.7)', 
+    cursor: 'pointer',
+    boxShadow: '0 8px 32px rgba(147, 51, 234, 0.3)',
+  },
+  '&:focus': { boxShadow: `0 0 0 2px rgba(147, 51, 234, 0.5)` },
 })
 
 export default FormLayout

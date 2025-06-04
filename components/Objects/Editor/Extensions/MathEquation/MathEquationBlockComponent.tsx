@@ -84,8 +84,9 @@ const mathSymbols = [
 // Styled components
 const MathEqWrapper = styled.div`
   transition: all 0.2s ease;
-  background-color: #f9f9f9;
-  border: 1px solid #eaeaea;
+  background-color: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
 `
 
 const EditBar = styled.div`
@@ -93,23 +94,24 @@ const EditBar = styled.div`
   justify-content: space-between;
   border-radius: 8px;
   padding: 0 5px 0 12px;
-  background-color: white;
-  color: #5252528d;
+  background-color: rgba(30, 41, 59, 0.8);
+  color: rgb(147, 197, 253);
   align-items: center;
   height: 45px;
-  border: solid 1px #e2e2e2;
+  border: solid 1px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
   transition: all 0.2s ease;
   
   &:focus-within {
-    border-color: #d1d1d1;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.03);
+    border-color: rgba(147, 197, 253, 0.5);
+    box-shadow: 0 0 0 2px rgba(147, 197, 253, 0.1);
   }
 
   input {
     border: none;
     background: none;
     font-size: 14px;
-    color: #494949;
+    color: white;
     width: 100%;
     font-family: 'DM Sans', sans-serif;
     
@@ -118,7 +120,7 @@ const EditBar = styled.div`
     }
 
     &::placeholder {
-      color: #49494980;
+      color: rgb(147, 197, 253);
     }
   }
 `
@@ -131,9 +133,14 @@ const SaveButton = styled(motion.button)`
   height: 30px;
   border-radius: 6px;
   border: none;
-  background: rgba(217, 217, 217, 0.5);
-  color: #494949;
+  background: rgba(30, 41, 59, 0.8);
+  color: rgb(147, 197, 253);
   cursor: pointer;
+  backdrop-filter: blur(4px);
+  
+  &:hover {
+    background: rgba(51, 65, 85, 0.9);
+  }
 `
 
 const InfoLink = styled.div`
@@ -144,19 +151,25 @@ const TemplateButton = styled.button`
   display: flex;
   align-items: center;
   padding: 6px 10px;
-  background: rgba(217, 217, 217, 0.4);
+  background: rgba(30, 41, 59, 0.8);
   border-radius: 6px;
   border: none;
   font-size: 13px;
-  color: #494949;
+  color: rgb(147, 197, 253);
   cursor: pointer;
+  backdrop-filter: blur(4px);
+  
+  &:hover {
+    background: rgba(51, 65, 85, 0.9);
+  }
 `
 
 const TemplateDropdown = styled.div`
-  background: white;
+  background: rgba(15, 23, 42, 0.9);
   border-radius: 8px;
-  border: 1px solid #e2e2e2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
   overflow: hidden;
 `
 
@@ -164,17 +177,19 @@ const TemplateItem = styled.div`
   padding: 8px 12px;
   cursor: pointer;
   transition: background 0.15s;
+  color: white;
   
   &:hover {
-    background: rgba(217, 217, 217, 0.24);
+    background: rgba(51, 65, 85, 0.6);
   }
 `
 
 const SymbolsDropdown = styled.div`
-  background: white;
+  background: rgba(15, 23, 42, 0.9);
   border-radius: 8px;
-  border: 1px solid #e2e2e2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
   overflow: hidden;
 `
 
@@ -185,20 +200,26 @@ const SymbolButton = styled.button`
   width: 32px;
   height: 32px;
   margin: 2px;
-  background: rgba(217, 217, 217, 0.3);
+  background: rgba(30, 41, 59, 0.8);
   border-radius: 4px;
   border: none;
   font-size: 16px;
-  color: #494949;
+  color: white;
   cursor: pointer;
+  
+  &:hover {
+    background: rgba(51, 65, 85, 0.9);
+  }
 `
 
 const HelpDropdown = styled.div`
-  background: white;
+  background: rgba(15, 23, 42, 0.9);
   border-radius: 8px;
-  border: 1px solid #e2e2e2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
   overflow: hidden;
+  color: white;
 `
 
 function MathEquationBlockComponent(props: any) {
@@ -377,7 +398,7 @@ function MathEquationBlockComponent(props: any) {
                   
                   {showHelp && (
                     <HelpDropdown className="absolute left-0 mt-1 z-10 w-72">
-                      <div className="p-2 text-xs font-medium text-zinc-700 border-b">
+                      <div className="p-2 text-xs font-medium text-blue-200 border-b border-white/10">
                         LaTeX Math Quick Reference
                       </div>
                       <div className="p-3 text-xs space-y-2">
@@ -399,9 +420,9 @@ function MathEquationBlockComponent(props: any) {
                         <div>
                           <span className="font-medium">Integral:</span> \int_{'{'}'lower'{'}'}^{'{'}'upper'{'}'}
                         </div>
-                        <div className="pt-1 border-t">
+                        <div className="pt-1 border-t border-white/10">
                           <Link
-                            className="text-blue-600 hover:text-blue-800 font-medium flex items-center"
+                            className="text-blue-300 hover:text-blue-200 font-medium flex items-center"
                             href="https://katex.org/docs/supported.html"
                             target="_blank"
                           >
@@ -433,10 +454,10 @@ function MathEquationBlockComponent(props: any) {
                 </SaveButton>
               </EditBar>
               
-              <InfoLink className="flex items-center text-zinc-500 text-sm">
+              <InfoLink className="flex items-center text-blue-200 text-sm">
                 <span>Please refer to this</span>
                 <Link
-                  className="inline-flex items-center mx-1 text-blue-600 hover:text-blue-800 font-medium"
+                  className="inline-flex items-center mx-1 text-blue-300 hover:text-blue-200 font-medium"
                   href="https://katex.org/docs/supported.html"
                   target="_blank"
                 >

@@ -45,7 +45,7 @@ function TrailCourseElement(props: TrailCourseElementProps) {
 
   return (
     <div
-      className="trailcoursebox flex p-3 bg-white rounded-xl"
+      className="trailcoursebox flex p-3 bg-slate-900/70 backdrop-blur-sm rounded-xl border border-white/10"
       style={{ boxShadow: '0px 4px 7px 0px rgba(0, 0, 0, 0.03)' }}
     >
       <Link href={getUriWithOrg(props.orgslug, '/course/' + courseid)}>
