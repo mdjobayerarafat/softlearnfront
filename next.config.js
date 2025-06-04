@@ -16,7 +16,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'api.aibackend.cloud', // Your new subdomain
+        hostname: 'api.aibackend.cloud',
         port: '',
         pathname: '/**',
       },
@@ -36,6 +36,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'images.unsplash.com',
         port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
         pathname: '/**',
       },
     ],
