@@ -33,14 +33,11 @@ export default async function middleware(req: NextRequest) {
   const cookie_orgslug = req.cookies.get('learnhouse_current_orgslug')?.value
 
   // Allow root page to load normally
-  if (pathname === '/') {
-    return NextResponse.next()
-  }
+if (pathname === '/') {
+return NextResponse.next()
+}
 
-  // Allow home page to load normally
-  if (pathname === '/home') {
-    return NextResponse.next()
-  }
+// Allow home page to load normally
 
   // Auth paths handling
   const auth_paths = ['/login', '/signup', '/reset', '/forgot']
