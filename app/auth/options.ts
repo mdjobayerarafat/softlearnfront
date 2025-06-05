@@ -25,9 +25,9 @@ export const nextAuthOptions = {
   debug: process.env.NODE_ENV === 'development',
   callbacks: {
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      // After successful login, redirect to default org
+      // After successful login, redirect to home (which will show LandingClassic)
       if (url.startsWith(baseUrl)) {
-        return `${baseUrl}/orgs/default`
+        return `${baseUrl}/home`
       }
       return url
     },

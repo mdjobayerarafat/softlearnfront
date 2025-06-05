@@ -185,7 +185,7 @@ function InviteOnlySignUpComponent(props: InviteOnlySignUpProps) {
       </FormLayout>
       <div>
         <div className='flex h-0.5 rounded-2xl bg-white/10 mt-5 mb-5 mx-10'></div>
-        <button onClick={() => signIn('google')} className="flex justify-center py-3 text-md w-full bg-slate-800/80 backdrop-blur-sm border border-white/10 text-blue-200 space-x-3 font-semibold text-center p-2 rounded-md shadow-sm hover:bg-slate-700/80 transition-colors hover:cursor-pointer">
+        <button onClick={() => signIn('google', { callbackUrl: '/home' })} className="flex justify-center py-3 text-md w-full bg-slate-800/80 backdrop-blur-sm border border-white/10 text-blue-200 space-x-3 font-semibold text-center p-2 rounded-md shadow-sm hover:bg-slate-700/80 transition-colors hover:cursor-pointer">
           <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="" />
           <span>Sign in with Google</span>
         </button>

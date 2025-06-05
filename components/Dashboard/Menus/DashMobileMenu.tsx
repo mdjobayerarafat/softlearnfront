@@ -18,7 +18,7 @@ function DashMobileMenu() {
       <div className="flex justify-around items-center h-16 px-2">
         <AdminAuthorization authorizationMode="component">
           <ToolTip content={'Home'} slateBlack sideOffset={8} side="top">
-            <Link href={`/`} className="flex flex-col items-center p-2">
+            <Link href={`/home`} className="flex flex-col items-center p-2">
               <Home size={20} />
               <span className="text-xs mt-1">Home</span>
             </Link>

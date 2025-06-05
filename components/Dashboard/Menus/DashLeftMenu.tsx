@@ -25,7 +25,7 @@ function DashLeftMenu() {
   }
 
   async function logOutUI() {
-    const res = await signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/home') })
+    const res = await signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/') })
     if (res) {
       getUriWithOrg(org.slug, '/')
     }
@@ -80,7 +80,7 @@ function DashLeftMenu() {
             <ToolTip content={'Home'} slateBlack sideOffset={8} side="right">
               <Link
                 className="bg-white/5 rounded-lg p-2 hover:bg-white/10 transition-all ease-linear"
-                href={`/dash`}
+                href={`/home`}
               >
                 <Home size={18} />
               </Link>

@@ -74,7 +74,7 @@ const LoginClient = (props: LoginClientProps) => {
         redirect: true,
         email: values.email,
         password: values.password,
-        callbackUrl: '/'
+        callbackUrl: '/home'
       });
       if (res?.error) {
         setError("Wrong Email or password");
@@ -359,7 +359,7 @@ const LoginClient = (props: LoginClientProps) => {
                 </Link>
               </motion.div>
               <motion.button 
-                onClick={() => signIn('google', { callbackUrl: '/orgs/default' })} 
+                onClick={() => signIn('google', { callbackUrl: '/home' })} 
                 className="flex justify-center py-3 text-md w-full bg-slate-800/80 text-white/90 space-x-3 font-semibold text-center p-2 rounded-md shadow-md border border-slate-600 hover:bg-slate-700/80 hover:cursor-pointer transition-colors"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}

@@ -614,7 +614,7 @@ function UserEditGeneral() {
 
     // Wait for 4 seconds before signing out
     await new Promise(resolve => setTimeout(resolve, 4000))
-    signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/home') })
+    signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/') })
   }
 
   if (!userData) {

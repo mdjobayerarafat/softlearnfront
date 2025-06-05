@@ -118,7 +118,7 @@ function OpenSignUpComponent() {
   useEffect(() => { }, [org])
 
   const handleGoogleSignIn = () => {
-    signIn('google', { callbackUrl: '/' }).catch(err => {
+    signIn('google', { callbackUrl: '/home' }).catch(err => {
       // This will catch client-side errors
       setError('Google sign-in failed. Please try again.')
     })

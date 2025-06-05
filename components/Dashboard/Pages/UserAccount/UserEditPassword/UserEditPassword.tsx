@@ -44,7 +44,7 @@ function UserEditPassword() {
 
         // Wait for 4 seconds before signing out
         await new Promise(resolve => setTimeout(resolve, 4000))
-        signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/home') })
+        signOut({ redirect: true, callbackUrl: getUriWithoutOrg('/') })
       } else {
         toast.error(response.data.detail || 'Failed to update password', { id: loadingToast })
       }
