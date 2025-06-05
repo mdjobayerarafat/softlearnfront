@@ -13,6 +13,7 @@ const nextConfig = {
     ]
   },
   images: {
+    domains: ['api.aibackend.cloud', 'localhost', '127.0.0.1'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,33 +21,10 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'softlearn.vercel.app',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'fonts.gstatic.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
-        pathname: '/**',
-      },
     ],
   },
   reactStrictMode: false,
+  output: 'standalone',
 }
 
 module.exports = nextConfig
