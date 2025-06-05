@@ -9,12 +9,5 @@
     "app/**/*.{js,ts,tsx}": {
       "maxDuration": 30
     }
-  },
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/",
-      "permanent": false
-    }
-  ]
+  }
 }
