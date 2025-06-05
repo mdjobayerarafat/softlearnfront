@@ -33,9 +33,6 @@ export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl
   const fullhost = req.headers ? req.headers.get('host') : ''
   const cookie_orgslug = req.cookies.get('learnhouse_current_orgslug')?.value
-  const orgslug = fullhost
-    ? fullhost.replace(`.${LEARNHOUSE_DOMAIN}`, '')
-    : (default_org as string)
 
   // Check authentication status
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
@@ -63,7 +60,7 @@ export default async function middleware(req: NextRequest) {
     if (hosting_mode === 'single') {
       const orgslug = default_org as string
       const response = NextResponse.rewrite(
-        new URL(`/orgs/${orgslug}${pathname}`, req.url)
+        new URL(`/orgs/${orgslug}`, req.url)
       )
 
       response.cookies.set({
@@ -80,15 +77,9 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.next()
   }
 
-  // Out of orgslug paths & rewrite
-  const standard_paths: string[] = [] // Keep empty since we handle /home above
+  // Auth paths handling
   const auth_paths = ['/login', '/signup', '/reset', '/forgot']
-
-  if (standard_paths.includes(pathname)) {
-    // Redirect to the same pathname with the original search params
-    return NextResponse.rewrite(new URL(`${pathname}${search}`, req.url))
-  }
-
+  
   if (auth_paths.includes(pathname)) {
     const response = NextResponse.rewrite(
       new URL(`/auth${pathname}${search}`, req.url)
@@ -102,8 +93,7 @@ export default async function middleware(req: NextRequest) {
       response.cookies.set({
         name: 'learnhouse_current_orgslug',
         value: orgslug,
-        domain:
-          LEARNHOUSE_TOP_DOMAIN == 'localhost' ? '' : LEARNHOUSE_TOP_DOMAIN,
+        domain: LEARNHOUSE_TOP_DOMAIN == 'localhost' ? '' : LEARNHOUSE_TOP_DOMAIN,
         path: '/',
       })
     }
@@ -118,17 +108,14 @@ export default async function middleware(req: NextRequest) {
   // Check if the request is for the Stripe callback URL
   if (req.nextUrl.pathname.startsWith('/payments/stripe/connect/oauth')) {
     const searchParams = req.nextUrl.searchParams
-    const orgslug = searchParams.get('state')?.split('_')[0] // Assuming state parameter contains orgslug_randomstring
+    const orgslug = searchParams.get('state')?.split('_')[0]
     
-    // Construct the new URL with the required parameters
     const redirectUrl = new URL('/payments/stripe/connect/oauth', req.url)
     
-    // Preserve all original search parameters
     searchParams.forEach((value, key) => {
       redirectUrl.searchParams.append(key, value)
     })
     
-    // Add orgslug if available
     if (orgslug) {
       redirectUrl.searchParams.set('orgslug', orgslug)
     }
@@ -161,6 +148,7 @@ export default async function middleware(req: NextRequest) {
     }
   }
 
+  // Sitemap handling
   if (pathname.startsWith('/sitemap.xml')) {
     let orgslug: string;
     
@@ -169,16 +157,11 @@ export default async function middleware(req: NextRequest) {
         ? fullhost.replace(`.${LEARNHOUSE_DOMAIN}`, '')
         : (default_org as string);
     } else {
-      // Single hosting mode
       orgslug = default_org as string;
     }
 
     const sitemapUrl = new URL(`/api/sitemap`, req.url);
-
-    // Create a response object
     const response = NextResponse.rewrite(sitemapUrl);
-
-    // Set the orgslug in a header
     response.headers.set('X-Sitemap-Orgslug', orgslug);
 
     return response;
@@ -186,7 +169,6 @@ export default async function middleware(req: NextRequest) {
 
   // Multi Organization Mode
   if (hosting_mode === 'multi') {
-    // Get the organization slug from the URL
     const orgslug = fullhost
       ? fullhost.replace(`.${LEARNHOUSE_DOMAIN}`, '')
       : (default_org as string)
@@ -194,7 +176,6 @@ export default async function middleware(req: NextRequest) {
       new URL(`/orgs/${orgslug}${pathname}`, req.url)
     )
 
-    // Set the cookie with the orgslug value
     response.cookies.set({
       name: 'learnhouse_current_orgslug',
       value: orgslug,
@@ -205,22 +186,31 @@ export default async function middleware(req: NextRequest) {
     return response
   }
 
-  // Single Organization Mode for other paths (not root)
+  // Single Organization Mode - ONLY for non-root, non-handled paths
   if (hosting_mode === 'single') {
-    // Skip rewriting for paths that should not be rewritten
-    const skipPaths = ['/orgs/', '/home', '/auth/', '/api/', '/_next/', '/favicon.ico', '/robots.txt', '/sitemap.xml']
+    // CRITICAL: Skip paths that are already handled or should not be rewritten
+    const skipPaths = [
+      '/orgs/',     // Already org paths
+      '/auth/',     // Auth paths (handled above)
+      '/api/',      // API routes
+      '/_next/',    // Next.js internals
+      '/favicon.ico', '/robots.txt', '/sitemap.xml', // Static files
+      '/health',    // Health check
+      '/payments/', // Payment callbacks
+      '/editor',    // Editor paths
+    ]
     
+    // Skip if path starts with any skip path
     if (skipPaths.some(path => pathname.startsWith(path))) {
       return NextResponse.next()
     }
     
-    // Get the default organization slug
+    // Only rewrite remaining paths
     const orgslug = default_org as string
     const response = NextResponse.rewrite(
       new URL(`/orgs/${orgslug}${pathname}`, req.url)
     )
 
-    // Set the cookie with the orgslug value
     response.cookies.set({
       name: 'learnhouse_current_orgslug',
       value: orgslug,
