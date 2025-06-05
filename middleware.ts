@@ -1,4 +1,3 @@
-
 import {
   LEARNHOUSE_DOMAIN,
   LEARNHOUSE_TOP_DOMAIN,
@@ -42,19 +41,49 @@ export default async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
   const isAuthenticated = !!token
 
-  // Authentication-based routing for root path
-  if (pathname === '/') {
+  // Handle /home route FIRST
+  if (pathname === '/home') {
     if (isAuthenticated) {
-      // Authenticated user - proceed normally (will be handled by existing logic below)
+      // User is authenticated but visiting /home, redirect to dashboard
+      return NextResponse.redirect(new URL('/', req.url))
     } else {
-      // Not authenticated - redirect to /home
-      return NextResponse.redirect(new URL('/home', req.url))
+      // Not authenticated, allow access to /home
+      return NextResponse.next()
     }
   }
 
+  // Authentication-based routing for root path
+  if (pathname === '/') {
+    if (!isAuthenticated) {
+      // Not authenticated - redirect to /home
+      return NextResponse.redirect(new URL('/home', req.url))
+    }
+    
+    // User IS authenticated - handle single org mode here
+    if (hosting_mode === 'single') {
+      const orgslug = default_org as string
+      const response = NextResponse.rewrite(
+        new URL(`/orgs/${orgslug}${pathname}`, req.url)
+      )
+
+      response.cookies.set({
+        name: 'learnhouse_current_orgslug',
+        value: orgslug,
+        domain: LEARNHOUSE_TOP_DOMAIN == 'localhost' ? '' : LEARNHOUSE_TOP_DOMAIN,
+        path: '/',
+      })
+
+      return response
+    }
+    
+    // Multi-org mode or other cases
+    return NextResponse.next()
+  }
+
   // Out of orgslug paths & rewrite
-  const standard_paths = ['/home']
+  const standard_paths: string[] = [] // Keep empty since we handle /home above
   const auth_paths = ['/login', '/signup', '/reset', '/forgot']
+
   if (standard_paths.includes(pathname)) {
     // Redirect to the same pathname with the original search params
     return NextResponse.rewrite(new URL(`${pathname}${search}`, req.url))
@@ -75,12 +104,11 @@ export default async function middleware(req: NextRequest) {
         value: orgslug,
         domain:
           LEARNHOUSE_TOP_DOMAIN == 'localhost' ? '' : LEARNHOUSE_TOP_DOMAIN,
+        path: '/',
       })
     }
     return response
   }
-
-  // Install Page (depreceated)
 
   // Dynamic Pages Editor
   if (pathname.match(/^\/course\/[^/]+\/activity\/[^/]+\/edit$/)) {
@@ -129,7 +157,7 @@ export default async function middleware(req: NextRequest) {
       }
       return NextResponse.redirect(redirectUrl)
     } else {
-      return 'Did not find the orgslug in the cookie'
+      return NextResponse.json({ error: 'Did not find the orgslug in the cookie' })
     }
   }
 
@@ -177,10 +205,12 @@ export default async function middleware(req: NextRequest) {
     return response
   }
 
-  // Single Organization Mode
+  // Single Organization Mode for other paths (not root)
   if (hosting_mode === 'single') {
-    // Don't rewrite if the path already starts with /orgs/
-    if (pathname.startsWith('/orgs/')) {
+    // Skip rewriting for paths that should not be rewritten
+    const skipPaths = ['/orgs/', '/home', '/auth/', '/api/', '/_next/', '/favicon.ico', '/robots.txt', '/sitemap.xml']
+    
+    if (skipPaths.some(path => pathname.startsWith(path))) {
       return NextResponse.next()
     }
     
@@ -200,4 +230,7 @@ export default async function middleware(req: NextRequest) {
 
     return response
   }
+
+  // Default fallback
+  return NextResponse.next()
 }
